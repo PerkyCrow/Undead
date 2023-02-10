@@ -1,0 +1,428 @@
+
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #f0eee8;
+  color: #333333;
+  background: url('background.jpg') 0 0 repeat, #f0eee8;
+  background-size: 512px;
+  font-size: 18px;
+
+}
+
+
+body {
+  font-family: 'Average', sans-serif;
+}
+
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Rye', cursive;
+  color: #222222;
+}
+
+
+p em {
+  font-family: 'Rye', cursive;
+}
+
+
+code, .code {
+  font-family: 'Source Code Pro', monospace;
+  white-space: pre-wrap;
+}
+
+
+a {
+  color: #2d4270;
+}
+
+
+a:hover {
+  color: #121b2f;
+}
+
+h2 a {
+  color: #121b2f;
+  text-decoration: none;
+}
+
+span.code {
+  font-weight: bold;
+  font-size: 0.9em;
+  background-color: rgba(255,255,255,0.25);
+  padding: 0 0.2em;
+}
+
+
+.app {
+  width: 700px;
+  margin: 0 auto;
+}
+
+.main {
+  position: relative;
+}
+
+.app .content {
+  width: 700px;
+}
+
+
+.logo {
+  position: relative;
+  width: 350px;
+  height: 350px;
+  margin: 0 auto 2em auto;
+
+  .logo_part {
+    position: absolute;
+    top:      0;
+    left:     0;
+    width:    100%;
+    height:   100%;
+    background-position: 0 0;
+    background-repeat:   no-repeat;
+    background-size:     cover;
+  }
+  
+  .bubble {
+    background-image: url('logo_bubble.png');
+    background-size: cover;
+  }
+  
+  .bubble .content {
+    position: absolute;
+    top: 12%;
+    left: 41%;
+    width: 50%;
+    text-align: center;
+  }
+  
+  .zombie {
+    background-image: url('logo_zombie.png');
+  }
+  
+  .undead {
+    background-image: url('logo_undead.png');
+    color: transparent;
+  }
+}
+
+
+.menu {
+  width: 250px;
+  left: -250px;
+  position: absolute;
+}
+
+.app .menu nav {
+  width: 250px;
+  height: 100%;
+  background-color: #f5f3ef;
+  box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.1);
+  border-radius: 0.05em;
+}
+
+.app .menu nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.app .menu nav ul li {
+  padding: 0.75em;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.app .menu nav ul li a {
+  text-decoration: none;
+  color: #333;
+}
+
+.app .menu nav ul li a:hover {
+  color: #000;
+}
+
+.app .menu nav ul li:last-child {
+  border-bottom: none;
+}
+
+.app .menu nav ul li .category {
+  display: block;
+  font-size: 0.7em;
+  color: #999;
+  margin-bottom: 0.25em;
+}
+
+.app .menu nav ul li .title {
+  display: block;
+  font-size: 0.9em;
+  font-weight: bold;
+}
+
+.app .menu nav ul li ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  margin-left: 1em;
+  margin-top: 0.25em;
+}
+
+.app .menu nav ul li ul li {
+  padding: 0.5em;
+  border-bottom: 1px solid #e9e7e1;
+  font-size: 0.75em;
+}
+
+.app .menu nav ul li ul li:last-child {
+  border-bottom: none;
+}
+
+.app .menu nav ul li ul li a {
+  text-decoration: none;
+  color: #333;
+}
+
+.app .menu nav ul li ul li a:hover {
+  color: #000;
+}
+
+
+.chapter {
+  background: #f0eee8;
+  border-radius: 0.2em;
+  box-shadow: 0 0 1.5em 1em #e2e0dc;
+  margin-bottom: 4em;
+  padding-bottom: 2em;
+  position: relative;
+}
+
+.chapter .time_to_read {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0.6em 1em 0.5em 2em;
+  border-radius: 0 0 0 0.3em;
+  font-size: 0.8em;
+  font-weight: bold;
+  color: #666;
+  background: url(../assets/images/clock_icon.png) no-repeat 0.5em 0.5em, #e7e5df;
+  background-size: 1.25em;
+}
+
+
+.chapter .category {
+  text-align: center;
+  padding: 2em 0 1em 0;
+  letter-spacing: 0.1em;
+  font-size: 0.8em;
+}
+
+.chapter .title {
+  text-align: center;
+  margin-bottom: 2em;
+  font-size: 1.25em;
+}
+
+.chapter aside {
+  position: absolute;
+  border-radius: 5px;
+  left: calc(100% + 1em);
+  width: 300px;
+  font-size: 0.85em;
+  line-height: 1.6;
+  background: #f0eee8;
+  border-radius: 0.2em;
+  border: 1px solid #e2e0dc;
+  margin-top: -1em;
+  padding: 1em;
+  box-shadow: 0 0.5em 1em -0.25em rgb(211, 210, 203);
+}
+
+.chapter p, .chapter h2, .chapter h3 {
+  line-height: 1.6;
+  padding: 0 2em;
+  margin-bottom: 1.5em;
+}
+
+.chapter p {
+  text-align: justify;
+}
+
+
+.chapter h2 {
+  padding-top: 3em;
+}
+
+
+.chapter p strong {
+  font-weight: bold;
+  color: black;
+}
+
+
+.chapter p em {
+  font-style: normal;
+  font-size: 0.9em;
+}
+
+.chapter ul {
+  padding: 0 2em;
+  margin-bottom: 1.5em;
+}
+
+.chapter li {
+  margin-bottom: 0.5em;
+  line-height: 1.6;
+}
+
+
+.chapter p:first-child, .chapter h2 + aside + p, .chapter h2 + p {
+  text-indent: 2em;
+}
+
+
+.chapter p:first-child::first-letter, .chapter h2 + aside + p::first-letter, .chapter h2 + p::first-letter {
+  font-size: 1.25em;
+  font-family: 'Rye', cursive;
+}
+
+
+.chapter .illustration {
+  text-align: center;
+}
+
+
+.chapter .illustration img {
+  max-width: 100%;
+  margin-bottom: 1.5em;
+}
+
+
+.neat_code {
+  position: relative;
+  margin-bottom: 1.5em;
+  box-shadow: 0 0.5em 1em -0.25em rgba(40,43,46,0.75);
+}
+
+
+.content pre code.hljs {
+  padding: 0.5em 1em 0.5em 2.5em;
+  /* max-height: 80vh; */
+  font-size: 0.85em;
+  box-sizing: border-box;
+}
+
+
+.neat_code_title {
+  font-family: 'Source Code Pro', monospace;
+  padding: 0.5em 1em 0.5em 2.3em;
+  font-size: 0.85em;
+  background: rgb(226,224,220);
+  background: linear-gradient(0deg, rgba(226,224,220,1) 0%, rgba(240,238,232,1) 50%, rgba(240,238,232,0) 150%);
+  font-weight: bold;
+}
+
+
+.copy_button {
+  margin-top: 0.5em;
+  margin-right: 0.5em;
+  color: black;
+  border-radius: 0.2em;
+  padding: 0.2em 1em 0.2em 2em;
+  font-size: 0.8em;
+  font-weight: bold;
+  position: absolute;
+  right: 0em;
+  cursor: pointer;
+  background-color: white;
+  background-image: url(../assets/images/copy_icon.png);
+  background-position: 0.5em 0.25em, 0 0;
+  background-repeat: no-repeat, repeat;
+  background-size: 1.25em;
+  cursor: pointer;
+  opacity: 0.25;
+  transition: background-color 0.15s ease-in-out, opacity 0.15s ease-in-out, box-shadow 0.1s ease-in-out;
+
+}
+
+
+.copy_button:hover {
+
+  opacity: 0.75;
+  color: black;
+}
+
+
+.copy_button.copied {
+  opacity: 1;
+  background-color: rgb(228, 181, 126);
+  box-shadow: 0 0 0 0.1em rgb(228, 181, 126);
+}
+
+
+
+/* .neat_code .hljs-link, .neat_code .hljs-template-variable, .neat_code .hljs-variable {
+  color: #6897bb;
+} */
+
+
+.neat_code .hljs-addition, .neat_code .hljs-attribute, .neat_code .hljs-string {
+  color: #738f62;
+}
+
+
+.neat_code .hljs-name, .neat_code .hljs-selector-class, .neat_code .hljs-selector-id {
+  color: #caab6a;
+}
+
+
+.hljs-meta {
+  color: #bb8f29;
+}
+
+
+.neat_code .hljs-link, .neat_code .hljs-template-variable, .neat_code .hljs-variable {
+  color: #bd6666;
+}
+
+
+.neat_code .hljs-section, .neat_code .hljs-title, .neat_code .hljs-type {
+  color: #dab06f;
+}
+
+
+.link_with_icon {
+  background-position: 0.125em 0.2em;
+  background-repeat: no-repeat;
+  background-size: 1em;
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+  text-indent: 1.1em;
+  text-decoration: none;
+  background-color: rgb(255, 255, 255, 0.25);
+  border-radius: 0.15em;
+  padding: 0 0.2em;
+  line-height: 1.4;
+}
+
+.link_with_icon:hover {
+  background-color: rgb(255, 255, 255, 0.75);
+}
+
+
+.beginners_note {
+  background: url(../assets/images/beginners_note.png) no-repeat 0.8em 0em, #e2e0dc;
+  background-size: 100px;
+  margin: 0 2em 2rem 2em;
+  padding: 1.5em 0em 0.1em 4em;
+  font-size: 0.9em;
+  color: #44382c;
+  line-height: 1.6;
+  border-radius: 0.2em;
+}

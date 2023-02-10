@@ -6,11 +6,46 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Average&family=Rye&family=Source+Code+Pro&display=swap" rel="stylesheet">
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
   <body>
-    <%= yield %>
+    <div class="app">
+
+      <div class="logo">
+          <div class="logo_part zombie"></div>
+          <div class="logo_part undead"></div>
+          <div class="logo_part bubble">
+              <div class="content code">braaains()</div>
+          </div>
+      </div>
+
+      <div class="main">
+          <div class="menu">
+              <nav>
+                  <ul>
+                      <li>
+                          <a href="">
+                              <span class="category" v-if="category">{{category}}</span>
+                              <span class="title"><slot /></span>
+                          </a>
+                      </li>
+                      <li>
+                          <a href="">Embark on your journey</a>
+                      </li>
+                  </ul>
+              </nav>
+          </div>
+          <div class="content">
+              <%= yield %>
+          </div>
+      </div>
+
+    </div>
+
   </body>
 </html>
