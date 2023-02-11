@@ -4,9 +4,13 @@
 
 
 <div class="book">
+  <h1 class="title"><%= @book.title %></h1>
+  <div class="info">Published in  <%= @book.published_at %> by <%= link_to @book.author, @book.author_url, target: "_blank" %></div>
+  <div class="pitch"><%= simple_format @book.pitch %></div>
+</div>
 
-  <div class="title"><%= @book.title %></div>
-  <div class="author"><%= @book.author %></div>
-  <div class="pitch"><%= @book.pitch %></div>
 
+<div class="read_next">
+  <span class="category"><%= @book.first_chapter.name %></span><br>
+  <%= link_to @book.first_chapter.title, chapter_path(@book.slug, @book.first_chapter.slug) %>
 </div>

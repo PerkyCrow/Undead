@@ -1,11 +1,16 @@
 class Book
   include ActiveModel::Model
 
-  attr_accessor :title, :description, :keywords, :pitch, :author, :chapters, :published_at, :updated_at
+  attr_accessor :title, :description, :keywords, :pitch, :author, :author_url, :chapters, :published_at, :updated_at
 
 
   def slug
     title.parameterize
+  end
+
+
+  def first_chapter
+    chapters.first
   end
 
 
@@ -41,8 +46,16 @@ class Book
       published_at: "March 2023",
       keywords:     "HTML5, CSS3, Canvas, requestAnimationFrame, no lib, no framework, book",
       pitch:        %{
-        Discover my approach to building games from scratch with "A JavaScript Odyssey". Explore the world of pure JavaScript game development as you follow along with the creation of a mini-game. Whether you're a curious non-developer, an advanced developer seeking inspiration, or a beginner looking to build your own tools, this book has something for you. With practical insights, this book will show you how to create games without relying on frameworks or libraries.
+        Discover my approach to building games from scratch.
+
+        Explore the world of pure JavaScript game development as you follow along with the creation of a mini-game.
+
+        Whether you're a curious non-developer, an advanced developer seeking inspiration, or a beginner looking to build your own tools, this book has something for you.
+
+        With practical insights, this book will show you how to create games without relying on frameworks or libraries.
       },
+      author:       "Perky Crow",
+      author_url:   "https://www.perkycrow.com",
       chapters: [
         Chapter.new(
           name:        "Prologue",

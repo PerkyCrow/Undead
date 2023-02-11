@@ -8,6 +8,7 @@ body {
   color: #333333;
   background-size: 512px;
   font-size: 18px;
+  line-height: 1.6;
 }
 
 
@@ -49,6 +50,18 @@ h2 a {
 }
 
 
+strong {
+  color: #000;
+  font-weight: bold;
+}
+
+
+em {
+  font-style: normal;
+  font-size: 0.9em;
+}
+
+
 span.code {
   font-weight: bold;
   font-size: 0.9em;
@@ -60,16 +73,15 @@ span.code {
 .app {
   width: 700px;
   margin: 0 auto;
+
+  .content {
+    width: 700px;
+  }
 }
 
 
 .main {
   position: relative;
-}
-
-
-.app .content {
-  width: 700px;
 }
 
 
@@ -122,203 +134,192 @@ span.code {
 }
 
 
-.app .menu nav {
+.menu nav {
   width: 250px;
   height: 100%;
   background-color: #f5f3ef;
   box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.1);
   border-radius: 0.05em;
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+      padding: 0.75em;
+      border-bottom: 1px solid #e5e5e5;
+
+      a {
+        text-decoration: none;
+        color: #333;
+      }
+
+      a:hover {
+        color: #000;
+      }
+
+      .category {
+        display: block;
+        font-size: 0.7em;
+        color: #626262;
+        margin-bottom: 0.25em;
+      }
+
+      .title {
+        display: block;
+        font-size: 0.9em;
+        font-weight: bold;
+      }
+
+      &.active {
+        background-color: #fafaf9;
+      }
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+
+    }
+
+  }
+
 }
 
 
-.app .menu nav ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-
-.app .menu nav ul li {
-  padding: 0.75em;
-  border-bottom: 1px solid #e5e5e5;
-}
-
-
-.app .menu nav ul li a {
-  text-decoration: none;
-  color: #333;
-}
-
-
-.app .menu nav ul li a:hover {
-  color: #000;
-}
-
-
-.app .menu nav ul li:last-child {
-  border-bottom: none;
-}
-
-
-.app .menu nav ul li .category {
-  display: block;
-  font-size: 0.7em;
-  color: #999;
-  margin-bottom: 0.25em;
-}
-
-.app .menu nav ul li .title {
-  display: block;
-  font-size: 0.9em;
-  font-weight: bold;
-}
-
-
-.app .menu nav ul li ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  margin-left: 1em;
-  margin-top: 0.25em;
-}
-
-
-.app .menu nav ul li ul li {
-  padding: 0.5em;
-  border-bottom: 1px solid #e9e7e1;
-  font-size: 0.75em;
-}
-
-
-.app .menu nav ul li ul li:last-child {
-  border-bottom: none;
-}
-
-
-.app .menu nav ul li ul li a {
-  text-decoration: none;
-  color: #333;
-}
-
-.app .menu nav ul li ul li a:hover {
-  color: #000;
-}
-
-
-.chapter {
+.chapter, .book {
   background: #f0eee8;
   border-radius: 0.2em;
   box-shadow: 0 0 1.5em 1em #e2e0dc;
-  margin-bottom: 4em;
+  margin-bottom: 2em;
   padding-bottom: 2em;
   position: relative;
 }
 
-.chapter .time_to_read {
-  position: absolute;
-  top: 0;
-  right: 0;
-  padding: 0.6em 1em 0.5em 2em;
-  border-radius: 0 0 0 0.3em;
-  font-size: 0.8em;
-  font-weight: bold;
-  color: #666;
-  background: url(clock_icon.png) no-repeat 0.5em 0.5em, #e7e5df;
-  background-size: 1.25em;
+
+.book {
+  padding: 2em;
+
+  h1 {
+    text-align: center;
+    font-size: 1.5em;
+    margin-bottom: 0;
+  }
+
+  .info {
+    text-align: center;
+    font-size: 0.8em;
+    margin-bottom: 2em;
+  }
+
+  .pitch {
+    text-align: center;
+    padding: 2em;
+    background: #e7e5df;
+    border-radius: 0.2em;
+
+    p {
+      margin-bottom: 1em;
+    }
+
+  }
 }
 
 
-.chapter .category {
+.read_next {
   text-align: center;
-  padding: 2em 0 1em 0;
-  letter-spacing: 0.1em;
-  font-size: 0.8em;
+  margin-bottom: 4em;
+
+  .category {
+    font-size: 0.8em;
+    margin-bottom: 0.5em;
+  }
 }
 
 
-.chapter .title {
-  text-align: center;
-  margin-bottom: 2em;
-  font-size: 1.25em;
-}
+.chapter {
 
+  .time_to_read {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0.6em 1em 0.5em 2em;
+    border-radius: 0 0 0 0.3em;
+    font-size: 0.8em;
+    font-weight: bold;
+    color: #666;
+    background: url(clock_icon.png) no-repeat 0.5em 0.5em, #e7e5df;
+    background-size: 1.25em;
+  }
 
-.chapter aside {
-  position: absolute;
-  border-radius: 5px;
-  left: calc(100% + 1em);
-  width: 300px;
-  font-size: 0.85em;
-  line-height: 1.6;
-  background: #f0eee8;
-  border-radius: 0.2em;
-  border: 1px solid #e2e0dc;
-  margin-top: -1em;
-  padding: 1em;
-  box-shadow: 0 0.5em 1em -0.25em rgb(211, 210, 203);
-}
+  .category {
+    text-align: center;
+    padding: 2em 0 1em 0;
+    letter-spacing: 0.1em;
+    font-size: 0.8em;
+  }
 
+  .title {
+    text-align: center;
+    margin-bottom: 2em;
+    font-size: 1.25em;
+  }
 
-.chapter p, .chapter h2, .chapter h3 {
-  line-height: 1.6;
-  padding: 0 2em;
-  margin-bottom: 1.5em;
-}
+  aside {
+    position: absolute;
+    border-radius: 5px;
+    left: calc(100% + 1em);
+    width: 300px;
+    font-size: 0.85em;
+    background: #f0eee8;
+    border-radius: 0.2em;
+    border: 1px solid #e2e0dc;
+    margin-top: -1em;
+    padding: 1em;
+    box-shadow: 0 0.5em 1em -0.25em rgb(211, 210, 203);
+  }
 
+  p, h2, h3 {
+    padding: 0 2em;
+    margin-bottom: 1.5em;
+  }
 
-.chapter p {
-  text-align: justify;
-}
+  p {
+    text-align: justify;
+  }
 
+  h2 {
+    padding-top: 3em;
+  }
 
-.chapter h2 {
-  padding-top: 3em;
-}
+  ul {
+    padding: 0 2em;
+    margin-bottom: 1.5em;
 
+    li {
+      margin-bottom: 0.5em;
+    }
+  }
 
-.chapter p strong {
-  font-weight: bold;
-  color: black;
-}
+  p:first-child, h2 + aside + p, h2 + p {
+    text-indent: 2em;
+  }
 
+  p:first-child::first-letter, h2 + aside + p::first-letter, h2 + p::first-letter {
+    font-size: 1.25em;
+    font-family: 'Rye', cursive;
+  }
 
-.chapter p em {
-  font-style: normal;
-  font-size: 0.9em;
-}
+  .illustration {
+    text-align: center;
 
+    img {
+      max-width: 100%;
+      margin-bottom: 1.5em;
+    }
+  }
 
-.chapter ul {
-  padding: 0 2em;
-  margin-bottom: 1.5em;
-}
-
-
-.chapter li {
-  margin-bottom: 0.5em;
-  line-height: 1.6;
-}
-
-
-.chapter p:first-child, .chapter h2 + aside + p, .chapter h2 + p {
-  text-indent: 2em;
-}
-
-
-.chapter p:first-child::first-letter, .chapter h2 + aside + p::first-letter, .chapter h2 + p::first-letter {
-  font-size: 1.25em;
-  font-family: 'Rye', cursive;
-}
-
-
-.chapter .illustration {
-  text-align: center;
-}
-
-
-.chapter .illustration img {
-  max-width: 100%;
-  margin-bottom: 1.5em;
 }
 
 
@@ -434,6 +435,5 @@ span.code {
   padding: 1.5em 0em 0.1em 4em;
   font-size: 0.9em;
   color: #44382c;
-  line-height: 1.6;
   border-radius: 0.2em;
 }

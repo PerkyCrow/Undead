@@ -3,7 +3,8 @@
     <ul>
       <li>
         <%= link_to book_path(book.slug) do %>
-          <span>Summary</span>
+          <span class="category">Summary</span>
+          <span class="title"><%= book.title %></span>
         <% end %>
       </li>
       <% book.chapters.each do |chapter| %>
