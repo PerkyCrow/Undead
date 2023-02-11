@@ -64,13 +64,13 @@ class Book
       chapters: [
         Chapter.new(
           name:        "Prologue",
-          title:       "Adobe Flash, A fallen Hero",
+          title:       "A fallen Hero",
           description: "Explore the rise of HTML5 and the fall of Flash in the world of game development with the prologue of A JavaScript Odyssey",
           keywords:    "HTML5, Flash, Adobe, game development, history"
         ),
         Chapter.new(
           name:        "Chapter 1",
-          title:       "A fresh start",
+          title:       "Fresh start",
           description: "",
           keywords:    "VSCode, http, server, coding, basics"
         ),
@@ -94,13 +94,13 @@ class Book
         ),
         Chapter.new(
           name:        "Chapter 5",
-          title:       "An infinite world",
+          title:       "Infinite world",
           description: "",
           keywords:    "",
         ),
         Chapter.new(
           name:        "Chapter 6",
-          title:       "Bumpin' into things",
+          title:       "Bumpin'",
           description: "",
           keywords:    ""
         ),
@@ -112,13 +112,13 @@ class Book
         ),
         Chapter.new(
           name:        "Chapter 8",
-          title:       "From a toy to a game",
+          title:       "From toy to game",
           description: "",
           keywords:    ""
         ),
         Chapter.new(
           name:        "Chapter 9",
-          title:       "The end",
+          title:       "End",
           description: "",
           keywords:    ""
         )
