@@ -1,10 +1,10 @@
 class ChaptersController < ApplicationController
 
-  def prologue
-    @chapter = {
-      title: "Adobe Flash, A fallen Hero",
-      category: "Prologue",
-    }
+  layout "book"
+
+  def show
+    @book = Book.find(params[:book_slug])
+    @chapter = @book.find_chapter(params[:chapter_slug])
   end
 
 end

@@ -5,7 +5,7 @@ class Book
 
 
   def slug
-    title.downcase.gsub(" ", "-")
+    title.parameterize
   end
 
 
@@ -49,8 +49,8 @@ class Book
           description: "Explore the rise of HTML5 and the fall of Flash in the world of game development with the prologue of A JavaScript Odyssey"
         ),
         Chapter.new(
-          name:        "Chapter I",
-          title:       "",
+          name:        "Chapter 1",
+          title:       "hello",
           description: ""
         ),
       ]

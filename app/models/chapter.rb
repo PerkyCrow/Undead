@@ -4,7 +4,7 @@ class Chapter
   attr_accessor :title, :description, :name, :content, :type
 
   def slug
-    title.downcase.gsub(" ", "-")
+    title.parameterize
   end
 
 end
