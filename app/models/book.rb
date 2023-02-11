@@ -70,9 +70,58 @@ class Book
         ),
         Chapter.new(
           name:        "Chapter 1",
-          title:       "hello",
-          description: ""
+          title:       "A fresh start",
+          description: "",
+          keywords:    "VSCode, http, server, coding, basics"
         ),
+        Chapter.new(
+          name:        "Chapter 2",
+          title:       "The Canvas",
+          description: "",
+          keywords:    ""
+        ),
+        Chapter.new(
+          name:        "Chapter 3",
+          title:       "Painting a scene",
+          description: "",
+          keywords:    ""
+        ),
+        Chapter.new(
+          name:        "Chapter 4",
+          title:       "Movement",
+          description: "",
+          keywords:    ""
+        ),
+        Chapter.new(
+          name:        "Chapter 5",
+          title:       "An infinite world",
+          description: "",
+          keywords:    "",
+        ),
+        Chapter.new(
+          name:        "Chapter 6",
+          title:       "Bumpin' into things",
+          description: "",
+          keywords:    ""
+        ),
+        Chapter.new(
+          name:        "Chapter 7",
+          title:       "Interactivity",
+          description: "",
+          keywords:    ""
+        ),
+        Chapter.new(
+          name:        "Chapter 8",
+          title:       "From a toy to a game",
+          description: "",
+          keywords:    ""
+        ),
+        Chapter.new(
+          name:        "Chapter 9",
+          title:       "The end",
+          description: "",
+          keywords:    ""
+        )
       ]
     )
   end
