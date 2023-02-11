@@ -1,13 +1,11 @@
-
-
 html {
   scroll-behavior: smooth;
 }
 
+
 body {
   background-color: #f0eee8;
   color: #333333;
-  background: url('background.jpg') 0 0 repeat, #f0eee8;
   background-size: 512px;
   font-size: 18px;
 }
@@ -44,10 +42,12 @@ a:hover {
   color: #121b2f;
 }
 
+
 h2 a {
   color: #121b2f;
   text-decoration: none;
 }
+
 
 span.code {
   font-weight: bold;
@@ -62,9 +62,11 @@ span.code {
   margin: 0 auto;
 }
 
+
 .main {
   position: relative;
 }
+
 
 .app .content {
   width: 700px;
@@ -118,6 +120,7 @@ span.code {
   position: absolute;
 }
 
+
 .app .menu nav {
   width: 250px;
   height: 100%;
@@ -126,29 +129,35 @@ span.code {
   border-radius: 0.05em;
 }
 
+
 .app .menu nav ul {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
+
 .app .menu nav ul li {
   padding: 0.75em;
   border-bottom: 1px solid #e5e5e5;
 }
+
 
 .app .menu nav ul li a {
   text-decoration: none;
   color: #333;
 }
 
+
 .app .menu nav ul li a:hover {
   color: #000;
 }
 
+
 .app .menu nav ul li:last-child {
   border-bottom: none;
 }
+
 
 .app .menu nav ul li .category {
   display: block;
@@ -163,6 +172,7 @@ span.code {
   font-weight: bold;
 }
 
+
 .app .menu nav ul li ul {
   list-style: none;
   padding: 0;
@@ -171,15 +181,18 @@ span.code {
   margin-top: 0.25em;
 }
 
+
 .app .menu nav ul li ul li {
   padding: 0.5em;
   border-bottom: 1px solid #e9e7e1;
   font-size: 0.75em;
 }
 
+
 .app .menu nav ul li ul li:last-child {
   border-bottom: none;
 }
+
 
 .app .menu nav ul li ul li a {
   text-decoration: none;
@@ -221,11 +234,13 @@ span.code {
   font-size: 0.8em;
 }
 
+
 .chapter .title {
   text-align: center;
   margin-bottom: 2em;
   font-size: 1.25em;
 }
+
 
 .chapter aside {
   position: absolute;
@@ -242,11 +257,13 @@ span.code {
   box-shadow: 0 0.5em 1em -0.25em rgb(211, 210, 203);
 }
 
+
 .chapter p, .chapter h2, .chapter h3 {
   line-height: 1.6;
   padding: 0 2em;
   margin-bottom: 1.5em;
 }
+
 
 .chapter p {
   text-align: justify;
@@ -269,10 +286,12 @@ span.code {
   font-size: 0.9em;
 }
 
+
 .chapter ul {
   padding: 0 2em;
   margin-bottom: 1.5em;
 }
+
 
 .chapter li {
   margin-bottom: 0.5em;
@@ -311,7 +330,6 @@ span.code {
 
 .content pre code.hljs {
   padding: 0.5em 1em 0.5em 2.5em;
-  /* max-height: 80vh; */
   font-size: 0.85em;
   box-sizing: border-box;
 }
@@ -346,12 +364,10 @@ span.code {
   cursor: pointer;
   opacity: 0.25;
   transition: background-color 0.15s ease-in-out, opacity 0.15s ease-in-out, box-shadow 0.1s ease-in-out;
-
 }
 
 
 .copy_button:hover {
-
   opacity: 0.75;
   color: black;
 }
@@ -362,12 +378,6 @@ span.code {
   background-color: rgb(228, 181, 126);
   box-shadow: 0 0 0 0.1em rgb(228, 181, 126);
 }
-
-
-
-/* .neat_code .hljs-link, .neat_code .hljs-template-variable, .neat_code .hljs-variable {
-  color: #6897bb;
-} */
 
 
 .neat_code .hljs-addition, .neat_code .hljs-attribute, .neat_code .hljs-string {
@@ -409,6 +419,7 @@ span.code {
   padding: 0 0.2em;
   line-height: 1.4;
 }
+
 
 .link_with_icon:hover {
   background-color: rgba(255, 255, 255, 0.75);

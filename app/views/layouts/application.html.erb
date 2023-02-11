@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Undead</title>
+    <title><%= page_title %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="<%= page_description %>">
+    <meta name="keywords" content="<%= page_keywords %>">
+    <meta name="author" content="PerkyCrow">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -12,38 +15,22 @@
   </head>
 
   <body>
+
+
     <div class="app">
 
-      <div class="logo">
-          <div class="logo_part zombie"></div>
-          <div class="logo_part undead"></div>
-          <div class="logo_part bubble">
-              <div class="content code">braaains()</div>
-          </div>
-      </div>
+      <%= render "shared/logo" %>
 
       <div class="main">
-          <div class="menu">
-              <nav>
-                  <ul>
-                      <li>
-                          <a href="">
-                              <span class="category" v-if="category">{{category}}</span>
-                              <span class="title"><slot /></span>
-                          </a>
-                      </li>
-                      <li>
-                          <a href="">Embark on your journey</a>
-                      </li>
-                  </ul>
-              </nav>
-          </div>
-          <div class="content">
-              <%= yield %>
-          </div>
+        <%= render "shared/menu" %>
+
+        <div class="content">
+          <%= yield %>
+        </div>
       </div>
 
     </div>
+
 
   </body>
 </html>
