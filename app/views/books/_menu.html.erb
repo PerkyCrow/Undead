@@ -1,14 +1,14 @@
 <div class="menu">
   <nav>
     <ul>
-      <li>
+      <li class="<%= book_link_class(book) %>">
         <%= link_to book_path(book.slug) do %>
           <span class="category">Summary</span>
           <span class="title"><%= book.title %></span>
         <% end %>
       </li>
       <% book.chapters.each do |chapter| %>
-        <li>
+        <li class="<%= chapter_link_class(book, chapter) %>">
           <%= link_to chapter_path(book.slug, chapter.slug) do %>
             <span class="category"><%= numeral_to_roman(chapter.name) %></span>
             <span class="title"><%= chapter.title %></span>
