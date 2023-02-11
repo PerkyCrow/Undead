@@ -7,7 +7,14 @@
 
     <div class="app">
       <%= render "shared/logo" %>
-      <%= yield %>
+
+      <div class="main">
+        <%= render "shared/menu", book: @book %>
+
+        <div class="content">
+          <%= yield %>
+        </div>
+      </div>
     </div>
 
   </body>

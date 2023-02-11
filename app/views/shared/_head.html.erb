@@ -1,0 +1,13 @@
+<title><%= page_title %></title>
+
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="<%= page_description %>">
+<meta name="keywords" content="<%= page_keywords %>">
+<meta name="author" content="PerkyCrow">
+
+<%= csrf_meta_tags %>
+<%= csp_meta_tag %>
+
+<%= stylesheet_link_tag "https://fonts.googleapis.com/css2?family=Average&family=Rye&family=Source+Code+Pro&display=swap", "data-turbo-track": "reload" %>
+<%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+<%= javascript_importmap_tags %>
