@@ -1,6 +1,11 @@
 <div class="menu">
   <nav>
     <ul>
+      <li>
+        <%= link_to book_path(book.slug) do %>
+          <span>Summary</span>
+        <% end %>
+      </li>
       <% book.chapters.each do |chapter| %>
         <li>
           <%= link_to chapter_path(book.slug, chapter.slug) do %>

@@ -1,7 +1,7 @@
 class Chapter
   include ActiveModel::Model
 
-  attr_accessor :title, :description, :name, :content, :type
+  attr_accessor :title, :name, :description, :keywords, :type
 
   def slug
     title.parameterize

@@ -1,7 +1,7 @@
 class Book
   include ActiveModel::Model
 
-  attr_accessor :title, :description, :pitch, :author, :chapters, :published_at, :updated_at
+  attr_accessor :title, :description, :keywords, :pitch, :author, :chapters, :published_at, :updated_at
 
 
   def slug
@@ -39,6 +39,7 @@ class Book
       title:        "A JavaScript Odyssey",
       description:  "Embark on a personal journey of game development with A JavaScript Odyssey",
       published_at: "March 2023",
+      keywords:     "HTML5, CSS3, Canvas, requestAnimationFrame, no lib, no framework, book",
       pitch:        %{
         Discover my approach to building games from scratch with "A JavaScript Odyssey". Explore the world of pure JavaScript game development as you follow along with the creation of a mini-game. Whether you're a curious non-developer, an advanced developer seeking inspiration, or a beginner looking to build your own tools, this book has something for you. With practical insights, this book will show you how to create games without relying on frameworks or libraries.
       },
@@ -46,7 +47,8 @@ class Book
         Chapter.new(
           name:        "Prologue",
           title:       "Adobe Flash, A fallen Hero",
-          description: "Explore the rise of HTML5 and the fall of Flash in the world of game development with the prologue of A JavaScript Odyssey"
+          description: "Explore the rise of HTML5 and the fall of Flash in the world of game development with the prologue of A JavaScript Odyssey",
+          keywords:    "HTML5, Flash, Adobe, game development, history"
         ),
         Chapter.new(
           name:        "Chapter 1",

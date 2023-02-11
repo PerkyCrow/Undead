@@ -1,7 +1,7 @@
 module ApplicationHelper
 
   def page_title
-    "UndeadJS | " + (content_for?(:title) ? content_for(:title) : "A JavaScript Game Development Interactive Book")
+    "undead.js | " + (content_for?(:title) ? content_for(:title) : "A JavaScript Game Development Interactive Book")
   end
 
 
@@ -11,25 +11,36 @@ module ApplicationHelper
 
 
   def page_keywords
-    content_for?(:keywords) ? content_for(:keywords) : "UndeadJS, JavaScript, HTML5, CSS3, Canvas, WebGL, PIXI.js, Game Development, Game Design, Game Art, Game Sound, Game Programming, Indie Game, Browser Game, Flash, Book, Learning"
+    base_keywords = "undead.js, JavaScript, Game Development, Game Design, Game Art, Game Sound, Game Programming, Indie Game Dev".split(", ")
+
+    if content_for?(:keywords)
+      base_keywords << content_for(:keywords).split(", ")
+    end
+
+    base_keywords.flatten.map(&:downcase).uniq.join(", ")
   end
 
 
-  def numeral_to_roman(string)
+  def page_author
+    content_for?(:author) ? content_for(:author) : "Perky Crow"
+  end
+
+
+  def numeral_to_roman string
     roman_numerals = {
       1000 => "M",
-      900 => "CM",
-      500 => "D",
-      400 => "CD",
-      100 => "C",
-      90 => "XC",
-      50 => "L",
-      40 => "XL",
-      10 => "X",
-      9 => "IX",
-      5 => "V",
-      4 => "IV",
-      1 => "I"
+      900  => "CM",
+      500  => "D",
+      400  => "CD",
+      100  => "C",
+      90   => "XC",
+      50   => "L",
+      40   => "XL",
+      10   => "X",
+      9    => "IX",
+      5    => "V",
+      4    => "IV",
+      1    => "I"
     }
 
     words = string.split(" ")
@@ -49,7 +60,6 @@ module ApplicationHelper
         word
       end
     end
-
 
     words.join(" ")
   end

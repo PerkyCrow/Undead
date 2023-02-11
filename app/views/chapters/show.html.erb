@@ -1,3 +1,8 @@
+<%= content_for :title, "#{@book.title} - #{@chapter.title}" %>
+<%= content_for :description, @chapter.description %>
+<%= content_for :keywords, @chapter.keywords %>
+
+
 <div class="chapter">
 
   <div class="time_to_read" data-controller="time-to-read"></div>
