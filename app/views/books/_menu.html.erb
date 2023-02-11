@@ -1,4 +1,9 @@
 <div class="menu">
+  <div class="profile_selector">
+    <%= label_tag :profile do %>
+      Your profile: <%= select_tag :profile, options_for_select(["Curious", "Beginner", "Developer"]) %>
+    <% end %>
+  </div>
   <nav>
     <ul>
       <li class="<%= book_link_class(book) %>">

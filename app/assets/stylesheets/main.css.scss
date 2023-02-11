@@ -18,7 +18,7 @@ body {
 }
 
 
-body {
+body, select {
   font-family: 'Average', sans-serif;
 }
 
@@ -146,12 +146,52 @@ span.code {
 .menu {
   width: 250px;
   left: -250px;
+  top: -4rem;
   position: absolute;
 
   @include mobile {
     position: relative;
     width: 100%;
     left: 0;
+    top: 0;
+  }
+
+  .profile_selector {
+    height: 4rem;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    select {
+      appearance: none;
+      border: 0;
+      outline: 0;
+    
+      width: auto;
+      height: 2em;
+      padding: 0 3em 0 1em;
+      background: url(caret_down.svg) no-repeat right 0.4em center / 1.2em, linear-gradient(to left, rgba(255, 255, 255, 0.3) 2em, rgba(255, 255, 255, 0.2) 2em), linear-gradient(35deg, #212221, #353330);
+      color: white;
+      border-radius: 0.25em;
+      box-shadow: 0 0 1em 0 rgba(0, 0, 0, 0.2);
+      font-size: 1rem;
+      cursor: pointer;
+    
+      option {
+        color: inherit;
+        background-color: #320a28;
+      }
+    
+      &:focus {
+        outline: none;
+      }
+    
+      &::-ms-expand {
+        display: none;
+      }
+    }
+
   }
 
   nav {
@@ -500,3 +540,5 @@ span.code {
     font-style: italic;
   }
 }
+
+
