@@ -14,6 +14,11 @@ class Book
   end
 
 
+  def next_chapter current_chapter
+    chapters[chapters.index(current_chapter) + 1]
+  end
+
+
   def find_chapter slug
     chapters.find { |chapter| chapter.slug == slug }
   end
