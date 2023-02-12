@@ -311,7 +311,17 @@ span.code {
   .info {
     text-align: center;
     font-size: 0.8em;
+    margin-bottom: 1em;
+  }
+
+  .cover {
+    text-align: center;
     margin-bottom: 2em;
+
+    img {
+      width: 100%;
+      max-width: 300px;
+    }
   }
 
   .pitch {
@@ -327,6 +337,10 @@ span.code {
 
     p {
       margin-bottom: 1em;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
     }
   }
 }
@@ -334,8 +348,9 @@ span.code {
 
 .read_next {
   text-align: center;
-  margin-bottom: 4em;
-  padding: 1em;
+  margin: 1em 0 4em 0;
+  box-shadow: none;
+  padding: 0;
 
   .category {
     font-size: 0.8em;

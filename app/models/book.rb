@@ -34,6 +34,12 @@ class Book
   end
 
 
+  def cover_path
+    "books/#{slug.underscore}/cover.png"
+  end
+
+
+
   def self.all
     [book1]
   end
