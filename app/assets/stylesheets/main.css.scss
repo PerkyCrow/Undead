@@ -73,7 +73,7 @@ h2 a {
 
 
 strong {
-  color: $active;
+  color: black;
   font-weight: bold;
 }
 
@@ -324,7 +324,7 @@ span.code {
     }
   }
 
-  .pitch {
+  .pitch, .credits {
     text-align: center;
     padding: 2em;
     background: #e7e5df;
@@ -342,6 +342,11 @@ span.code {
         margin-bottom: 0;
       }
     }
+  }
+
+  .credits {
+    margin-top: 2em;
+    background-color: transparent;
   }
 }
 

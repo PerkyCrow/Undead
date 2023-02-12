@@ -64,4 +64,14 @@ module ApplicationHelper
     words.join(" ")
   end
 
+
+  def simple_markdown string
+    renderer = Redcarpet::Render::HTML.new
+    markdown = Redcarpet::Markdown.new(renderer, extensions = {})
+    string = string.split("\n").map { |line| line.strip }.join("\n")
+
+    markdown.render(string).html_safe
+  end
+
+
 end

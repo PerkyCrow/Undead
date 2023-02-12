@@ -7,7 +7,11 @@
   <h1 class="title"><%= @book.title %></h1>
   <div class="info">Published in <%= @book.published_at %> by <%= link_to @book.author, @book.author_url, target: "_blank" %></div>
   <div class="cover"><%= image_tag @book.cover_path, alt: "Book cover for #{@book.title}" %></div>
-  <div class="pitch"><%= simple_format @book.pitch %></div>
+  <div class="pitch"><%= simple_markdown @book.pitch %></div>
+
+  <% if @book.credits %>
+    <div class="credits"><%= simple_markdown @book.credits %></div>
+  <% end %>
 </div>
 
 
