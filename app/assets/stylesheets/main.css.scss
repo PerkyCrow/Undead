@@ -4,14 +4,30 @@
   }
 }
 
+
+@mixin shadow {
+  box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.1);
+}
+
+
+$dark:    #333333;
+$darker:  #222222;
+$faded:   #626262;
+$light:   #f0eee8;
+$lighter: #f5f3ef;
+$link:    #2d4270;
+$active:  #121b2f;
+$accent:  #320a28;
+
+
 html {
   scroll-behavior: smooth;
 }
 
 
 body {
-  background-color: #f0eee8;
-  color: #333333;
+  background-color: $light;
+  color: $dark;
   background-size: 512px;
   font-size: 18px;
   line-height: 1.6;
@@ -25,7 +41,7 @@ body, select {
 
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Rye', cursive;
-  color: #222222;
+  color: $darker;
 }
 
 
@@ -41,23 +57,23 @@ code, .code {
 
 
 a {
-  color: #2d4270;
+  color: $link;
 }
 
 
 a:hover {
-  color: #121b2f;
+  color: $active;
 }
 
 
 h2 a {
-  color: #121b2f;
+  color: $active;
   text-decoration: none;
 }
 
 
 strong {
-  color: #000;
+  color: $active;
   font-weight: bold;
 }
 
@@ -146,7 +162,7 @@ span.code {
 .menu {
   width: 250px;
   left: -250px;
-  top: -4rem;
+  top: -9rem;
   position: absolute;
 
   @include mobile {
@@ -157,11 +173,18 @@ span.code {
   }
 
   .profile_selector {
-    height: 4rem;
+    height: 9rem;
     font-size: 0.9rem;
     display: flex;
     align-items: center;
     justify-content: center;
+    text-align: center;
+
+    .label {
+      color: $faded;
+      display: inline-block;
+      margin-bottom: 0.25rem;
+    }
 
     select {
       appearance: none;
@@ -171,16 +194,17 @@ span.code {
       width: auto;
       height: 2em;
       padding: 0 3em 0 1em;
-      background: url(caret_down.svg) no-repeat right 0.4em center / 1.2em, linear-gradient(to left, rgba(255, 255, 255, 0.3) 2em, rgba(255, 255, 255, 0.2) 2em), linear-gradient(35deg, #212221, #353330);
-      color: white;
+      background: url(caret_down.svg) no-repeat right 0.4em center / 1.2em, linear-gradient(to left, rgba(#e7e5df, 1) 2em, rgba(0, 0, 0, 0.0) 2em), linear-gradient(35deg, $light, $lighter);
+      color: $dark;
       border-radius: 0.25em;
-      box-shadow: 0 0 1em 0 rgba(0, 0, 0, 0.2);
+      @include shadow;
+      border: 0.1em solid $lighter;
       font-size: 1rem;
       cursor: pointer;
     
       option {
         color: inherit;
-        background-color: #320a28;
+        background-color: $accent;
       }
     
       &:focus {
@@ -197,8 +221,8 @@ span.code {
   nav {
     width: 250px;
     height: 100%;
-    background-color: #f5f3ef;
-    box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.1);
+    background-color: $lighter;
+    @include shadow;
     border-radius: 0.05em;
 
     @include mobile {
@@ -215,20 +239,22 @@ span.code {
       li {
         padding: 0.75em;
         border-bottom: 1px solid #e5e5e5;
+        background-color: $light;
+        box-shadow: inset -5em 0 2em 0 $light;
   
         a {
           text-decoration: none;
-          color: #333;
+          color: $dark;
         }
   
         a:hover {
-          color: #000;
+          color: $active;
         }
   
         .category {
           display: block;
           font-size: 0.7em;
-          color: #626262;
+          color: $faded;
           margin-bottom: 0.25em;
         }
   
@@ -239,13 +265,13 @@ span.code {
         }
   
         &.active {
-          box-shadow: inset 0 0 0.5em rgba(75, 75, 75, 0.2);
+          box-shadow: inset -5em 0 2em 0 $lighter;
+          background: $lighter;
 
-          // make the box-shadow looks like a border
-          box-shadow: inset 0 0 0 0.2em #f5f3ef, inset 0 0 0.75em rgba(75, 75, 75, 0.2);
+
 
           a {
-            color: #000;
+            color: $active;
           }
         }
   
@@ -264,7 +290,7 @@ span.code {
 
 
 .chapter, .book, .read_next {
-  background: #f0eee8;
+  background: $light;
   border-radius: 0.2em;
   box-shadow: 0 0 1.5em 1em #e2e0dc;
   margin-bottom: 2em;
@@ -352,7 +378,7 @@ span.code {
     left: calc(100% + 1em);
     width: 300px;
     font-size: 0.85em;
-    background: #f0eee8;
+    background: $light;
     border-radius: 0.2em;
     border: 1px solid #e2e0dc;
     margin-top: -1em;
@@ -430,7 +456,7 @@ span.code {
 .copy_button {
   margin-top: 0.5em;
   margin-right: 0.5em;
-  color: black;
+  color: $active;
   border-radius: 0.2em;
   padding: 0.2em 1em 0.2em 2em;
   font-size: 0.8em;
@@ -451,7 +477,7 @@ span.code {
 
 .copy_button:hover {
   opacity: 0.75;
-  color: black;
+  color: $active;
 }
 
 

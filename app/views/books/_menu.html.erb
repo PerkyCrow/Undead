@@ -1,7 +1,8 @@
 <div class="menu">
   <div class="profile_selector">
     <%= label_tag :profile do %>
-      Your profile: <%= select_tag :profile, options_for_select(["Curious", "Beginner", "Developer"]) %>
+      <span class="label">Your reader profile</span>
+      <br><%= select_tag :profile, options_for_select(["Curious", "Beginner", "Developer"]) %>
     <% end %>
   </div>
   <nav>
