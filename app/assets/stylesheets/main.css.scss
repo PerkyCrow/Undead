@@ -13,6 +13,7 @@
 $dark:    #333333;
 $darker:  #222222;
 $faded:   #626262;
+$dimmer:  #e7e5df;
 $light:   #f0eee8;
 $lighter: #f5f3ef;
 $button:  #26508f;
@@ -204,23 +205,23 @@ span.code {
       width: auto;
       height: 2em;
       padding: 0 3em 0 1em;
-      background: url(caret_down.svg) no-repeat right 0.4em center / 1.2em, linear-gradient(to left, rgba(#e7e5df, 1) 2em, rgba(0, 0, 0, 0.0) 2em), linear-gradient(35deg, $light, $lighter);
+      background: url(caret_down.svg) no-repeat right 0.4em center / 1.2em, linear-gradient(to left, rgba($dimmer, 1) 2em, rgba(0, 0, 0, 0.0) 2em), linear-gradient(35deg, $light, $lighter);
       color: $dark;
       border-radius: 0.25em;
       @include shadow;
       border: 0.1em solid $lighter;
       font-size: 1rem;
       cursor: pointer;
-    
+
       option {
         color: inherit;
         background-color: $accent;
       }
-    
+
       &:focus {
         outline: none;
       }
-    
+
       &::-ms-expand {
         display: none;
       }
@@ -337,7 +338,7 @@ span.code {
   .pitch, .credits {
     text-align: center;
     padding: 2em;
-    background: #e7e5df;
+    background: $dimmer;
     border-radius: 0.2em;
 
     @include mobile {
@@ -385,7 +386,7 @@ span.code {
     font-size: 0.8em;
     font-weight: bold;
     color: #666;
-    background: url(clock_icon.png) no-repeat 0.5em 0.5em, #e7e5df;
+    background: url(clock_icon.png) no-repeat 0.5em 0.5em, $dimmer;
     background-size: 1.25em;
   }
 
@@ -629,21 +630,30 @@ span.code {
     cursor: pointer;
     border-radius: 1em;
     border-top: 0.25em solid transparent;
-    border-bottom: 0.1em solid transparent;
+    border-bottom: 0.25em solid transparent;
+    border-left: 0.1em solid transparent;
+    border-right: 0.1em solid transparent;
     padding: 1em 0;
-
-    &.active {
-      background-color: #e7e5df;
-      border-top: 0.25em solid $link;
-      border-bottom: 0.1em solid #d0cfca;
-    }
 
 
     &:hover {
-      background-color: #e7e5df;
-      border-top: 0.25em solid $button;
-      border-bottom: 0.1em solid #d0cfca;
+      background-color: $dimmer;
+      border-top: 0.25em solid #d0cfca;
+      border-bottom: 0.25em solid #d0cfca;
+      border-left: 0.1em solid #d0cfca;
+      border-right: 0.1em solid #d0cfca;
     }
+
+    &.active {
+      background-color: $dimmer;
+      border-top: 0.25em solid $link;
+      border-bottom: 0.25em solid $link;
+      border-left: 0.1em solid $link;
+      border-right: 0.1em solid $link;
+    }
+
+
+
 
     .image {
       text-align: center;
