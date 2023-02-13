@@ -4,7 +4,6 @@ module ChaptersHelper
     render 'chapters/illustration', src: src, alt: alt, title: title
   end
 
-
   def render_chapter book, chapter
     render "chapters/#{book.slug.underscore}/#{chapter.name.parameterize.underscore}", book: book, chapter: chapter
   end

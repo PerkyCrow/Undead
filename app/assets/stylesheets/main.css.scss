@@ -15,9 +15,15 @@ $darker:  #222222;
 $faded:   #626262;
 $light:   #f0eee8;
 $lighter: #f5f3ef;
+$button:  #26508f;
 $link:    #2d4270;
 $active:  #121b2f;
 $accent:  #320a28;
+
+
+$baseFont:  'Average', sans-serif;
+$titleFont: 'Rye', cursive;
+$codeFont:  'Source Code Pro', monospace;
 
 
 html {
@@ -35,23 +41,23 @@ body {
 
 
 body, select {
-  font-family: 'Average', sans-serif;
+  font-family: $baseFont;
 }
 
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Rye', cursive;
+  font-family: $titleFont;
   color: $darker;
 }
 
 
 p em {
-  font-family: 'Rye', cursive;
+  font-family: $titleFont;
 }
 
 
 code, .code {
-  font-family: 'Source Code Pro', monospace;
+  font-family: $codeFont;
   white-space: pre-wrap;
 }
 
@@ -75,6 +81,10 @@ h2 a {
 strong {
   color: black;
   font-weight: bold;
+}
+
+small {
+  font-size: 0.65em;
 }
 
 
@@ -434,7 +444,7 @@ span.code {
 
   p:first-child::first-letter, h2 + aside + p::first-letter, h2 + p::first-letter {
     font-size: 1.25em;
-    font-family: 'Rye', cursive;
+    font-family: $titleFont;
   }
 
   .illustration {
@@ -464,7 +474,7 @@ span.code {
 
 
 .neat_code_title {
-  font-family: 'Source Code Pro', monospace;
+  font-family: $codeFont;
   padding: 0.5em 1em 0.5em 2.3em;
   font-size: 0.85em;
   background: rgb(226,224,220);
@@ -588,3 +598,84 @@ span.code {
 }
 
 
+.reader_profile {
+  // background: $lighter;
+
+  h2 {
+    text-align: center;
+    font-size: 1.2em;
+    margin: 0;
+    font-family: $codeFont;
+    padding: 2rem 0 0 0;
+    line-height: 1;
+
+    small {
+      font-weight: normal;
+      line-height: 1;
+      opacity: 0.8;
+    }
+  }
+
+  .profiles {
+    padding: 2em 1em;
+    display: flex;
+  }
+
+  .profile {
+    width: calc(100% / 3);
+    box-sizing: border-box;
+    text-decoration: none;
+    color: $dark;
+    cursor: pointer;
+    border-radius: 1em;
+    border-top: 0.25em solid transparent;
+    border-bottom: 0.1em solid transparent;
+    padding: 1em 0;
+
+    &.active {
+      background-color: #e7e5df;
+      border-top: 0.25em solid $link;
+      border-bottom: 0.1em solid #d0cfca;
+    }
+
+
+    &:hover {
+      background-color: #e7e5df;
+      border-top: 0.25em solid $button;
+      border-bottom: 0.1em solid #d0cfca;
+    }
+
+    .image {
+      text-align: center;
+      img {
+        width: 80%;
+      }
+    }
+
+    .description {
+      padding: 1rem;
+      font-size: 0.9em;
+      text-align: center;
+    }
+
+    .name {
+      text-align: center;
+      color: $dark;
+      padding: 1rem 1rem 0 1rem;
+      font-family: $codeFont;
+      font-size: 1.25em;
+      text-transform: uppercase;
+    }
+
+    &.active .name {
+      color: $link;
+    }
+
+    &:hover .name {
+      color: $button;
+    }
+
+  }
+
+
+}
