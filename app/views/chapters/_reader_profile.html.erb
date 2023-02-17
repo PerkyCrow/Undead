@@ -1,4 +1,4 @@
-<div class="reader_profile">
+<div class="reader_profile" data-controller="profile">
   <h2>
     Choose your reader profile<br>
     <small>(You can change it at any time)</small>
@@ -6,30 +6,42 @@
 
   <div class="profiles">
 
-    <a href="" class="profile curious">
+    <%= link_to "", class: "profile", data: {
+      action: "profile#choose",
+      profile_target: "link",
+      profile: "Curious"
+    } do %>
       <div class="image"><%= image_tag "profiles/curious.png" %></div>
       <div class="name">Curious</div>
       <div class="description">
         If you are not a developer or not interested in technical details, this book will be presented in the form of <strong>a making-of</strong>.
       </div>
-    </a>
+    <% end %>
 
-    <a href="" class="profile beginner active">
+    <%= link_to "", class: "profile", data: {
+      action: "profile#choose",
+      profile_target: "link",
+      profile: "Beginner"
+    } do %>
       <div class="image"><%= image_tag "profiles/beginner.png" %></div>
       <div class="name">Beginner</div>
       <div class="description">
         This book will be presented with all technical details and <strong>notes dedicated to beginners</strong>.
       </div>
-    </a>
+    <% end %>
 
 
-    <a href="" class="profile developer">
+    <%= link_to "", class: "profile", data: {
+      action: "profile#choose",
+      profile_target: "link",
+      profile: "Developer"
+    } do %>
       <div class="image"><%= image_tag "profiles/developer.png" %></div>
       <div class="name">Developer</div>
       <div class="description">
         This book will be presented with <strong>all technical details</strong> without the notes for beginners.
       </div>
-    </a>
+    <% end %>
 
   </div>
 </div>
