@@ -6,7 +6,10 @@
   <body>
 
     <div class="app">
-      <%= render "shared/logo" %>
+      <header id="header">
+        <%= render "shared/profile" %>
+        <%= render "shared/logo" %>
+      </header>
 
       <div class="main">
         <%= render "books/menu", book: @book %>

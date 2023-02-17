@@ -1,0 +1,9 @@
+<div class="profile_selector" data-controller="profile">
+  <%= label_tag :profile do %>
+    <div class="label">Your reader profile</div>
+    <%= select_tag :profile, options_for_select(["Curious", "Beginner", "Developer"]), data: {
+      action: "profile#select",
+      profile_target: 'select'
+    } %>
+  <% end %>
+</div>
