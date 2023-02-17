@@ -10,7 +10,9 @@ class Book
 
 
   def first_chapter
-    chapters.first
+    chapter = chapters.first
+    raise ActionController::RoutingError, "Not Found" unless chapter
+    chapter
   end
 
 
@@ -46,7 +48,9 @@ class Book
 
 
   def self.find slug
-    all.find { |book| book.slug == slug }
+    book = all.find { |book| book.slug == slug }
+    raise ActionController::RoutingError, "Not Found" unless book
+    book
   end
 
 
