@@ -786,3 +786,58 @@ span.code {
 
 
 }
+
+
+.books {
+  display: flex;
+  justify-content: center;
+
+  .book {
+    margin-right: 1em;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    max-width: 50%;
+
+
+    @include mobile {
+      max-width: 100%;
+    }
+    &:last-child {
+      margin-right: 0;
+    }
+
+    .cover {
+      img {
+        max-width: 50%;
+      }
+    }
+
+    .description {
+      margin-bottom: 1em;
+    }
+
+    .link {
+
+      a {
+        display: block;
+        padding: 0.5em;
+        text-decoration: none;
+        color: $light;
+        background-color: $button;
+        border-radius: 0.2em;
+
+        &:hover {
+          background-color: $link;
+          box-shadow: 0 0 0.5em 0.5em rgba($link, 0.1);
+
+        }
+      }
+    }
+
+
+  }
+
+}

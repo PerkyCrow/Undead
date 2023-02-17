@@ -7,8 +7,13 @@
 
     <div class="app">
       <%= render "shared/header", book: false %>
-      <%= yield %>
-      <%= render "shared/footer" %>
+
+      <div class="main">
+        <div class="content">
+          <%= yield %>
+        </div>
+        <%= render "shared/footer" %>
+      </div>
     </div>
 
   </body>
