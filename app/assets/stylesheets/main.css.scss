@@ -187,7 +187,6 @@ span.code {
         box-shadow: 0 0 1em 0.5em rgba(0, 0, 0, 0.1);
       }
     }
-
   }
 
   .logo {
@@ -231,6 +230,56 @@ span.code {
       color: transparent;
     }
   }
+
+
+  &.sticky {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background: $light;
+    border-bottom: 1px solid #e5e5e5;
+
+    .profile_selector {
+      top: 0;
+      height: 5rem;
+      background: $light;
+      border-bottom: 1px solid #e5e5e5;
+
+      @include mobile {
+        position: initial;
+        width: 100%;
+        left: 0;
+        top: 0;
+        height: auto;
+        border-radius: 0;
+        padding: 0.5em;
+
+        .label {
+          padding-right: 0.5em;
+        }
+      }
+    }
+
+    .logo {
+      height: 5rem;
+      width: 14rem;
+      margin-bottom: 0;
+
+      .bubble, .zombie {
+        display: none;
+      }
+
+      .undead {
+        width: 100%;
+        background-position: bottom -10% left 50%;
+
+        @include mobile {
+          background-position: bottom 0 left 50%;
+        }
+      }
+    }
+
+  }
 }
 
 
@@ -245,6 +294,7 @@ span.code {
     width: 100%;
     left: 0;
     top: 0;
+    margin-bottom: 2em;
   }
 
   nav {
@@ -307,9 +357,7 @@ span.code {
         }
 
       }
-  
     }
-  
   }
 }
 
@@ -471,6 +519,12 @@ span.code {
       max-width: 100%;
       margin-bottom: 1.5em;
     }
+
+    @include mobile {
+      img {
+        max-width: 60%;
+      }
+    }
   }
 
 }
@@ -616,8 +670,6 @@ span.code {
 
 
 .reader_profile {
-  // background: $lighter;
-
   h2 {
     text-align: center;
     font-size: 1.2em;
@@ -636,6 +688,10 @@ span.code {
   .profiles {
     padding: 2em 1em;
     display: flex;
+
+    @include mobile {
+      flex-direction: column;
+    }
   }
 
 
@@ -651,8 +707,14 @@ span.code {
     border-left: 0.1em solid transparent;
     border-right: 0.1em solid transparent;
     padding: 1em 0;
-
     transition: box-shadow ease-in 0.2s;
+
+    @include mobile {
+      width: 100%;
+      margin-bottom: 1em;
+      padding: 0.5em 0;
+      background-color: $dimmer;
+    }
 
     &:hover {
       background-color: $dimmer;
@@ -681,12 +743,22 @@ span.code {
       img {
         width: 80%;
       }
+
+      @include mobile {
+        img {
+          width: 30%;
+        }
+      }
     }
 
     .description {
       padding: 1rem;
       font-size: 0.9em;
       text-align: center;
+
+      @include mobile {
+        padding: 0 1rem;
+      }
     }
 
     .name {
@@ -696,6 +768,10 @@ span.code {
       font-family: $codeFont;
       font-size: 1.25em;
       text-transform: uppercase;
+
+      @include mobile {
+        padding: 0 1rem;
+      }
     }
 
     &.active .name {

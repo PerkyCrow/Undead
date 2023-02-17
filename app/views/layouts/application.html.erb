@@ -6,12 +6,8 @@
   <body>
 
     <div class="app">
-      <header id="header">
-        <%= render "shared/logo" %>
-      </header>
-
+      <%= render "shared/header", book: false %>
       <%= yield %>
-
       <%= render "shared/footer" %>
     </div>
 
