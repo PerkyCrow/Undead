@@ -102,7 +102,7 @@ span.code {
   padding: 0 0.2em;
 }
 
-.hidden {
+.hidden_content {
   display: none;
 }
 
@@ -213,6 +213,7 @@ span.code {
       color: $dark;
       border-radius: 0.25em;
       @include shadow;
+      transition: box-shadow ease-in 0.2s;
       border: 0.1em solid $lighter;
       font-size: 1rem;
       cursor: pointer;
@@ -228,6 +229,11 @@ span.code {
 
       &::-ms-expand {
         display: none;
+      }
+
+      &.changed {
+        transition: box-shadow ease-out 0.2s;
+        box-shadow: 0 0 1em 0.5em rgba(0, 0, 0, 0.1);
       }
     }
 
@@ -282,8 +288,6 @@ span.code {
         &.active {
           box-shadow: inset -5em 0 2em 0 $lighter;
           background: $lighter;
-
-
 
           a {
             color: $active;
@@ -626,6 +630,7 @@ span.code {
     display: flex;
   }
 
+
   .profile {
     width: calc(100% / 3);
     box-sizing: border-box;
@@ -639,6 +644,7 @@ span.code {
     border-right: 0.1em solid transparent;
     padding: 1em 0;
 
+    transition: box-shadow ease-in 0.2s;
 
     &:hover {
       background-color: $dimmer;
@@ -656,7 +662,10 @@ span.code {
       border-right: 0.1em solid $link;
     }
 
-
+    &.changed {
+      box-shadow: 0 0 0.5em 0.5em rgba($link, 0.2);
+      transition: box-shadow ease-out 0.2s;
+    }
 
 
     .image {

@@ -42,10 +42,10 @@ export default class extends Controller {
 
 
 function hide (target) {
-    target.classList.add('hidden')
+    target.classList.add('hidden_content')
 }
 
 
 function show (target) {
-    target.classList.remove('hidden')
+    target.classList.remove('hidden_content')
 }

@@ -25,6 +25,8 @@ export default class extends Controller {
 
         selectTargets.forEach(select => {
             select.value = profileValue
+            select.classList.add('changed')
+            setTimeout(() => select.classList.remove('changed'), 200)
         })
 
         linkTargets.forEach(link => {
@@ -32,6 +34,8 @@ export default class extends Controller {
 
             if (link.dataset.profile === profileValue) {
                 link.classList.add('active')
+                link.classList.add('changed')
+                setTimeout(() => link.classList.remove('changed'), 200)
             }
         })
     }
