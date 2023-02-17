@@ -3,9 +3,9 @@
 <%= content_for :keywords, @chapter.keywords %>
 
 
-<div class="chapter">
+<div class="chapter" data-controller="reader">
 
-  <div class="time_to_read" data-controller="time-to-read"></div>
+  <div class="time_to_read" data-controller="time"></div>
 
   <div class="category"><%= @chapter.name %></div>
 
