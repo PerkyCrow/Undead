@@ -5,16 +5,17 @@
 <%= book_illustration book, "paint_canvas.png", "Painting on a canvas" %>
 
 
-<h2 data-reader-target="beginner developer">Canvas API</h2>
 
-<p data-reader-target="beginner developer">As we are not using any framework or library, we will need to use the Canvas API provided by web browsers. However, don't worry, all the functionalities we need are supported by modern browsers these days.</p>
+<h2 data-reader-target="beginner developer">>Canvas API</h2>
+
+<p data-reader-target="beginner developer">>As we are not using any framework or library, we will need to use the Canvas API provided by web browsers.<span data-reader-target="beginner"> However, don't worry, all the functionalities we need are supported by modern browsers these days.</span></p>
 
 <div class="beginners_note" data-reader-target="beginner">
   <p>If you are completely new to coding, you might be wondering where to start.</p>
 
   <p>Introducing <%= link_with_icon "Silent Teacher", "https://silentteacher.toxicode.fr/", "silent_teacher" %> and <%= link_with_icon "Compute It", "https://compute-it.toxicode.fr/", "compute_it" %> – two games designed to help you get started with the fundamentals of coding.</p>
 
-  <p>In <%= link_with_icon "Silent Teacher", "https://silentteacher.toxicode.fr/", "silent_teacher" %>Silent Teacher</link-with-icon>, you will learn by observation and deduction, while <%= link_with_icon "Compute It", "https://compute-it.toxicode.fr/", "compute_it" %> challenges you to run scripts as if you were a computer.</p>
+  <p>In <%= link_with_icon "Silent Teacher", "https://silentteacher.toxicode.fr/", "silent_teacher" %>, you will learn by observation and deduction, while <%= link_with_icon "Compute It", "https://compute-it.toxicode.fr/", "compute_it" %> challenges you to run scripts as if you were a computer.</p>
 
   <p>Give these games a try, you will be surprised at how quickly you can pick up the basics.</p>
 
@@ -23,4 +24,69 @@
   <p>So take your time, think things through, and you will get there.</p>
 </div>
 
-<p data-reader-target="beginner">If you open the source code (provided at the end of the previous chapter), you will notice that we have already created a canvas element in the index.html file. Our next step is to initialize it using JavaScript.</p>
+<p data-reader-target="beginner">If you open the <%= link_with_icon "source code", "https://github.com/Perky-Crow/fallen_hero/tree/c1", "github" %> (provided at the end of the previous chapter), you will notice that we already have a <span class="code">&lt;canvas&gt;</span> element in the <span class="code">index.html</span> file.</p>
+
+<p data-reader-target="beginner developer">Our next step is to initialize it using JavaScript. I have created 2 JavaScript files: <span class="code">toy.js</span> and <span class="code">game.js</span>. <span class="code">toy.js</span> will be used to practice and test the tools we will create without cluttering <span class="code">game.js</span>, which will be exclusively dedicated to creating our game.</p>
+
+<div data-reader-target="beginner developer">
+<%= source_code "javascript", "toy.js" do %>
+async function init () {
+    const canvas = document.querySelector('#fallen_hero .game_canvas')
+    const ctx = canvas.getContext('2d')
+}
+
+window.addEventListener('load', init)
+<% end %>
+</div>
+
+
+
+<h2>Let's draw rectangles</h2>
+
+<aside data-reader-target="curious">
+  <p>I left some some bits of code in this section for <strong>curious</strong> readers. They are optional to read, but short enough to be understood quickly, even if you've never coded before.</p>
+</aside>
+
+
+<p>It must be admitted that the <%= link_with_icon "Canvas API", "https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API", "mdn" %> can be somewhat complex, which is why there are frameworks available to simplify its usage. However, for the purpose of our game, we only require a few basic functions to display rectangles and images.</p>
+
+<p>Let's create a first function that <%= link_with_icon "draws a rectangle", "https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/fillRect", "mdn" %> using the Canvas API.</p>
+
+<%= source_code "javascript", "toy.js" do %>
+function drawRectangle (ctx, {x, y, width, height, color}) {
+    ctx.fillStyle = color
+    ctx.fillRect(x, y, width, height)
+}
+<% end %>
+
+<p>Having created this function, we can now rely exclusively on it instead of using the Canvas API directly.</p>
+
+<p>This marks the beginning of <strong>building our toolbox</strong> by creating such tools that will be useful in the future.</p>
+
+<p>Now we can draw some rectangles on the canvas.</p>
+
+<%= source_code "javascript", "toy.js" do %>
+drawRectangle(ctx, {
+    x: 50,
+    y: 50,
+    width: 100,
+    height: 100,
+    color: 'black'
+})
+
+drawRectangle(ctx, {
+    x: 200,
+    y: 50,
+    width: 150,
+    height: 150,
+    color: 'white'
+})
+<% end %>
+
+<p>By refreshing your page, you should see two rectangles appear.</p>
+
+<%= book_illustration book, "draw_rectangles.png", "Drawing rectangles" %>
+
+
+
+<h2>Now let's draw some images</h2>

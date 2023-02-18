@@ -1,0 +1,7 @@
+<div class="neat_code" data-controller="code">
+  <% if title %>
+    <div class="neat_code_title">→ <%= title %></div>
+  <% end %>
+  <span class="copy_button" data-action="click->code#copy" data-code-target="copy">Copy</span>
+  <pre><code class="hljs <%= language %>" data-code-target="code"><%= source %></code></pre>
+</div>

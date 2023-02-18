@@ -16,4 +16,12 @@ module ChaptersHelper
     link_to text, href, target: target, class: "link_with_icon #{icon}_icon"
   end
 
+  def source_code language, title = nil, &block
+    source = capture(&block)
+
+    source.gsub!(/\A\s*\n/, '') # remove first empty line
+
+    render 'chapters/code', language: language, source: source, title: title
+  end
+
 end

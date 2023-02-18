@@ -1,5 +1,5 @@
 @mixin mobile {
-  @media (max-width: 600px) {
+  @media (max-width: 1400px) {
       @content;
   }
 }
@@ -121,6 +121,7 @@ span.code {
   @include mobile {
     width: 100%;
     margin: 0;
+    overflow-x: hidden;
 
     .content {
       width: 100%;
@@ -483,6 +484,19 @@ span.code {
     margin-top: -1em;
     padding: 1em;
     box-shadow: 0 0.5em 1em -0.25em rgb(211, 210, 203);
+
+    p:last-child {
+      margin-bottom: 0;
+    }
+
+    @include mobile {
+      position: relative;
+      left: 0;
+      width: auto;
+      margin: 2em;
+      background-color: $dimmer;
+      padding: 1em 0.5em;
+    }
   }
 
   p, h2, h3 {
@@ -534,7 +548,7 @@ span.code {
 
     @include mobile {
       img {
-        max-width: 60%;
+        max-width: 75%;
       }
     }
   }
@@ -583,6 +597,77 @@ span.code {
 }
 
 
+pre code.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 1em;
+}
+
+code.hljs {
+  padding: 3px 5px;
+}
+
+.hljs {
+  color: #a9b7c6;
+  background: #282b2e;
+}
+
+.hljs-bullet,
+.hljs-literal,
+.hljs-number,
+.hljs-symbol {
+  color: #6897bb;
+}
+
+.hljs-deletion,
+.hljs-keyword,
+.hljs-selector-tag {
+  color: #cc7832;
+}
+
+.hljs-link,
+.hljs-template-variable,
+.hljs-variable {
+  color: #629755;
+}
+
+.hljs-comment,
+.hljs-quote {
+  color: grey;
+}
+
+.hljs-meta {
+  color: #bbb529;
+}
+
+.hljs-addition,
+.hljs-attribute,
+.hljs-string {
+  color: #6a8759;
+}
+
+.hljs-section,
+.hljs-title,
+.hljs-type {
+  color: #ffc66d;
+}
+
+.hljs-name,
+.hljs-selector-class,
+.hljs-selector-id {
+  color: #e8bf6a;
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: 700;
+}
+
+
+
 .neat_code {
   position: relative;
   margin-bottom: 1.5em;
@@ -619,7 +704,7 @@ span.code {
   right: 0em;
   cursor: pointer;
   background-color: white;
-  background-image: url(../assets/images/copy_icon.png);
+  background-image: url(icons/copy_icon.png);
   background-position: 0.5em 0.25em, 0 0;
   background-repeat: no-repeat, repeat;
   background-size: 1.25em;
