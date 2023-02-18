@@ -6,7 +6,7 @@
 
 
 
-<h2 data-reader-target="beginner developer">>Canvas API</h2>
+<h2 data-reader-target="beginner developer">Canvas API</h2>
 
 <p data-reader-target="beginner developer">As we are not using any framework or library, we will need to use the Canvas API provided by web browsers.<span data-reader-target="beginner"> However, don't worry, all the functionalities we need are supported by modern browsers these days.</span></p>
 
@@ -91,9 +91,15 @@ drawRectangle(ctx, {
 
 <h2>Now let's draw some images</h2>
 
-<p>Drawing images can be a bit tricky, as we need to wait for the image to load before we can display it.<span data-reader-target="beginner developer"> To achieve this, we will use an asynchronous function that will allow us to create a promise.</span></p>
+<p>Drawing images can be a bit tricky, as we need to wait for the image to load before we can display it.</p>
 
-<p data-reader-target="beginner developer">So, let's start by creating a function to load an image. In addition, we will create a new file named utils.js to store our utility functions.</p>
+<aside data-reader-target="beginner developer">
+  <p>
+    To achieve this, we will use an <%= link_with_icon "asynchronous", "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function", "mdn" %> function that will allow us to create a <%= link_with_icon "promise", "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise", "mdn" %>.
+  </p>
+</aside>
+
+<p data-reader-target="beginner developer">So, let's start by creating a function to load an image. In addition, we will create a new file named <span class="code">utils.js</span> to store our utility functions.</p>
 
 <%= source_code "javascript", "utils.js" do %>
 export function loadImage (path) {
