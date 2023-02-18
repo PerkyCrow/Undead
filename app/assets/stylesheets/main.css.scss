@@ -448,13 +448,14 @@ span.code {
     position: absolute;
     top: 0;
     right: 0;
-    padding: 0.6em 1em 0.5em 2em;
+    padding: 0.3em 1em 0.5em 2em;
     border-radius: 0 0 0 0.3em;
     font-size: 0.8em;
     font-weight: bold;
     color: #666;
-    background: url(clock_icon.png) no-repeat 0.5em 0.5em, $dimmer;
+    background: url(icons/clock_icon.png) no-repeat 0.5em 0.5em, $dimmer;
     background-size: 1.25em;
+    min-height: 1.6em;
   }
 
   .category {

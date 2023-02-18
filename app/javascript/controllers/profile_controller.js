@@ -1,24 +1,10 @@
-import {Controller} from '@hotwired/stimulus'
+import BaseController from './base_controller'
 import {application} from './application'
 
 
-
-export default class extends Controller {
+export default class extends BaseController {
 
     static targets = ['select', 'link']
-
-    static values = {
-        profile: {type: String, default: application.getData('profile')}
-    }
-
-    connect () {
-        this.updateListener = this.update.bind(this)
-        window.addEventListener('profile-changed', this.update.bind(this))
-    }
-
-    disconnect () {
-        window.removeEventListener('profile-changed', this.update.bind(this))
-    }
 
     profileValueChanged () {
         const {selectTargets, linkTargets, profileValue} = this
@@ -47,10 +33,6 @@ export default class extends Controller {
     choose (event) {
         event.preventDefault()
         application.updateProfile(event.currentTarget.dataset.profile)
-    }
-
-    update (event) {
-        this.profileValue = event.detail.profile
     }
 
 }
