@@ -1,12 +1,12 @@
 module ApplicationHelper
 
   def page_title
-    "undead.js | " + (content_for?(:title) ? content_for(:title) : "A JavaScript Game Development Interactive Book")
+    "undead.js | " + (content_for?(:title) ? content_for(:title) : "A collection of JavaScript Game Development Interactive Books")
   end
 
 
   def page_description
-    content_for?(:description) ? content_for(:description) : "An interactive book that takes you on a journey of creating a JavaScript video game, with multiple levels of reading."
+    content_for?(:description) ? content_for(:description) : "A collection of interactive books that takes you on a journey of creating JavaScript video games, with multiple levels of reading."
   end
 
 
