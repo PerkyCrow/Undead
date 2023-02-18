@@ -85,8 +85,8 @@ class Book
         Chapter.new(
           name:        "Chapter 1",
           title:       "Fresh start",
-          description: "",
-          keywords:    "VSCode, http, server, coding, basics"
+          description: "Learn how to create JavaScript games without extra libraries or tools",
+          keywords:    "Pure JavaScript, VSCode, chrome, http, server, coding, basics, game development"
         ),
         Chapter.new(
           name:        "Chapter 2",
