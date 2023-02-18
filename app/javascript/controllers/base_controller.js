@@ -10,6 +10,7 @@ export default class extends Controller {
     }
 
     connect () {
+        this.profileValue = application.getData('profile')
         this.updateListener = this.update.bind(this)
         window.addEventListener('profile-changed', this.update.bind(this))
     }
