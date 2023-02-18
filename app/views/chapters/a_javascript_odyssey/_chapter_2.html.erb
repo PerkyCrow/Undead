@@ -8,7 +8,7 @@
 
 <h2 data-reader-target="beginner developer">>Canvas API</h2>
 
-<p data-reader-target="beginner developer">>As we are not using any framework or library, we will need to use the Canvas API provided by web browsers.<span data-reader-target="beginner"> However, don't worry, all the functionalities we need are supported by modern browsers these days.</span></p>
+<p data-reader-target="beginner developer">As we are not using any framework or library, we will need to use the Canvas API provided by web browsers.<span data-reader-target="beginner"> However, don't worry, all the functionalities we need are supported by modern browsers these days.</span></p>
 
 <div class="beginners_note" data-reader-target="beginner">
   <p>If you are completely new to coding, you might be wondering where to start.</p>
@@ -90,3 +90,75 @@ drawRectangle(ctx, {
 
 
 <h2>Now let's draw some images</h2>
+
+<p>Drawing images can be a bit tricky, as we need to wait for the image to load before we can display it.<span data-reader-target="beginner developer"> To achieve this, we will use an asynchronous function that will allow us to create a promise.</span></p>
+
+<p data-reader-target="beginner developer">So, let's start by creating a function to load an image. In addition, we will create a new file named utils.js to store our utility functions.</p>
+
+<%= source_code "javascript", "utils.js" do %>
+export function loadImage (path) {
+    return new Promise((resolve, reject) => {
+        const image = new Image()
+        image.src = path
+        image.onload = () => resolve(image)
+        image.onerror = reject
+    })
+}
+<% end %>
+
+<p data-reader-target="beginner">To use this function in <span class="code">toy.js</span>, we need to import it at the top of the file.</p>
+
+<div data-reader-target="beginner">
+<%= source_code "javascript", "toy.js" do %>
+import {loadImage} from './utils.js'
+
+const heroImage = await loadImage('images/hero_run_01.png')
+<% end %>
+</div>
+
+<p>Now let's take a look at the Canvas API to <%= link_with_icon "draw an image", "https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/drawImage", "mdn" %> and create our own function as we did for rectangles.</p>
+
+<p data-reader-target="beginner developer"> By the way, this is the right time to move our <span class="code">drawRectangle</span> function to the separate file <span class="code">utils.js</span>.</p>
+
+<%= source_code "javascript", "utils.js" do %>
+export function drawImage (ctx, {x, y, width, height, image}) {
+    ctx.drawImage(image, x, y, width, height)
+}
+<% end %>
+
+<p>Then we can draw our hero on the canvas.</p>
+
+<%= source_code "javascript", "toy.js" do %>
+const heroImage = await loadImage('images/hero_run_01.png')
+drawImage(ctx, {
+    x: 50,
+    y: 50,
+    width: 100,
+    height: 100,
+    image: heroImage
+})
+<% end %>
+
+<p>Here is the result.</p>
+
+<%= book_illustration book, "paint_hero.png", "Drawing image" %>
+
+
+
+<h2>Our progress so far</h2>
+
+<p>We have unlocked the following tools:</p>
+
+<ul>
+  <li>Drawing a rectangle</li>
+  <li>Loading an image</li>
+  <li>Drawing an image</li>
+</ul>
+
+<p>This is all we need to draw the game scene, which will be the subject of the next chapter.</p>
+
+
+<%= render "chapter_sources",
+  download_url: "https://github.com/Perky-Crow/fallen_hero/releases/tag/c2",
+  explore_url: "https://github.com/Perky-Crow/fallen_hero/tree/c2"
+%>

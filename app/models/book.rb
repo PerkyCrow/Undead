@@ -91,8 +91,8 @@ class Book
         Chapter.new(
           name:        "Chapter 2",
           title:       "The Canvas",
-          description: "",
-          keywords:    ""
+          description: "Discover the benefits of using the Canvas API for creating mini-games",
+          keywords:    "Canvas, fillRect, fillColor, drawImage, Promise, loadImage, MDN, Canvas API"
         ),
         Chapter.new(
           name:        "Chapter 3",
