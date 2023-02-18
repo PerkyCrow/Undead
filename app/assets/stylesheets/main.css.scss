@@ -98,7 +98,7 @@ em {
 span.code {
   font-weight: bold;
   font-size: 0.9em;
-  background-color: rgba(255,255,255,0.25);
+  background-color: $lighter;
   padding: 0 0.2em;
 }
 
@@ -237,13 +237,13 @@ span.code {
     top: 0;
     z-index: 1;
     background: $light;
-    border-bottom: 1px solid #e5e5e5;
+    box-shadow: 0 1em 1em -1em rgba(0, 0, 0, 0.1);
 
     .profile_selector {
       top: 0;
       height: 5rem;
       background: $light;
-      border-bottom: 1px solid #e5e5e5;
+      box-shadow: 0 1em 1em -1em rgba(0, 0, 0, 0.1);
 
       @include mobile {
         position: initial;
@@ -623,26 +623,71 @@ span.code {
   margin: 0;
   text-indent: 1.1em;
   text-decoration: none;
-  background-color: rgba(255, 255, 255, 0.25);
+  background-color: rgba($lighter, 0.75);
   border-radius: 0.15em;
   padding: 0 0.2em;
   line-height: 1.4;
+  border-bottom: 1px solid rgba($link, 0.25);
+  transition: background-color 0.15s ease-in-out, border-bottom 0.15s ease-in-out;
+
+  &:hover {
+    border-bottom: 1px solid $link;
+    background-color: $lighter;
+  }
+
+  &.chrome_icon {
+    background-image: url(icons/chrome_icon.png);
+  }
+
+  &.npm_icon {
+    background-image: url(icons/npm_icon.png);
+  }
+
+  &.clock_icon {
+    background-image: url(icons/clock_icon.png);
+  }
+
+  &.copy_icon {
+    background-image: url(icons/copy_icon.png);
+  }
+
+  &.mdn_icon {
+    background-image: url(icons/mdn_icon.png);
+  }
+
+  &.vscode_icon {
+    background-image: url(icons/vscode_icon.png);
+  }
+
+  &.zip_icon {
+    background-image: url(icons/zip_icon.png);
+  }
 }
 
-
-.link_with_icon:hover {
-  background-color: rgba(255, 255, 255, 0.75);
-}
 
 
 .beginners_note {
-  background: url(../assets/images/beginners_note.png) no-repeat 0.8em 0em, #e2e0dc;
+  background: url(beginners_note.png) no-repeat 0.8em 0em, #e2e0dc;
   background-size: 100px;
-  margin: 0 2em 2rem 2em;
-  padding: 1.5em 0em 0.1em 4em;
+  margin: 0 2rem 2rem 2rem;
+  padding: 1.5rem 0 1.5rem 4rem;
   font-size: 0.9em;
   color: #44382c;
   border-radius: 0.2em;
+
+  span.code {
+    background-color: $light;
+  }
+
+  p:last-child {
+    margin-bottom: 0;
+  }
+
+  @include mobile {
+    background: #e2e0dc;
+    margin: 0 1em 2rem 1em;
+    padding: 1em 0;
+  }
 }
 
 

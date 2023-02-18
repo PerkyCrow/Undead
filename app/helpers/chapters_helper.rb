@@ -12,4 +12,8 @@ module ChaptersHelper
     request.path == chapter_path(book.slug, chapter.slug) ? 'active' : nil
   end
 
+  def link_with_icon text, href, icon, target = "_blank"
+    link_to text, href, target: target, class: "link_with_icon #{icon}_icon"
+  end
+
 end

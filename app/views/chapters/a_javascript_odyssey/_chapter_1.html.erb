@@ -6,17 +6,27 @@
 
 <h2>What is this book about?</h2>
 
-<p>The goal of this book is to show how to make a game without using any extra libraries or tools. Even though these tools are out there, doing it without them helps us understand what's happening under the hood.</p>
+<p data-reader-target="beginner developer">As a developer, you have the power to bring your ideas to life, just like a painter creates a masterpiece with a brush or a sculptor carves a beautiful statue from stone. But like any artist, it is up to you to develop <strong>your own unique style</strong> and approach to your craft.</p>
 
-<p>It's not a requirement for becoming a game developer, but it's fun and encourages to think creatively about how to make the most of what we have.</p>
+<p>The goal of this first book is to show how to make a game without using any extra <span data-reader-target="beginner developer"><strong>libraries</strong> or </span><strong>tools</strong>. Even though these tools are out there, doing it without them helps us understand what's happening under the hood.</p>
+
+<p>It's not a requirement for becoming a game developer, but it's <strong>fun</strong> and encourages to think creatively about how to <strong>make the most of what we have</strong>.</p>
 
 <p>So, we put all the extra tools in a box and get started.</p>
 
 <%= book_illustration book, "packing_libs.png", "Packing all the extra libraries in a box" %>
 
-
 <h2>What do we need?</h2>
 
-<p>We still need a few basic tools to make a game in JavaScript. We need a code editor, a web browser, and a web server.</p>
+<p>
+  We still need a few primary tools to make a game in JavaScript.
+  We need a <strong>code editor</strong><span data-reader-target="beginner developer">, a <strong>web server</strong></span> and a <strong>web browser</strong>.
+</p>
 
-<p>We will use Google Chrome as our web browser and VSCode as our code editor. For the web server, I usually use npm's http-server.</p>
+<p data-reader-target="beginner developer">I will use <%= link_with_icon "Google Chrome", "https://www.google.com/chrome/", "chrome" %> as our web browser and <%= link_with_icon "VSCode", "https://code.visualstudio.com/", "vscode" %> as our code editor. For the web server, I usually use npm's <%= link_with_icon "http-server", "https://www.npmjs.com/package/http-server", "npm" %>.</p>
+
+<div class="beginners_note" data-reader-target="beginner">
+  <p>There are numerous alternatives available for quickly creating a local web server. I suggest conducting a search on your preferred search engine.</p>
+
+  <p>Once you've installed your chosen tool, you can create a new project folder and add your HTML, CSS, and JavaScript files to it. You can then access your web application by typing <span class="code">localhost</span> in your web browser's address bar.</p>
+</div>
