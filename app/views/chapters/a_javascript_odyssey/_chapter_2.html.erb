@@ -1,0 +1,26 @@
+<p>There are various ways to draw on a web page. The first one that comes to mind is using <%= link_with_icon "HTML", "https://developer.mozilla.org/en-US/docs/Web/HTML", "mdn" %> and <%= link_with_icon "CSS", "https://developer.mozilla.org/en-US/docs/Web/CSS", "mdn" %>. However, there are also more powerful tools such as <%= link_with_icon "SVG", "https://developer.mozilla.org/en-US/docs/Web/SVG", "mdn" %> and <%= link_with_icon "Canvas", "https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API", "mdn" %>.</p>
+
+<p>When it comes to creating our mini-game, using Canvas is likely the most suitable method. Therefore, it is the approach we will adopt.</p>
+
+<%= book_illustration book, "paint_canvas.png", "Painting on a canvas" %>
+
+
+<h2 data-reader-target="beginner developer">Canvas API</h2>
+
+<p data-reader-target="beginner developer">As we are not using any framework or library, we will need to use the Canvas API provided by web browsers. However, don't worry, all the functionalities we need are supported by modern browsers these days.</p>
+
+<div class="beginners_note" data-reader-target="beginner">
+  <p>If you are completely new to coding, you might be wondering where to start.</p>
+
+  <p>Introducing <%= link_with_icon "Silent Teacher", "https://silentteacher.toxicode.fr/", "silent_teacher" %> and <%= link_with_icon "Compute It", "https://compute-it.toxicode.fr/", "compute_it" %> – two games designed to help you get started with the fundamentals of coding.</p>
+
+  <p>In <%= link_with_icon "Silent Teacher", "https://silentteacher.toxicode.fr/", "silent_teacher" %>Silent Teacher</link-with-icon>, you will learn by observation and deduction, while <%= link_with_icon "Compute It", "https://compute-it.toxicode.fr/", "compute_it" %> challenges you to run scripts as if you were a computer.</p>
+
+  <p>Give these games a try, you will be surprised at how quickly you can pick up the basics.</p>
+
+  <p>And if you ever get stuck on a challenge, remember that a computer is a logical, straightforward creature – it will always do exactly what you tell it to, no more and no less.</p>
+
+  <p>So take your time, think things through, and you will get there.</p>
+</div>
+
+<p data-reader-target="beginner">If you open the source code (provided at the end of the previous chapter), you will notice that we have already created a canvas element in the index.html file. Our next step is to initialize it using JavaScript.</p>
