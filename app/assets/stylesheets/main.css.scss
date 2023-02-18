@@ -539,6 +539,47 @@ span.code {
     }
   }
 
+  .chapter_sources {
+
+    margin: 1em;
+
+    .description {
+      text-align: center;
+      font-family: $codeFont;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+      font-size: 0.8em;
+      line-height: 1;
+    }
+
+    .links {
+      display: flex;
+      justify-content: center;
+
+      a {
+        display: block;
+        margin-right: 1rem;
+        padding: 0.5rem 1rem;
+        border-radius: 0.2em;
+        background: $button;
+        color: $light;
+        text-decoration: none;
+        font-family: $codeFont;
+        text-transform: uppercase;
+        font-size: 0.8em;
+      }
+
+      a:hover {
+        background: $link;
+      }
+
+      a:last-child {
+        margin-right: 0;
+      }
+    }
+
+  }
+
 }
 
 
