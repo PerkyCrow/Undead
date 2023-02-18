@@ -6,24 +6,24 @@
 
   <div class="profiles">
 
-    <%= link_to "", class: "profile", data: {
+    <%= link_to "#", class: "profile", data: {
       action: "profile#choose",
       profile_target: "link",
       profile: "Curious"
     } do %>
-      <div class="image"><%= image_tag "profiles/curious.png" %></div>
+      <div class="image"><%= image_tag "profiles/curious.png", alt: "A curious opening a door" %></div>
       <div class="name">Curious</div>
       <div class="description">
         If you are not a developer or not interested in technical details, this book will be presented in the form of <strong>a making-of</strong>.
       </div>
     <% end %>
 
-    <%= link_to "", class: "profile", data: {
+    <%= link_to "#", class: "profile", data: {
       action: "profile#choose",
       profile_target: "link",
       profile: "Beginner"
     } do %>
-      <div class="image"><%= image_tag "profiles/beginner.png" %></div>
+      <div class="image"><%= image_tag "profiles/beginner.png", alt: "A beginner on his desk" %></div>
       <div class="name">Beginner</div>
       <div class="description">
         This book will be presented with all technical details and <strong>notes dedicated to beginners</strong>.
@@ -31,12 +31,12 @@
     <% end %>
 
 
-    <%= link_to "", class: "profile", data: {
+    <%= link_to "#", class: "profile", data: {
       action: "profile#choose",
       profile_target: "link",
       profile: "Developer"
     } do %>
-      <div class="image"><%= image_tag "profiles/developer.png" %></div>
+      <div class="image"><%= image_tag "profiles/developer.png", alt: "A developer on his desk" %></div>
       <div class="name">Developer</div>
       <div class="description">
         This book will be presented with <strong>all technical details</strong> without the notes for beginners.
