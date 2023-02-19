@@ -98,7 +98,7 @@ class Book
           name:        "Chapter 3",
           title:       "Painting a scene",
           description: "",
-          keywords:    ""
+          keywords:    "Canvas, fillRect, fillColor, drawImage, Promise, loadImage, MDN, Canvas API"
         ),
         Chapter.new(
           name:        "Chapter 4",
@@ -133,8 +133,8 @@ class Book
         Chapter.new(
           name:        "Chapter 9",
           title:       "End",
-          description: "",
-          keywords:    ""
+          description: "Learn about game development approaches and get insights on how to develop games using pure JavaScript",
+          keywords:    "PIXI.js, Discord, Twitter, insights"
         )
       ]
     )
