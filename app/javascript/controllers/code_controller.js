@@ -9,8 +9,12 @@ export default class extends Controller {
     static targets = ['code', 'copy']
 
     connect () {
-        this.sourceCode = this.codeTarget.innerText
+        this.sourceCode = this.codeTarget.innerHTML
         hljs.highlightElement(this.codeTarget)
+    }
+
+    disconnect () {
+        this.codeTarget.innerHTML = this.sourceCode
     }
 
     copy () {
