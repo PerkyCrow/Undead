@@ -174,8 +174,8 @@ span.code {
       cursor: pointer;
 
       option {
-        color: inherit;
-        background: linear-gradient(to left, rgba($dimmer, 1) 2em, rgba(0, 0, 0, 0.0) 2em), linear-gradient(35deg, $light, $lighter);
+        color: $dark;
+        background: $light;
       }
 
       &:focus {
