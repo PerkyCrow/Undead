@@ -1,5 +1,5 @@
 import {Controller} from '@hotwired/stimulus'
-import {application} from './application'
+import {application} from 'controllers/application'
 
 
 

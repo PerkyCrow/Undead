@@ -1,4 +1,4 @@
-import BaseController from './base_controller'
+import BaseController from 'controllers/base_controller'
 import getReadingTime from 'libs/reading_time.js'
 
 

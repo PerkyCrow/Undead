@@ -1,5 +1,5 @@
-import BaseController from './base_controller'
-import {application} from './application'
+import BaseController from 'controllers/base_controller'
+import {application} from 'controllers/application'
 
 
 
