@@ -28,7 +28,7 @@
 
   <div class="read_next">
     <span class="category">Next: <%= next_chapter.name %></span><br>
-    <%= link_to next_chapter.title, chapter_path(@book.slug, next_chapter.slug) %>
+    <%= link_to next_chapter.title, chapter_path(@book, next_chapter) %>
   </div>
 
 <% end %>

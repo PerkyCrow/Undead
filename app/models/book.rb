@@ -72,7 +72,7 @@ class Book
       author:       "Perky Crow",
       author_url:   "https://www.perkycrow.com",
       credits:      %{
-        Art & Illustrations by [**Ash**](https://www.instagram.com/ashmosnier/) |
+        Game Art & Illustrations by [**Ash**](https://www.instagram.com/ashmosnier/) |
         Written by [**Hugeen**](https://hugeen.com/)
       },
       chapters: [
@@ -97,7 +97,7 @@ class Book
         Chapter.new(
           name:        "Chapter 3",
           title:       "Painting a scene",
-          description: "",
+          description: "Composing a game scene using only JavaScript and the Canvas API",
           keywords:    "Canvas, fillRect, fillColor, drawImage, Promise, loadImage, MDN, Canvas API"
         ),
         Chapter.new(

@@ -18,5 +18,5 @@
 
 <div class="read_next">
   <span class="category">Next: <%= @book.first_chapter.name %></span><br>
-  <%= link_to @book.first_chapter.title, chapter_path(@book.slug, @book.first_chapter.slug) %>
+  <%= link_to @book.first_chapter.title, chapter_path(@book, @book.first_chapter) %>
 </div>

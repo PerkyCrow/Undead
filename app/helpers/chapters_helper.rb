@@ -9,7 +9,7 @@ module ChaptersHelper
   end
 
   def chapter_link_class book, chapter
-    request.path == chapter_path(book.slug, chapter.slug) ? 'active' : nil
+    request.path == chapter_path(book, chapter) ? 'active' : nil
   end
 
   def link_with_icon text, href, icon, target = "_blank"
@@ -22,6 +22,10 @@ module ChaptersHelper
     source.gsub!(/\A\s*\n/, '') # remove first empty line
 
     render 'chapters/code', language: language, source: source, title: title
+  end
+
+  def chapter_path book, chapter
+    "/#{book.slug}/#{chapter.slug}"
   end
 
 end
