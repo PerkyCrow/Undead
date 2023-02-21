@@ -1,5 +1,5 @@
 import {Application} from '@hotwired/stimulus'
-import {saveData, getData, setDefaultData} from '../libs/storage'
+import {saveData, getData, setDefaultData} from 'libs/storage'
 
 
 const application = Application.start()

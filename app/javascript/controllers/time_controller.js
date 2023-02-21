@@ -1,5 +1,5 @@
 import BaseController from './base_controller'
-import getReadingTime from '../libs/reading_time.js'
+import getReadingTime from 'libs/reading_time.js'
 
 
 export default class extends BaseController {
