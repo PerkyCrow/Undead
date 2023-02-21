@@ -175,7 +175,7 @@ span.code {
 
       option {
         color: inherit;
-        background-color: $accent;
+        background: linear-gradient(to left, rgba($dimmer, 1) 2em, rgba(0, 0, 0, 0.0) 2em), linear-gradient(35deg, $light, $lighter);
       }
 
       &:focus {
