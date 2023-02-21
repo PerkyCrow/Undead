@@ -1,8 +1,300 @@
-Plan du chapitre :
+<p>Thanks to our own toolbox, we can already paint a scene, but let's not rush it. First, let's create a new tool. This time, it won't be a developer tool, but a <strong>scene designer tool</strong>.</p>
 
-Illustration : Le personnage arose un arbre
+<%= book_illustration book, "character_plant.png", "Plant tree" %>
 
-Changer de scale
-Créer une classe renderer
-Charger toutes nos images d'un coup
-Dessiner la scene
+<h2>The right scale</h2>
+
+<p>In the previous chapter, we drew a character by giving it a <span class="code">width</span> and <span class="code">height</span> of 100 pixels. However, pixels can be a bit difficult to understand. They are not like the units of measurement we use in everyday life, such as meters (or feet).</p>
+
+<p>We could convert pixels into meters, but I have a better idea. Let's create <strong>our own unit of measurement</strong>. For instance, we could use the <strong>size of our character</strong> as a reference, and this will make it easier to position the other elements of our scene.</p>
+
+<p data-reader-target="beginner developer">The height of our canvas is 400 pixels, and I would like to stack 4 characters on top of each other. We can therefore assume that <strong>1 character</strong> = 100 pixels, so 1 unit can be set to 100 pixels on the canvas <%= link_with_icon "scale", "https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/scale", "mdn" %>.</p>
+
+<%= book_illustration book, "character_scale.png", "Character scale" %>
+
+<p data-reader-target="beginner developer">First, let's create our scale tool using the Canvas API</p>
+
+<div data-reader-target="beginner developer">
+<%= source_code "javascript", "utils.js" do %>
+export function setScale (ctx, scale) {
+    ctx.scale(scale, scale)
+}
+<% end %>
+</div>
+
+<p>Now, we can draw the character by giving it a <span class="code">width</span> and <span class="code">height</span> of <span class="code">1</span>. Let's also draw a square of the same size behind it to see the boundaries of the image.</p>
+
+<%= source_code "javascript", "toy.js" do %>
+setScale(ctx, 100)
+
+const heroImage = await loadImage('images/hero_run_01.png')
+
+drawRectangle(ctx, {
+    x: 0,
+    y: 0,
+    width: 1,
+    height: 1,
+    color: 'orange'
+})
+
+drawImage(ctx, {
+    x: 0,
+    y: 0,
+    width: 1,
+    height: 1,
+    image: heroImage
+})
+<% end %>
+
+<%= book_illustration book, "character_scale_2.png", "Character scale" %>
+
+
+
+<h2>Draw a grid</h2>
+
+<p>Now that we have defined a scale, I think it can be very helpful visually to display a grid.</p>
+
+<p data-reader-target="beginner developer">To achieve this, we will use the <%= link_with_icon "lineTo", "https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineTo", "mdn" %> method of the Canvas 2D API.<span data-reader-target="beginner"> This method allows us to draw a line between two points. To draw a grid, we will therefore draw vertical and horizontal lines</span>.</p>
+
+
+<div data-reader-target="beginner developer">
+<%= source_code "javascript", "utils.js" do %>
+export function drawGrid (ctx) {
+    const {width, height} = ctx.canvas
+    const cellSize = 1
+
+    ctx.strokeStyle = 'rgba(0, 0, 0, 0.25)'
+    ctx.lineWidth = 0.01
+
+    for (let x = 0; x < width; x += cellSize) {
+        ctx.beginPath()
+        ctx.moveTo(x, 0)
+        ctx.lineTo(x, height)
+        ctx.stroke()
+    }
+    for (let y = 0; y < height; y += cellSize) {
+        ctx.beginPath()
+        ctx.moveTo(0, y)
+        ctx.lineTo(width, y)
+        ctx.stroke()
+    }
+}
+<% end %>
+</div>
+
+<p data-reader-target="beginner developer">Once our new tool is in place, we simply need to use it.</p>
+
+<div data-reader-target="beginner developer">
+<%= source_code "javascript", "toy.js" do %>
+setScale(ctx, 100)
+<% end %>
+</div>
+
+<p>Voila! It is now much easier to position the elements in our scene.</p>
+
+<%= book_illustration book, "grid.png", "Display of a grid" %>
+
+
+
+<h2>Load all of the images</h2>
+
+<p>At the moment, we have only loaded one image, but we will need many more for our project. Therefore, we will create a function that loads all of the necessary images at once. This will greatly simplify the process.</p>
+
+<p data-reader-target="beginner developer">We can simply reuse our <span class="code">loadImage</span> tool and loop through a collection of images. This will enable us to load all of the necessary images with minimal effort.</p>
+
+<div data-reader-target="beginner developer">
+<%= source_code "javascript", "utils.js" do %>
+export async function loadImages (collection) {
+    const images = {}
+
+    for (let name in collection) {
+        images[name] = await loadImage(collection[name])
+    }
+
+    return images
+}
+<% end %>
+</div>
+
+<p>We can use this new function to load two images: the character image and the tree image. And display them side by side to ensure that everything is functioning properly.</p>
+
+<%= source_code "javascript", "toy.js" do %>
+const images = await loadImages({
+    hero1: 'images/hero_run_01.png',
+    tree1: 'images/tree_01.png'
+})
+
+drawImage(ctx, {
+    x: 0,
+    y: 0,
+    width: 1,
+    height: 1,
+    image: images.hero1
+})
+
+drawImage(ctx, {
+    x: 1,
+    y: 0,
+    width: 2,
+    height: 2,
+    image: images.tree1
+})
+<% end %>
+
+<%= book_illustration book, "load_images.png", "A character and a tree, side by side" %>
+
+<p data-reader-target="beginner developer">Since there are many files to load, I suggest creating a separate file that lists all of the necessary images.<span data-reader-target="beginner"> We can then import this file into our main file and load all of the images at once. This will simplify the process significantly.</span></p>
+
+<div data-reader-target="beginner">
+<%= source_code "javascript", "image_paths.js" do %>
+const imagePaths = {
+    hero1:     'images/hero_run_01.png',
+    hero2:     'images/hero_run_02.png',
+    hero3:     'images/hero_run_03.png',
+
+    // ... and so on
+
+    tech5:     'images/tech_05.png',
+    tech6:     'images/tech_06.png',
+    tech7:     'images/tech_07.png'
+}
+
+export default imagePaths
+<% end %>
+</div>
+
+
+<h2>What exactly is a scene?</h2>
+
+<p>When we code, everything is somewhat arbitrary. There isn't really a "<strong>scene</strong>" - everything is an abstraction. In the case of our game, we can consider a <strong>scene</strong> as an object that contains all of the game elements.</p>
+
+<p>Therefore, I suggest creating a Scene class, in which we can store all of the elements to be displayed.</p>
+
+<%= source_code "javascript", "scene.js" do %>
+export default class Scene {
+
+    constructor () {
+        this.elements = []
+    }
+
+    add (object) {
+        this.elements.push(object)
+    }
+
+}
+<% end %>
+
+<p>We will also need a function that allows us to display the contents of a scene.</p>
+
+<%= source_code "javascript", "utils.js" do %>
+export function drawScene (ctx, scene) {
+    scene.elements.forEach(element => {
+        drawImage(ctx, element)
+    })
+}
+<% end %>
+
+<p data-reader-target="beginner developer">Now, let's connect all of this to our main file (<span class="code">toy.js</span>). This step may not have changed the display itself, but it is an important transition from displaying images on a canvas to displaying elements in a scene. This will unlock new possibilities that we will explore very soon.</p>
+
+<div data-reader-target="beginner developer">
+<%= source_code "javascript", "toy.js" do %>
+    const scene = new Scene()
+
+    scene.add({
+        x: 0,
+        y: 0,
+        width: 1,
+        height: 1,
+        image: images.hero1
+    })
+
+    scene.add({
+        x: 1,
+        y: 0,
+        width: 2,
+        height: 2,
+        image: images.tree1
+    })
+
+    drawScene(ctx, scene)
+<% end %>
+</div>
+
+
+
+<h2>Let's compose the scene!</h2>
+
+<p>We have finally reached the much-awaited step. We can now position our elements in the scene using the grid</p>
+
+<p data-reader-target="beginner developer">However, please be aware that on the Canvas API, the <strong>Y-axis</strong> is "inverted". 0 corresponds to the top of the screen, and as the Y-value increases, the element moves downwards on the screen. Personally, I find this quite confusing, but for this game, we will make do with it.</p>
+
+<div data-reader-target="beginner">
+<%= book_illustration book, "y_down.png", "Y axis" %>
+</div>
+
+<p>Let's start by placing the floor. <span data-reader-target="beginner">The height of the ground images corresponds to half a cell. We should position it at the bottom of the screen, so a Y position of 3 seems like a good idea. We can always refine this later on. There are several floor images available to choose from.</span></p>
+
+<%= source_code "javascript", "toy.js" do %>
+scene.add({
+    x: 0,
+    y: 3,
+    width: 1,
+    height: 0.5,
+    image: images.floor1
+})
+
+scene.add({
+    x: 1,
+    y: 3,
+    width: 1,
+    height: 0.5,
+    image: images.floor2
+})
+
+// ... and so on
+<% end %>
+
+
+<%= book_illustration book, "floor.png", "Placing the floor" %>
+
+<p>Now, let's place the trees.<span data-reader-target="beginner curious"> The trees are a bit more complicated. We will need to place them in a row, and we will need to make sure that they are not too close to each other.</span></p>
+
+<p data-reader-target="beginner">An tree seems to be about 2 cells high, and since we want to place them slightly above the road, a Y position of 2 seems appropriate. Let's space them out by about one and a half cells each.</p>
+
+<div data-reader-target="beginner developer">
+<%= source_code "javascript", "toy.js" do %>
+scene.add({
+    x: 0,
+    y: 1,
+    width: 2,
+    height: 2,
+    image: images.tree1
+})
+
+scene.add({
+    x: 1.5,
+    y: 1,
+    width: 2,
+    height: 2,
+    image: images.tree2
+})
+
+// ... and so on
+<% end %>
+</div>
+
+<%= book_illustration book, "trees.png", "Placing trees" %>
+
+<p>You get it. The next step is to do the same for the rest of the decorative elements.</p>
+
+<%= book_illustration book, "full_scene.png", "Full scene" %>
+
+<p data-reader-target="beginner">Don't spend too much time on this part - it's just to give you a general idea of how the elements are positioned. We'll revisit this section in a future chapter.</p>
+
+<p>We can move on to the next chapter, which will focus on <strong>animating</strong> the scene.</p>
+
+
+<%= render "chapter_sources",
+  download_url: "https://github.com/Perky-Crow/fallen_hero/releases/tag/c3",
+  explore_url: "https://github.com/Perky-Crow/fallen_hero/tree/c3"
+%>
