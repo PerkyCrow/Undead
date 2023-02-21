@@ -1,14 +1,15 @@
 
 
 <section class="books">
-
-  <% @books.each do |book| %>
-    <div class="book">
-      <h1 class="title"><%= book.title %></h1>
-      <div class="cover"><%= image_tag book.cover_path, alt: "Book cover for #{book.title}" %></div>
-      <div class="description"><%= simple_markdown book.description %></div>
-      <div class="link"><%= link_to "Read", book_path(book.slug) %></div>
-    </div>
+  <% if false %>
+    <% @books.each do |book| %>
+      <div class="book">
+        <h1 class="title"><%= book.title %></h1>
+        <div class="cover"><%= image_tag book.cover_path, alt: "Book cover for #{book.title}" %></div>
+        <div class="description"><%= simple_markdown book.description %></div>
+        <div class="link"><%= link_to "Read", book_path(book.slug) %></div>
+      </div>
+    <% end %>
   <% end %>
 
 </section>
