@@ -6,12 +6,13 @@ export default class extends BaseController {
 
     connect () {
         super.connect()
-        setTimeout(this.updateTime.bind(this))
     }
 
     updateTime () {
-        const readingTime = getReadingTime(this.element.parentElement.innerText)
-        this.element.textContent = `${readingTime}min`
+        setTimeout(() => {
+            const readingTime = getReadingTime(this.element.parentElement.innerText)
+            this.element.textContent = `${readingTime}min`
+        })
     }
 
     profileValueChanged () {
