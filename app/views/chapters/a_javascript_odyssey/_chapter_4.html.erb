@@ -1,0 +1,209 @@
+<p>Our landscape is ready, but it's not moving. Now is the time to introduce a new abstraction: the <strong>camera</strong>.</p>
+
+<%= book_illustration book, "train_window.png", "Train Window" %>
+
+<h2>Camera</h2>
+
+<p>Let's change your point of view and forget about the painter's perspective.</p>
+
+<p>Now imagine that you're on a train on the edge of a forest, looking out the window. What you see is limited by the frame of that window. That's the role of the camera.</p>
+
+<p data-reader-target="beginner developer">To simplify things, let's make the camera exactly the size of the canvas. As a reminder, the canvas now uses our own unit of measurement, which is 7 units wide and 4 units tall.</p>
+
+<p>To begin, let's add the camera to our scene.</p>
+
+
+<div data-reader-target="beginner">
+<%= source_code "javascript", "utils.js" do %>
+export default class Scene {
+
+    constructor () {
+        this.elements = []
+        this.camera = {
+            x: 0,
+            y: 0,
+            width: 7,
+            height: 4
+        }
+    }
+
+    // omitted for brevity
+}
+<% end %>
+</div>
+
+
+<p data-reader-target="beginner developer">Now let's think about it and return to our train. As it moves forward, the view changes and the forest appears to be passing by and the trees seem to be moving backwards. Therefore, we need to incorporate this change into our drawScene function.</p>
+
+<div data-reader-target="beginner developer">
+<%= source_code "javascript", "utils.js" do %>
+export function drawScene (ctx, scene) {
+    scene.elements.forEach(element => {
+        const drawParams = Object.assign({}, element)
+
+        drawParams.x -= scene.camera.x
+        drawParams.y -= scene.camera.y
+
+        drawImage(ctx, drawParams)
+    })
+}
+<% end %>
+</div>
+
+
+<p>By adding a <span class="code">speed</span> property and an update method to our scene object, we can control the movement of the camera over time.<span data-reader-target="beginner developer"> The speed is measured in units per second, which means that if it's set to 2 and one second elapses, the camera will move 2 units.</span></p>
+
+
+<%= source_code "javascript", "scene.js" do %>
+export default class Scene {
+
+    constructor () {
+        this.elements = []
+        this.camera = {
+            x: 0,
+            y: 0,
+            width: 7,
+            height: 4,
+            speed: 2
+        }
+    }
+
+    update (deltaTime) {
+        this.camera.x += this.camera.speed * deltaTime
+    }
+
+    // omitted for brevity
+
+}
+<% end %>
+
+<p>Let's move forward in time by one second.</p>
+
+<%= source_code "javascript", "toy.js" do %>
+scene.update(1)
+<% end %>
+
+<p>The scene has successfully moved back by 2 units!</p>
+
+<%= book_illustration book, "scene_camera.png", "Scene has moved by 2 units" %>
+
+
+<p data-reader-target="beginner developer">While I'm at it, I'm updating the grid which has a minor sizing issue. Currently, the grid is set to the size of the canvas instead of the camera size, which is causing the problem.</p>
+
+<div data-reader-target="beginner developer">
+<%= source_code "javascript", "utils.js" do %>
+export function drawGrid (ctx, {width, height}) {
+    const cellSize = 1
+
+    ctx.strokeStyle = 'rgba(0, 0, 0, 0.25)'
+    ctx.lineWidth = 0.01
+
+    for (let x = 0; x < width; x += cellSize) {
+        ctx.beginPath()
+        ctx.moveTo(x, 0)
+        ctx.lineTo(x, height)
+        ctx.stroke()
+    }
+    for (let y = 0; y < height; y += cellSize) {
+        ctx.beginPath()
+        ctx.moveTo(0, y)
+        ctx.lineTo(width, y)
+        ctx.stroke()
+    }
+}
+<% end %>
+</div>
+
+<p data-reader-target="beginner developer">Remember to call drawGrid function with the camera as an parameter.</p>
+
+<div data-reader-target="beginner developer">
+<%= source_code "javascript", "toy.js" do %>
+drawGrid(ctx, scene.camera)
+<% end %>
+</div>
+
+
+
+<h2>Animation</h2>
+
+<p>To create animation on the screen, the entire scene must be redrawn at every screen refresh, which happens multiple times per second, typically at a rate of <strong>60 frames per second</strong>. <span data-reader-target="developer">It's important to note that this frequency can vary between computers.</span></p>
+
+
+<p data-reader-target="beginner developer">In JavaScript, the <%= link_with_icon "requestAnimationFrame", "https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame", "mdn" %> function can be used to trigger a function at the next screen refresh, which allows for smooth animation. <span data-reader-target="beginner">By recalling this function within the same function, an animation loop can be created, making it easy to create dynamic animations.</span></p>
+
+
+<p data-reader-target="beginner developer">Our upcoming tool will make use of this feature.</p>
+
+<div data-reader-target="beginner developer">
+<%= source_code "javascript", "utils.js" do %>
+export function startAnimationLoop (callback) {
+    let lastTime = 0
+
+    function animationFrame (time) {
+        const deltaTime = time - lastTime
+        lastTime = time
+
+        callback(deltaTime / 1000)
+
+        requestAnimationFrame(animationFrame)
+    }
+
+    requestAnimationFrame(animationFrame)
+}
+<% end %>
+</div>
+
+<p>With that tool, we can now <strong>update</strong> the scene and <strong>redraw</strong> it at every screen refresh</p>
+
+<%= source_code "javascript", "toy.js" do %>
+startAnimationLoop(deltaTime => {
+    scene.update(deltaTime)
+    drawScene(ctx, scene)
+})
+<% end %>
+
+<p>The current implementation works, but you may have noticed that the scene is being redrawn on top of itself, causing an overlapping effect.</p>
+
+<p>This is because we haven't cleared the screen before redrawing the scene. Let's fix this issue by clearing the screen before drawing the updated scene.</p>
+
+<%= book_illustration book, "frame_glitch_hd.gif", "Drawing glitch" %>
+
+<p data-reader-target="beginner developer">The Canvas API offers a clearRect() method that can be used to clear a specific area of the canvas.</p>
+
+<p>To make things easier, we will create a utility function<span data-reader-target="beginner developer"> to call this method, and use it at the beginning of each new frame to clear the screen before redrawing the updated scene</span>.</p>
+
+<%= source_code "javascript", "utils.js" do %>
+export function clearCanvas (ctx, {width, height}) {
+    ctx.clearRect(0, 0, width, height)
+}
+<% end %>
+
+<%= source_code "javascript", "toy.js" do %>
+startAnimationLoop(function (deltaTime) {
+    clearCanvas(ctx, scene.camera)
+    scene.update(deltaTime)
+    drawScene(ctx, scene)
+})
+<% end %>
+
+<p>Problem solved!</p>
+
+<%= book_illustration book, "camera_animation.gif", "Camera animation" %>
+
+
+
+<h2>Even more new tools</h2>
+
+<ul>
+  <li>A Camera</li>
+  <li>An animation loop</li>
+  <li>A function to clear the canvas</li>
+  <li>Our scene can now be updated over time</li>
+</ul>
+
+<p>However, you may have noticed that after a few seconds, the scene becomes empty. In the next chapter, we will explore how to generate an infinite world.</p>
+
+<%= render "chapter_sources",
+  download_url: "https://github.com/Perky-Crow/fallen_hero/releases/tag/c4",
+  explore_url: "https://github.com/Perky-Crow/fallen_hero/tree/c4"
+%>
