@@ -114,13 +114,13 @@ class Book
         ),
         Chapter.new(
           name:        "Chapter 6",
-          title:       "Player",
+          title:       "Hero",
           description: "",
           keywords:    ""
         ),
         Chapter.new(
           name:        "Chapter 7",
-          title:       "Interactivity",
+          title:       "Obstacles",
           description: "",
           keywords:    ""
         ),
