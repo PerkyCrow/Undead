@@ -114,7 +114,7 @@ class Book
         ),
         Chapter.new(
           name:        "Chapter 6",
-          title:       "Bumpin'",
+          title:       "Player",
           description: "",
           keywords:    ""
         ),

@@ -548,13 +548,16 @@ span.code {
 
   .illustration {
     text-align: center;
+    padding: 0 2em;
 
     img {
       max-width: 100%;
       margin-bottom: 1.5em;
+      border-radius: 0.1em;
     }
 
     @include mobile {
+      padding: 0;
       img {
         max-width: 75%;
       }
@@ -563,7 +566,7 @@ span.code {
 
   .chapter_sources {
 
-    margin: 1em;
+    margin: 3em 0 1em 0;
 
     .description {
       text-align: center;
@@ -678,13 +681,13 @@ code.hljs {
 
 .neat_code {
   position: relative;
-  margin-bottom: 2em;
+  margin: 2em;
   box-shadow: 0 0.5em 1em -0.25em rgba(40,43,46,0.75);
 }
 
 
 .content pre code.hljs {
-  padding: 0.5em 1em 0.5em 2.5em;
+  padding: 0.5em 1em 0.5em 2em;
   font-size: 0.85em;
   box-sizing: border-box;
 }
@@ -692,7 +695,7 @@ code.hljs {
 
 .neat_code_title {
   font-family: $codeFont;
-  padding: 0.5em 1em 0.5em 2.3em;
+  padding: 0.5em 1em 0.5em 2em;
   font-size: 0.85em;
   background: rgb(226,224,220);
   background: linear-gradient(0deg, rgba(226,224,220,1) 0%, rgba(240,238,232,1) 50%, rgba(240,238,232,0) 150%);
@@ -710,6 +713,7 @@ code.hljs {
   font-weight: bold;
   position: absolute;
   right: 0em;
+  top: -0.1em;
   cursor: pointer;
   background-color: white;
   background-image: url(icons/copy_icon.png);

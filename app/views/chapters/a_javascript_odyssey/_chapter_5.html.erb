@@ -1,0 +1,253 @@
+<%= book_illustration book, "procedural_generation.png", "A character with a movie film" %>
+
+<h2>Get everything ready</h2>
+
+<p>Right now, the scene treats all objects the same and stores them together. To make it easier to create an <strong>endless world</strong>, we need to organize the objects by their type so we can find them easily.</p>
+
+<p>To do this, we will create a <span class="code">world</span> object that groups all the elements in the <strong>scene</strong> by their <strong>category</strong>.</p>
+
+<p>We also need to make changes to the <span class="code">add</span> function to make sure it works with this new organization.</p>
+
+<%= source_code "javascript", "scene.js" do %>
+export default class Scene {
+    constructor () {
+        this.world = {
+            mountains:  [],
+            props:      [],
+            trees:      [],
+            floorTiles: [],
+            obstacles:  []
+        }
+
+        // ...
+    }
+
+    add (type, object) {
+        this.world[type].push(object)
+    }
+
+    // omitted for brevity
+}
+<% end %>
+
+<p>We also need to apply this change to each of our elements in the <span class="code">toy.js</span> file.</p>
+
+<%= source_code "javascript", "toy.js" do %>
+scene.add('mountains', {
+    x: 0,
+    y: 0.85,
+    width: 2,
+    height: 2,
+    image: images.mountain1
+})
+
+// ... and so on
+<% end %>
+
+<p>When we add an element to the scene, we give it an image. However, the Scene class is not supposed to handle display, so objects in the scene should not contain an image.</p>
+
+<p>I suggest renaming the <span class="code">image</span> property to <span class="code">sprite</span> and no longer passing the entire image, but only its name.</p>
+
+<p>When we display the scene using the <span class"code">drawScene</span> function, we will pass the corresponding images.</p>
+
+<%= source_code "javascript", "toy.js" do %>
+scene.add('mountains', {
+    x:      0,
+    y:      0.85,
+    width:  2,
+    height: 2,
+    sprite: 'mountain1'
+})
+<% end %>
+
+<p>Now let's modify the <span class="code">drawScene</span> function to take into account this new way of organizing the elements.</p>
+
+<%= source_code "javascript", "utils.js" do %>
+export function drawScene (ctx, scene, images) {
+    for (let category in scene.world) {
+        scene.world[category].forEach(element => {
+            const drawParams = Object.assign({}, element)
+
+            drawParams.image = images[drawParams.sprite]
+            drawParams.x -= scene.camera.x
+            drawParams.y -= scene.camera.y
+
+            drawImage(ctx, drawParams)
+        })
+    }
+}
+<% end %>
+
+<p>Don't forget to pass the images as parameters to the "drawScene" function in the toy.js file.</p>
+
+<%= source_code "javascript", "toy.js" do %>
+drawScene(ctx, scene, images)
+<% end %>
+
+<p>You may think that this change hasn't made any difference in the result when you refresh the page. And you are right, but now with this new way of organizing the elements that make up our scene, we will be able to generate them procedurally.</p>
+
+
+
+<h2>Random Number Generator</h2>
+
+<p>Procedural generation often involves randomness. It's time to create new tools. To generate random numbers, we will use the "Math.random()" function, which returns a number between 0 and 1.</p>
+
+<p>Let's create a function that will allow us to generate random numbers between 2 values.</p>
+
+<p>Note that I added a test to check if the value passed as a parameter is an array. If it's not, we simply return the value.</p>
+
+<%= source_code "javascript", "utils.js" do %>
+export function floatBetween (range) {
+    if (!Array.isArray(range)) {
+        return range
+    }
+    const [min, max] = range
+
+    return Math.random() * (max - min) + min
+}
+<% end %>
+
+<p>This function will be used to calculate the position of our elements and vary their size.</p>
+
+<p>Now let's create another function that will allow us to choose a random element from an array.</p>
+
+<%= source_code "javascript", "utils.js" do %>
+export function randomPick (choices) {
+    if (!Array.isArray(choices)) {
+        return choices
+    }
+
+    return choices[Math.floor(Math.random() * choices.length)]
+}
+<% end %>
+
+<p>This function will be used to choose a random sprite from a list.</p>
+
+
+<h2>Procedural generation</h2>
+
+<p>Finally, we come to the main point of this chapter. The idea is to generate objects and randomly space them until they are all displayed on the screen.</p>
+
+<p>At each update loop, we add new objects if there is enough space for them to appear just to the right of the camera, and we also remove old objects that have moved past the left side of the screen and are no longer needed.</p>
+
+<p>We need to know the last element in a category to calculate the position of the next element.</p>
+
+<%= source_code "javascript", "scene.js" do %>
+lastElementFor (category) {
+    const collection = this.world[category]
+
+    return collection[collection.length - 1]
+}
+<% end %>
+
+<p>From here, we can calculate the position of the last element. If the array is empty, we take the position of the camera.</p>
+
+<%= source_code "javascript", "scene.js" do %>
+lastPositionFor (category) {
+    const {camera} = this
+    const lastElement = this.lastElementFor(category)
+
+    return lastElement ? lastElement.x : camera.x
+}
+<% end %>
+
+<p>We can now create a function that generates a random element. This function takes several parameters, which can either be fixed values or range values (min and max) for spacing, y, width, and height. By using range values, we can generate elements of different sizes and positions.</p>
+
+<p>As for the "sprite" parameter, we pass an array of sprites, and the "randomPick" function will randomly choose one sprite from this array.</p>
+
+<p>Lastly, the "count" parameter specifies the maximum number of elements that we want to display on the screen.</p>
+
+<%= source_code "javascript", "scene.js" do %>
+generate (category, {spacing, y, width, height, sprite, count}) {
+    const lastPosition = this.lastPositionFor(category)
+
+    let x = lastPosition
+
+    if (this.world[category].length > 0) {
+        x += floatBetween(spacing)
+    }
+
+    while (!this.isOffCamera(x)) {
+        this.world[category].push({
+            x,
+            y:      floatBetween(y),
+            width:  floatBetween(width),
+            height: floatBetween(height),
+            sprite: randomPick(sprite)
+        })
+
+        x += floatBetween(spacing)
+    }
+
+    this.cleanCategory(category, count)
+}
+<% end %>
+
+<p>The generate function will loop until a generated element is off the screen.</p>
+
+<p>At the end of the loop, we call the cleanCategory function, which removes elements that are off the screen.</p>
+
+<%= source_code "javascript", "scene.js" do %>
+cleanCategory (category, count) {
+    while (this.world[category].length > count) {
+        this.world[category].shift()
+    }
+}
+<% end %>
+
+
+<h2>Generating the scene</h2>
+
+<p>It's time to call our new generate function to generate each element of our scene.
+
+<p>To do this, we will create a new function called "generateWorld" that will be called in the "update" function.</p>
+
+<%= source_code "javascript", "scene.js" do %>
+generateWorld () {
+    this.generate('floorTiles', {
+        spacing: 1,
+        y:       3,
+        width:   1,
+        height:  0.5,
+        sprite:  ['floor1', 'floor2', 'floor3', 'floor4', 'floor5', 'floor6'],
+        count:   8
+    })
+
+    this.generate('trees', {
+        spacing: [1, 2],
+        y:       1,
+        width:   [1.8, 2.2],
+        height:  [1.8, 2.2],
+        sprite:  ['tree1', 'tree2', 'tree3', 'tree4', 'tree5'],
+        count:   12
+    })
+
+    // and so on...
+}
+<% end %>
+
+
+<p>In the "update" function, we call the "generateWorld" function after moving the camera.</p>
+
+<%= source_code "javascript", "scene.js" do %>
+update (deltaTime) {
+    this.camera.x += this.camera.speed * deltaTime
+    this.generateWorld()
+}
+<% end %>
+
+<p>You can get rid of the manually created objects after initializing the scene because they will be replaced by the new generated objects in the first pass of the update loop.</p>
+
+
+<h2>Our new tools</h2>
+
+<ul>
+    <li>Generate a random number between 2 values</li>
+    <li>Choose a random element from a list</li>
+    <li>Generate random elements</li>
+</ul>
+
+<%= render "chapter_sources",
+  download_url: "https://github.com/Perky-Crow/fallen_hero/releases/tag/c5",
+  explore_url: "https://github.com/Perky-Crow/fallen_hero/tree/c5"
+%>
