@@ -4,16 +4,16 @@
 
 <h2>Camera</h2>
 
-<p>Let's change your point of view and forget about the painter's perspective.</p>
+<p>Imagine that you're on a train on the edge of a forest, looking out the window. What you see is limited by that window.</p>
 
-<p>Now imagine that you're on a train on the edge of a forest, looking out the window. What you see is limited by the frame of that window. That's the role of the camera.</p>
+<p>That's the role of the camera.</p>
 
-<p data-reader-target="beginner developer">To simplify things, let's make the camera exactly the size of the canvas. As a reminder, the canvas now uses our own unit of measurement, which is 7 units wide and 4 units tall.</p>
+<p data-reader-target="beginner developer">To simplify things, let's make the camera exactly the size of the canvas.<span  data-reader-target="beginner"> As a reminder, the canvas now uses our own unit of measurement, which is 7 units wide and 4 units tall.</span></p>
 
-<p>To begin, let's add the camera to our scene.</p>
+<p data-reader-target="beginner">To begin, let's add the camera to our scene.</p>
 
 
-<div data-reader-target="beginner">
+<div data-reader-target="beginner developer">
 <%= source_code "javascript", "utils.js" do %>
 export default class Scene {
 
@@ -33,7 +33,11 @@ export default class Scene {
 </div>
 
 
-<p data-reader-target="beginner developer">Now let's think about it and return to our train. As it moves forward, the view changes and the forest appears to be passing by and the trees seem to be moving backwards. Therefore, we need to incorporate this change into our drawScene function.</p>
+<p data-reader-target="beginner developer">Now let's think about our train.</p>
+
+<p data-reader-target="beginner developer">As it moves forward, the view changes, the forest appears to be passing by and the trees seem to be moving backwards.</p>
+
+<p data-reader-target="beginner developer">We need to incorporate this change into our drawScene function.</p>
 
 <div data-reader-target="beginner developer">
 <%= source_code "javascript", "utils.js" do %>
@@ -51,7 +55,9 @@ export function drawScene (ctx, scene) {
 </div>
 
 
-<p>By adding a <span class="code">speed</span> property and an update method to our scene object, we can control the movement of the camera over time.<span data-reader-target="beginner developer"> The speed is measured in units per second, which means that if it's set to 2 and one second elapses, the camera will move 2 units.</span></p>
+<p>By adding a <span class="code">speed</span> property and an <span class="code">update</span> method to our scene object, we can control the movement of the camera over time.</p>
+
+<p data-reader-target="beginner developer">The speed is measured in units per second, which means that if it's set to 2 and one second elapses, the camera will move 2 units.</p>
 
 
 <%= source_code "javascript", "scene.js" do %>
