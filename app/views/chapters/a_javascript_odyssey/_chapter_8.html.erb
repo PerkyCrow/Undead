@@ -1,0 +1,317 @@
+<p>As the name of the chapter suggests, it's time to turn our toy into a game.</p>
+
+<p>But before switching to a new file, let's make one last adjustment to keep our toy.js file for continuing to do tests on it.</p>
+
+<p>We're going to add a debug property to the scene and set it to true in the toy.js file.</p>
+
+<%= source_code "javascript", "scene.js" do %>
+constructor ({debug}) {
+    // ... omitted for brevity
+    this.debug = debug
+}
+<% end %>
+
+<%= source_code "javascript", "toy.js" do %>
+const scene = new Scene({debug: true})
+<% end %>
+
+<p>And now let's display the hitboxes only if the debug mode is enabled.</p>
+
+<%= source_code "javascript", "utils.js" do %>
+export function drawHitBox (ctx, scene, element) {
+    const {hitBox} = element
+
+    if (scene.debug && hitBox) {
+        // ... omitted for brevity
+    }
+}
+<% end %>
+
+
+<p>We're ready to switch files! Copy the contents of toy.js into game.js.</p>
+
+<p>You may have noticed that there isn't much in this file, and I think that's a good practice. Keep your entry point to start the game as simple as possible. In our case, it's only used to configure how the game is launched and the interactions between the player and the game.</p>
+
+<p>In the index.html file, change the entry point of the game to game.js.</p>
+
+<%= source_code "html", "index.html" do %>
+<script src="scripts/game.js" type="module"></script>
+<% end %>
+
+
+
+<h2>Game Over</h2>
+
+<p>We now know when the player collides with an obstacle. Let's make the game stop when this happens.</p>
+
+<p>First, let's add a new piece of information to the scene: whether the game is over or not. If it is, we need to stop updating the scene. Let's create a method to end the game along the way.</p>
+
+<%= source_code "javascript", "scene.js" do %>
+constructor () {
+    // ...
+
+    this.ended = false
+}
+
+gameOver () {
+    this.ended = true
+}
+
+update () {
+    if (this.ended) {
+        return
+    }
+
+    // ...
+}
+<% end %>
+
+<p>Now let's connect this method when the player collides with an obstacle.</p>
+
+<%= source_code "javascript", "scene.js" do %>
+checkCollisions () {
+    // ...
+
+    if (collided) {
+        this.gameOver()
+    }
+}
+<% end %>
+
+
+<h2>Difficulty</h2>
+
+<p>For now, the camera still scrolls at the same speed, which makes the game too easy once you've gotten into the rhythm. Let's gradually speed up over time to make the game more challenging.</p>
+
+<p>Let's also add a speed limit to prevent the camera from going too fast.</p>
+
+<%= source_code "javascript", "scene.js" do %>
+constructor () {
+    // ...
+
+    this.camera = {
+        x:        0,
+        y:        0,
+        width:    7,
+        height:   4,
+        speed:    3,
+        maxSpeed: 10
+    }
+}
+
+update () {
+    // ...
+
+    const {camera} = this
+
+    camera.x      += camera.speed * deltaTime
+    camera.speed  += 0.05 * deltaTime
+    camera.speed   = Math.min(camera.speed, camera.maxSpeed)
+}
+<% end %>
+
+<p>The game should now gradually become more difficult.</p>
+
+
+
+<h2>Score</h2>
+
+<p>Adding a score is a good way to make the player want to replay and improve.</p>
+
+<p>We'll calculate it based on the elapsed time and the speed of the camera.</p>
+
+<%= source_code "javascript", "scene.js" do %>
+get score () {
+    return Math.floor(this.elapsedTime * this.camera.speed)
+}
+<% end %>
+
+<p>For the display, we're going to change technology. Indeed, HTML is rather good at displaying text and placing it in the right place. As long as this text is not too stylized and embedded in the game, it is perfectly suitable.</p>
+
+<p>In the index.html file, let's add a div element to display the score.</p>
+
+<%= source_code "html", "index.html" do %>
+<div id="fallen_hero">
+    <canvas class="game_canvas" width="700" height="400"></canvas>
+    <div class="game_score">0</div>
+</div>
+<% end %>
+
+Et positionnons le à l'aide de CSS.
+
+<%= source_code "css", "style.css" do %>
+#fallen_hero .game_score {
+    position: absolute;
+    right: 1em;
+    top: 0.5em;
+    font: 3em monospace;
+    font-weight: bold;
+}
+<% end %>
+
+<p>We can now update the display of the score on each frame. Except when the game is over to avoid using resources unnecessarily.</p>
+
+<%= source_code "javascript", "game.js" do %>
+async function init () {
+    const score = document.querySelector('#fallen_hero .game_score')
+    // ...
+
+    startAnimationLoop(function (deltaTime) {
+        // ...
+
+        if (!scene.ended) {
+            score.innerHTML = scene.score
+        }
+    })
+}
+<% end %>
+
+
+<h2>Game Over</h2>
+
+<p>When the game is over, you have to refresh the page to start over, which is not very practical.</p>
+
+<p>To start a new game, there are several ways to do it. For example, we could create a reset method on the scene that resets all the elements of the scene.</p>
+
+<p>Or in the game.js file, we could simply create a new scene. I think that in our case, this is the simplest solution.</p>
+
+<p>But first, let's create a HTML and CSS game over screen with a button to start a new game.</p>
+
+
+<%= source_code "html", "index.html" do %>
+<div id="fallen_hero">
+    <canvas class="game_canvas" width="700" height="400"></canvas>
+    <div class="game_score">0</div>
+    <div class="game_over">
+        <div class="game_over_visual">
+            <img src="images/game_over.png" alt="Game Over">
+        </div>
+        <div class="game_over_replay">
+            <img src="images/replay.png" class="game_replay_button" alt="Restart">
+        </div>
+    </div>
+</div>
+<% end %>
+
+<%= source_code "css", "style.css" do %>
+#fallen_hero .game_over {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+#fallen_hero .game_over .game_over_visual {
+    display: flex;
+    justify-content: center;
+    margin-top: 3em;
+}
+
+#fallen_hero .game_over .game_over_visual img {
+    width: 200px;
+}
+
+#fallen_hero .game_over .game_over_replay {
+    display: flex;
+    justify-content: center;
+    margin-top: 2em;
+}
+
+#fallen_hero .game_over .game_over_replay img {
+    width: 80px;
+    border-radius: 50%;
+    padding: 0.5em;
+    cursor: pointer;
+}
+
+#fallen_hero .game_over .game_over_replay img:hover {
+    border-bottom: 0.25em solid black;
+}
+<% end %>
+
+
+<p>We now need to give our game.js file a way to know when the game is over.</p>
+
+<p>To do this, we're going to use what's called a callback.</p>
+
+<p>When creating the scene, give the scene a function to call when the game is over.</p>
+
+<p>This function will display the game over screen.</p>
+
+<p>We're going to refactor our game.js file a bit so that we can easily recreate a new instance of the scene. And at the same time, connect our game over screen.</p>
+
+<%= source_code "javascript", "game.js" do %>
+async function init () {
+    const score    = document.querySelector('#fallen_hero .game_score')
+    const canvas   = document.querySelector('#fallen_hero .game_canvas')
+    const gameOver = document.querySelector('#fallen_hero .game_over')
+    const replay   = document.querySelector('#fallen_hero .game_replay_button')
+    const ctx      = canvas.getContext('2d')
+
+    setScale(ctx, 100)
+
+    const images = await loadImages(imagePaths)
+
+    let scene = createScene()
+
+    function createScene () {
+        gameOver.style.display = 'none'
+
+        return new Scene({
+            debug: false,
+            onGameOver: displayGameOver
+        })
+    }
+
+    function restartScene () {
+        scene = createScene()
+    }
+
+    function displayGameOver () {
+        gameOver.style.display = 'block'
+    }
+
+    replay.addEventListener('click', restartScene)
+
+    // ...
+}
+<% end %>
+
+
+<p>The createScene method creates a new scene and hides the game over screen.</p>
+
+<p>In the creation of the scene, we connect a onGameOver callback that we will use later in Scene. This callback simply displays the game over screen.</p>
+
+<p>Finally, on the game over screen, we call the restartScene method when the player clicks the button.</p>
+
+<p>We just need to connect our callback in the scene and trigger it when the game ends.</p>
+
+
+<%= source_code "javascript", "scene.js" do %>
+constructor ({debug, onGameOver}) {
+    // ...
+    this.onGameOver = onGameOver
+}
+
+gameOver () {
+    if (!this.ended) {
+        this.ended = true
+        this.onGameOver()
+    }
+}
+<% end %>
+
+<p>Well done!</p>
+
+<p>Thanks to everyone who has read this far.</p>
+
+<p>If you've been following along while trying to reproduce the game on your own, don't stop there. There are still lots of things to refine, add, and improve.</p>
+
+<p>You can also freely use the code (tools are meant to be reused) and graphics assets for your own projects if you wish.</p>
+
+
+<%= render "chapter_sources",
+  download_url: "https://github.com/Perky-Crow/fallen_hero/releases/tag/c8",
+  explore_url: "https://github.com/Perky-Crow/fallen_hero/tree/c8"
+%>
