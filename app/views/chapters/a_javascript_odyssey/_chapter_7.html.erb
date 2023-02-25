@@ -1,0 +1,318 @@
+<p>The hero is running and jumping, but the game quickly becomes boring. Let's add some excitement and danger!</p>
+
+<p>Just like we created a separate file for the hero, obstacles deserve their own file too. Although obstacles might seem like basic objects at first glance, there's a crucial difference: obstacles move!</p>
+
+<p>While they could simply remain stationary, I believe it's more thrilling to jump over obstacles as they move. To make this work, we'll take the camera speed into account to determine the obstacle's speed.</p>
+
+<%= source_code "javascript", "obstacle.js" do %>
+export default class Obstacle {
+    constructor ({x, y, width, height, sprite}) {
+        this.x      = x
+        this.y      = y
+        this.width  = width
+        this.height = height
+        this.sprite = sprite
+        this.speed  = 0.5
+    }
+
+    update (deltaTime, cameraSpeed) {
+        this.x -= cameraSpeed * this.speed * deltaTime
+    }
+
+}
+<% end %>
+
+<p>In the update loop of the scene, don't forget to update the obstacles.</p>
+
+<%= source_code "javascript", "scene.js" do %>
+update (deltaTime) {
+    // ... omitted for brevity
+
+    this.world.obstacles.forEach(obstacle => {
+        obstacle.update(deltaTime, this.camera)
+    })
+}
+<% end %>
+
+<p>To generate obstacles, we won't be using the same method as for generating other objects in the world.</p>
+
+<p>To make it more fun, we'll instead generate obstacles one after the other after a random time interval, based on the camera's speed.</p>
+
+<p>But to do that, we first need to add information about the time that has passed in the scene.</p>
+
+<%= source_code "javascript", "scene.js" do %>
+constructor (canvas) {
+    // ... omitted for brevity
+
+    this.elapsedTime = 0
+}
+
+update (deltaTime) {
+    // ... omitted for brevity
+
+    this.elapsedTime += deltaTime
+}
+<% end %>
+
+<p>Let's create a new method for generating obstacles directly in the scene.</p>
+
+<p>The first thing to check is the time elapsed since the last obstacle was generated. If this time is less than the time it takes to generate the next obstacle, we simply wait for the next loop.</p>
+
+<p>Next, we create a new obstacle with a random position on the y-axis, a random size, and a random image.</p>
+
+<p>Finally, we set the time it takes to generate the next obstacle based on the speed of the camera.</p>
+
+<%= source_code "javascript", "scene.js" do %>
+generateObstacles () {
+    const {camera} = this
+
+    if (this.elapsedTime < this.nextObstacleAt) {
+        return
+    }
+
+    const scale = floatBetween([0.4, 0.8])
+
+    const obstacle = new Obstacle({
+        x:      camera.x + camera.width + 1,
+        y:      floatBetween([2.5, 2.9]),
+        width:  scale,
+        height: scale,
+        sprite: randomPick([
+            'tech1',
+            'tech2',
+            'tech3',
+            'tech4',
+            'tech5',
+            'tech6',
+            'tech7'
+        ])
+    })
+
+    this.add('obstacles', obstacle)
+
+    const nextObstacleDelay = (1 / this.camera.speed) * floatBetween(2.5, 4.5)
+    this.nextObstacleAt = this.elapsedTime + nextObstacleDelay
+}
+<% end %>
+
+<p>Don't forget to launch the obstacle generation at the end of the generateWorld method.</p>
+
+<%= source_code "javascript", "scene.js" do %>
+generateWorld () {
+    // ... omitted for brevity
+
+    this.generateObstacles()
+}
+<% end %>
+
+
+<h2>Collisions</h2>
+
+<p>The obstacles are generated, but they don't do anything when they collide with the hero. This is where we'll do some math.</p>
+
+<p>Luckily, our hero and obstacles can be simplified by circles. And calculating collisions between two circles is pretty simple.</p>
+
+<p>But before we calculate collisions, let's start by displaying circles. This will help us visualize the collisions.</p>
+
+<p>Displaying a circle is a bit complicated because we have to draw an arc of a circle. I'll simplify the work for you, but if you want to learn more, check out the MDN documentation.</p>
+
+<%= source_code "javascript", "utils.js" do %>
+export function drawCircle (ctx, {x, y, radius, color}) {
+    ctx.fillStyle = color
+    ctx.beginPath()
+    ctx.arc(x, y, radius, 0, 2 * Math.PI)
+    ctx.fill()
+}
+<% end %>
+
+<p>But we have a first problem: for now, both the hero and the obstacles are squares. We'll have to guess 2 values: the position of the center of the circle and its radius relative to the square.</p>
+
+<p>Let's start with the obstacles, which are easier to calculate than the hero.</p>
+
+<p>We'll calculate the position of the center of the circle by taking the position of the top-left corner of the square and adding half the size of the square.</p>
+
+<p>The radius of the circle is simply half the size of the square.</p>
+
+<p>Let's create a new dynamic property to calculate the circle of our hitbox.</p>
+
+<%= source_code "javascript", "obstacle.js" do %>
+get hitBox () {
+    const semiWidth  = this.width  / 2
+    const semiHeight = this.height / 2
+
+    return {
+        x:      this.x + semiWidth,
+        y:      this.y + semiHeight,
+        radius: semiWidth
+    }
+}
+<% end %>
+
+<p>Now let's create a new method called drawHitBox that will draw the collision circle of an element if a hitbox exists on that element.</p>
+
+<%= source_code "javascript", "utils.js" do %>
+export function drawHitBox (ctx, scene, element) {
+    const {hitBox} = element
+
+    if (hitBox) {
+        drawCircle(ctx, {
+            x:      hitBox.x - scene.camera.x,
+            y:      hitBox.y - scene.camera.y,
+            radius: hitBox.radius,
+            color:  'black'
+        })
+    }
+}
+<% end %>
+
+<p>We can now draw the hitboxes of the obstacles in the scene.</p>
+
+<p>Unfortunately, our drawScene function is starting to get a bit cluttered. This is an opportunity to do some refactoring to incorporate the display of the hitboxes more cleanly.</p>
+
+<p>In drawScene, we want to do 2 things: draw the world and draw the hero.</p>
+
+<%= source_code "javascript", "scene.js" do %>
+export function drawScene (ctx, scene, images) {
+    drawWorld(ctx, scene, images)
+    drawHero(ctx, scene, images)
+}
+<% end %>
+
+
+<p>That's much cleaner now. Now in drawWorld, we want to iterate through each element of the world and draw them.</p>
+
+<%= source_code "javascript", "scene.js" do %>
+function drawWorld (ctx, scene, images) {
+    for (let category in scene.world) {
+        scene.world[category].forEach(element => {
+            drawSceneElement(ctx, scene, images, element)
+        })
+    }
+}
+<% end %>
+
+<p>And to break it down even further, let's create a function called drawSceneElement that will draw an element of the scene. This is where we will draw our hitbox.</p>
+
+<%= source_code "javascript", "scene.js" do %>
+function drawSceneElement (ctx, scene, images, element) {
+    const drawParams = Object.assign({}, element)
+
+    drawParams.image = images[drawParams.sprite]
+    drawParams.x -= scene.camera.x
+    drawParams.y -= scene.camera.y
+
+    drawImage(ctx, drawParams)
+    drawHitBox(ctx, scene, element)
+}
+<% end %>
+
+<p>And there you have it. If you refresh, you'll see the obstacles. This step was a bit long, but it's because we took the time to refactor. This step is very important, otherwise the code quickly becomes unreadable.</p>
+
+<p>Now let's move on to the hero's hitbox, which is a bit more complicated to calculate.</p>
+
+<p>Indeed, the body of the hero does not take up the entire size of the square that surrounds it. Moreover, it is slightly offset upwards because of his legs. We need to take these 2 factors into account to calculate the position of the center of the circle and its radius.</p>
+
+<%= source_code "javascript", "hero.js" do %>
+get hitBox () {
+    const semiWidth  = this.width  / 2
+    const semiHeight = this.height / 2
+
+    return {
+        x:      this.x + semiWidth,
+        y:      this.y + semiHeight * 0.75,
+        radius: semiWidth * 0.5
+    }
+}
+<% end %>
+
+<p>Let's now display this hitbox when we display the hero to see if we've calculated the correct values.</p>
+
+<%= source_code "javascript", "utils.js" do %>
+function drawHero (ctx, scene, images) {
+    // ... omitted for brevity
+
+    drawImage(ctx, drawParams)
+    drawHitBox(ctx, scene, hero)
+}
+<% end %>
+
+<p>If you refresh the page, you should see a black hitbox around the hero. It's not perfect, but it's more than enough for our mini game.</p>
+
+
+<h2>Collision detection</h2>
+
+<p>Now that we have our hitboxes in the form of circles, we need a function to check if 2 circles touch.</p>
+
+<p>To do this, we'll use the Pythagorean theorem.</p>
+
+<%= source_code "javascript", "utils.js" do %>
+export function circleVsCircle (circleA, circleB) {
+    const distanceX = circleA.x - circleB.x
+    const distanceY = circleA.y - circleB.y
+    const distance  = Math.sqrt(distanceX * distanceX + distanceY * distanceY)
+
+    return distance < circleA.radius + circleB.radius
+}
+<% end %>
+
+<p>Now, in our scene, we're going to check if the hero touches an obstacle on each frame.</p>
+
+<%= source_code "javascript", "scene.js" do %>
+checkCollisions () {
+    const {world, hero} = this
+
+    const collided = world.obstacles.some(obstacle => {
+        obstacle.collided = circleVsCircle(hero.hitBox, obstacle.hitBox)
+
+        return obstacle.collided
+    })
+
+    hero.collided = collided
+}
+<% end %>
+
+<p>Don't forget to call it first in the update function.</p>
+
+<%= source_code "javascript", "scene.js" do %>
+update (deltaTime) {
+    this.checkCollisions()
+
+    // ... omitted for brevity
+}
+<% end %>
+
+<p>Collision should now be in place, but we can't see it yet. Let's modify the drawHitBox method to display in red when an element is currently in collision.</p>
+
+<%= source_code "javascript", "utils.js" do %>
+export function drawHitBox (ctx, scene, element) {
+    const {hitBox} = element
+
+    if (hitBox) {
+        const color = element.collided ? 'red' : 'black'
+
+        drawCircle(ctx, {
+            x:      hitBox.x - scene.camera.x,
+            y:      hitBox.y - scene.camera.y,
+            radius: hitBox.radius,
+            color
+        })
+    }
+}
+<% end %>
+
+<p>We're there, collisions are ready. If you refresh the page, you should see the obstacles in red when they collide with the hero.</p>
+
+<h2>What's new ?</h2>
+
+<ul>
+  <li>Random obstacle generation based on time</li>
+  <li>Calculation of collisions between 2 circles</li>
+  <li>Display of a hitbox according to their state.</li>
+</ul>
+
+<p>We've gathered all the necessary ingredients, we can now turn this into a game.</p>
+
+<%= render "chapter_sources",
+  download_url: "https://github.com/Perky-Crow/fallen_hero/releases/tag/c7",
+  explore_url: "https://github.com/Perky-Crow/fallen_hero/tree/c7"
+%>
