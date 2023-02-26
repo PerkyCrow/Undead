@@ -215,5 +215,3 @@ export function hasFeature (feature) {
 
     return cachedFeatures[feature]
 }
-
-console.log(hasFeature('gameOver'))
