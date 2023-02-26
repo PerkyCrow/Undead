@@ -1,11 +1,11 @@
 
-<p>The hero is running and jumping, but the game quickly becomes boring. Let's add some excitement and danger!</p>
+<p>Our hero can run and jump, but the game needs more excitement and danger. Let's make it more interesting by adding obstacles that move!</p>
 
 <%= book_illustration book, "hero_jumping.png", "Hero jumping over obstacle" %>
 
-<p>Just like we created a separate file for the hero, obstacles deserve their own file too. Although obstacles might seem like basic objects at first glance, there's a crucial difference: obstacles move!</p>
+<p>Since obstacles are different from basic objects, we'll give them their own <span class="code">obstacle.js</span> file. We could make them stationary, but it's more thrilling to jump over moving obstacles.</p>
 
-<p>While they could simply remain stationary, I believe it's more thrilling to jump over obstacles as they move. To make this work, we'll take the camera speed into account to determine the obstacle's speed.</p>
+<p data-reader-target="beginner developer">We'll use the camera speed to decide how fast the obstacles should move.</p>
 
 <%= source_code "javascript", "obstacle.js" do %>
 export default class Obstacle {
@@ -25,8 +25,9 @@ export default class Obstacle {
 }
 <% end %>
 
-<p>In the update loop of the scene, don't forget to update the obstacles.</p>
+<p data-reader-target="beginner developer">Don't forget to update the obstacles in the scene's <span class="code">update</span> loop.</p>
 
+<div data-reader-target="beginner developer">
 <%= source_code "javascript", "scene.js" do %>
 update (deltaTime) {
     // ... omitted for brevity
@@ -36,13 +37,13 @@ update (deltaTime) {
     })
 }
 <% end %>
+</div>
 
-<p>To generate obstacles, we won't be using the same method as for generating other objects in the world.</p>
+<p>We won't generate obstacles the same way we did for other objects in the world. Instead, we'll make it more exciting by generating obstacles one at a time, at random intervals based on the camera's speed.</p>
 
-<p>To make it more fun, we'll instead generate obstacles one after the other after a random time interval, based on the camera's speed.</p>
+<p data-reader-target="beginner developer">But first, we need to add information about the time that has passed in the scene.</p>
 
-<p>But to do that, we first need to add information about the time that has passed in the scene.</p>
-
+<div data-reader-target="beginner developer">
 <%= source_code "javascript", "scene.js" do %>
 constructor (canvas) {
     // ... omitted for brevity
@@ -56,14 +57,15 @@ update (deltaTime) {
     this.elapsedTime += deltaTime
 }
 <% end %>
+</div>
 
-<p>Let's create a new method for generating obstacles directly in the scene.</p>
+<p>We'll make a new function for creating obstacles directly in the scene.</p>
 
-<p>The first thing to check is the time elapsed since the last obstacle was generated. If this time is less than the time it takes to generate the next obstacle, we simply wait for the next loop.</p>
+<p data-reader-target="beginner developer">First, we'll check how much time has passed since the last obstacle was made. If it's too soon to create a new obstacle, we'll wait until the next loop.</p>
 
-<p>Next, we create a new obstacle with a random position on the y-axis, a random size, and a random image.</p>
+<p>Next, we'll make a new obstacle with a random position on the y-axis, size, and image.</p>
 
-<p>Finally, we set the time it takes to generate the next obstacle based on the speed of the camera.</p>
+<p>Finally, we'll set the time for the next obstacle based on the camera's speed.</p>
 
 <%= source_code "javascript", "scene.js" do %>
 generateObstacles () {
@@ -98,7 +100,7 @@ generateObstacles () {
 }
 <% end %>
 
-<p>Don't forget to launch the obstacle generation at the end of the generateWorld method.</p>
+<p>Don't forget to start obstacle generation at the end of the <span class="code">generateWorld</span> function.</p>
 
 <%= source_code "javascript", "scene.js" do %>
 generateWorld () {
@@ -109,16 +111,18 @@ generateWorld () {
 <% end %>
 
 
+
 <h2>Collisions</h2>
 
-<p>The obstacles are generated, but they don't do anything when they collide with the hero. This is where we'll do some math.</p>
+<p>The obstacles don't do anything when they hit the hero. To fix this, we need to do some math.</p>
 
-<p>Luckily, our hero and obstacles can be simplified by circles. And calculating collisions between two circles is pretty simple.</p>
+<p>Fortunately, we can simplify the hero and obstacles by using circles. Calculating collisions between two circles is easy.</p>
 
-<p>But before we calculate collisions, let's start by displaying circles. This will help us visualize the collisions.</p>
+<p data-reader-target="beginner developer">But before we calculate collisions, we'll start by showing circles. This will make it easier to visualize the collisions.</p>
 
-<p>Displaying a circle is a bit complicated because we have to draw an arc of a circle. I'll simplify the work for you, but if you want to learn more, check out the MDN documentation.</p>
+<p data-reader-target="beginner">Drawing a circle is a bit complicated because we need to draw an arc. I'll simplify this for you, but you can learn more by reading the <%= link_with_icon "arc", "https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/arc", "mdn" %> documentation.</p>
 
+<div data-reader-target="beginner developer">
 <%= source_code "javascript", "utils.js" do %>
 export function drawCircle (ctx, {x, y, radius, color}) {
     ctx.fillStyle = color
@@ -127,17 +131,19 @@ export function drawCircle (ctx, {x, y, radius, color}) {
     ctx.fill()
 }
 <% end %>
+</div>
 
-<p>But we have a first problem: for now, both the hero and the obstacles are squares. We'll have to guess 2 values: the position of the center of the circle and its radius relative to the square.</p>
+<p>But we have a problem: the hero and obstacles are squares for now. To calculate collisions, we need to find the center of the circle and its radius relative to the square.</p>
 
-<p>Let's start with the obstacles, which are easier to calculate than the hero.</p>
+<p data-reader-target="beginner developer">We have to find the center of the circle by taking the position of the top-left corner of the square and adding half the size of the square.</p>
 
-<p>We'll calculate the position of the center of the circle by taking the position of the top-left corner of the square and adding half the size of the square.</p>
+<p>The radius of the circle is half the size of the square.</p>
 
-<p>The radius of the circle is simply half the size of the square.</p>
+<p data-reader-target="beginner developer">We'll make a new dynamic property to calculate the circle of our hitbox.</p>
 
-<p>Let's create a new dynamic property to calculate the circle of our hitbox.</p>
+<%= book_illustration book, "obstacle_radius.png", "Obstacle radius" %>
 
+<div data-reader-target="beginner developer">
 <%= source_code "javascript", "obstacle.js" do %>
 get hitBox () {
     const semiWidth  = this.width  / 2
@@ -150,9 +156,11 @@ get hitBox () {
     }
 }
 <% end %>
+</div>
 
-<p>Now let's create a new method called drawHitBox that will draw the collision circle of an element if a hitbox exists on that element.</p>
+<p data-reader-target="beginner developer">Now let's create a new method called drawHitBox that will draw the collision circle of an element if a hitbox exists on that element.</p>
 
+<div data-reader-target="beginner developer">
 <%= source_code "javascript", "utils.js" do %>
 export function drawHitBox (ctx, scene, element) {
     const {hitBox} = element
@@ -167,6 +175,7 @@ export function drawHitBox (ctx, scene, element) {
     }
 }
 <% end %>
+</div>
 
 <p>We can now draw the hitboxes of the obstacles in the scene.</p>
 
@@ -174,16 +183,26 @@ export function drawHitBox (ctx, scene, element) {
 
 <p>In drawScene, we want to do 2 things: draw the world and draw the hero.</p>
 
+
+<p>Now we can show the hitboxes of the obstacles in the scene.</p>
+
+<p data-reader-target="beginner developer">But the <span class="code">drawScene</span> function is getting too cluttered. This is a chance to refactor and make the display of hitboxes smoother.</p>
+
+<p data-reader-target="beginner developer">We want to do two things in the <span class="code">drawScene</span> function: show the world then show the hero.</p>
+
+<div data-reader-target="beginner developer">
 <%= source_code "javascript", "scene.js" do %>
 export function drawScene (ctx, scene, images) {
     drawWorld(ctx, scene, images)
     drawHero(ctx, scene, images)
 }
 <% end %>
+</div>
 
 
-<p>That's much cleaner now. Now in drawWorld, we want to iterate through each element of the world and draw them.</p>
+<p data-reader-target="beginner developer">Now it's much cleaner. In the <span class="code">drawWorld</span> function, we want to go through each element of the world and show it.</p>
 
+<div data-reader-target="beginner developer">
 <%= source_code "javascript", "scene.js" do %>
 function drawWorld (ctx, scene, images) {
     for (let category in scene.world) {
@@ -193,9 +212,11 @@ function drawWorld (ctx, scene, images) {
     }
 }
 <% end %>
+</div>
 
-<p>And to break it down even further, let's create a function called drawSceneElement that will draw an element of the scene. This is where we will draw our hitbox.</p>
+<p data-reader-target="beginner developer">To simplify even more, we'll make a function called <span class="code">drawSceneElement</span> that will show an element of the scene. We'll show the hitbox here.</p>
 
+<div data-reader-target="beginner developer">
 <%= source_code "javascript", "scene.js" do %>
 function drawSceneElement (ctx, scene, images, element) {
     const drawParams = Object.assign({}, element)
@@ -208,13 +229,15 @@ function drawSceneElement (ctx, scene, images, element) {
     drawHitBox(ctx, scene, element)
 }
 <% end %>
+</div>
 
-<p>And there you have it. If you refresh, you'll see the obstacles. This step was a bit long, but it's because we took the time to refactor. This step is very important, otherwise the code quickly becomes unreadable.</p>
+<p data-reader-target="beginner developer">Now you can see the obstacles hitboxes if you refresh. This step was a bit long, but it's important to refactor. Otherwise, the code will be hard to read.</p>
 
-<p>Now let's move on to the hero's hitbox, which is a bit more complicated to calculate.</p>
+<p data-reader-target="beginner developer">Next, let's look at the hero's hitbox, which is a bit more complicated to calculate.</p>
 
-<p>Indeed, the body of the hero does not take up the entire size of the square that surrounds it. Moreover, it is slightly offset upwards because of his legs. We need to take these 2 factors into account to calculate the position of the center of the circle and its radius.</p>
+<p data-reader-target="beginner developer">The hero's body doesn't take up the entire square that surrounds it. Also, it's slightly off-center because of the legs. We need to consider these factors when we find the center of the circle and its radius.</p>
 
+<div data-reader-target="beginner developer">
 <%= source_code "javascript", "hero.js" do %>
 get hitBox () {
     const semiWidth  = this.width  / 2
@@ -227,9 +250,11 @@ get hitBox () {
     }
 }
 <% end %>
+</div>
 
-<p>Let's now display this hitbox when we display the hero to see if we've calculated the correct values.</p>
+<p data-reader-target="beginner developer">Now let's show this hitbox when we display the hero to make sure we calculated the right values.</p>
 
+<div data-reader-target="beginner developer">
 <%= source_code "javascript", "utils.js" do %>
 function drawHero (ctx, scene, images) {
     // ... omitted for brevity
@@ -238,15 +263,20 @@ function drawHero (ctx, scene, images) {
     drawHitBox(ctx, scene, hero)
 }
 <% end %>
+</div>
 
-<p>If you refresh the page, you should see a black hitbox around the hero. It's not perfect, but it's more than enough for our mini game.</p>
+<p data-reader-target="beginner developer">If you refresh the page, you should see a black hitbox around the hero. It's not perfect, but it's enough for our mini-game.</p>
 
 
 <h2>Collision detection</h2>
 
-<p>Now that we have our hitboxes in the form of circles, we need a function to check if 2 circles touch.</p>
+<p>To find out if 2 circles touch each other, we will use the Pythagorean theorem.</p>
 
-<p>To do this, we'll use the Pythagorean theorem.</p>
+<div class="beginners_note" data-reader-target="curious beginner">
+  <p>I recommend you to take a look at this <%= link_with_icon "Pythagorean theorem", "https://silentteacher.toxicode.fr/?theme=2D_distance", "silent_teacher" %> progression by Silent Teacher. It's a very fun way to understand how it works.</p>
+</div>
+
+
 
 <%= source_code "javascript", "utils.js" do %>
 export function circleVsCircle (circleA, circleB) {
@@ -258,8 +288,9 @@ export function circleVsCircle (circleA, circleB) {
 }
 <% end %>
 
-<p>Now, in our scene, we're going to check if the hero touches an obstacle on each frame.</p>
+<p>Now in the scene, we'll check if the hero collides with an obstacle on every frame.</p>
 
+<div data-reader-target="beginner developer">
 <%= source_code "javascript", "scene.js" do %>
 checkCollisions () {
     const {world, hero} = this
@@ -273,9 +304,11 @@ checkCollisions () {
     hero.collided = collided
 }
 <% end %>
+</div>
 
-<p>Don't forget to call it first in the update function.</p>
+<p data-reader-target="beginner">Remember to call this function first in the <span class="code">update</span> function.</p>
 
+<div data-reader-target="beginner">
 <%= source_code "javascript", "scene.js" do %>
 update (deltaTime) {
     this.checkCollisions()
@@ -283,9 +316,11 @@ update (deltaTime) {
     // ... omitted for brevity
 }
 <% end %>
+</div>
 
-<p>Collision should now be in place, but we can't see it yet. Let's modify the drawHitBox method to display in red when an element is currently in collision.</p>
+<p data-reader-target="beginner developer">Collisions should be working now, but we can't see them yet. We'll update the <span class="code">drawHitBox</span> function to show red when an element is colliding.</p>
 
+<div data-reader-target="beginner developer">
 <%= source_code "javascript", "utils.js" do %>
 export function drawHitBox (ctx, scene, element) {
     const {hitBox} = element
@@ -302,18 +337,21 @@ export function drawHitBox (ctx, scene, element) {
     }
 }
 <% end %>
+</div>
 
-<p>We're there, collisions are ready. If you refresh the page, you should see the obstacles in red when they collide with the hero.</p>
+<p>We're done! Collisions are working. You'll see the obstacles turn red when they collide with the hero.</p>
+
+
 
 <h2>What's new ?</h2>
 
 <ul>
-  <li>Random obstacle generation based on time</li>
-  <li>Calculation of collisions between 2 circles</li>
-  <li>Display of a hitbox according to their state.</li>
+  <li>Obstacle generation based on time</li>
+  <li>Calculating collisions between 2 circles</li>
+  <li>Showing a hitbox based on its state</li>
 </ul>
 
-<p>We've gathered all the necessary ingredients, we can now turn this into a game.</p>
+<p>We have everything we need to make a game now.</p>
 
 <%= render "chapter_sources",
   download_url: "https://github.com/Perky-Crow/fallen_hero/releases/tag/c7",
