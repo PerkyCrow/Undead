@@ -1,5 +1,5 @@
 
-<p>Our hero can run and jump, but the game needs more excitement and danger. Let's make it more interesting by adding obstacles that move!</p>
+<p>Our hero can run and jump, but the game needs more excitement and danger. Let's make it more interesting by adding obstacles!</p>
 
 <%= book_illustration book, "hero_jumping.png", "Hero jumping over obstacle" %>
 
@@ -21,7 +21,6 @@ export default class Obstacle {
     update (deltaTime, cameraSpeed) {
         this.x -= cameraSpeed * this.speed * deltaTime
     }
-
 }
 <% end %>
 
@@ -39,7 +38,7 @@ update (deltaTime) {
 <% end %>
 </div>
 
-<p>We won't generate obstacles the same way we did for other objects in the world. Instead, we'll make it more exciting by generating obstacles one at a time, at random intervals based on the camera's speed.</p>
+<p>We'll generate obstacles at random intervals based on the camera's speed.</p>
 
 <p data-reader-target="beginner developer">But first, we need to add information about the time that has passed in the scene.</p>
 
@@ -59,20 +58,13 @@ update (deltaTime) {
 <% end %>
 </div>
 
-<p>We'll make a new function for creating obstacles directly in the scene.</p>
-
 <p data-reader-target="beginner developer">First, we'll check how much time has passed since the last obstacle was made. If it's too soon to create a new obstacle, we'll wait until the next loop.</p>
 
-<p>Next, we'll make a new obstacle with a random position on the y-axis, size, and image.</p>
+<p data-reader-target="beginner developer">Next, we'll make a new obstacle with a random position on the y-axis, size, and image.</p>
 
-<p>Finally, we'll set the time for the next obstacle based on the camera's speed.</p>
+<p data-reader-target="beginner developer">Finally, we'll set the time for the next obstacle based on the camera's speed.</p>
 
-
-<aside data-reader-target="curious">
-  <p>Another piece of code that's a little complicated, I left it for the most daring <strong>curious</strong> ones.</p>
-</aside>
-
-
+<div data-reader-target="beginner developer">
 <%= source_code "javascript", "scene.js" do %>
 generateObstacles () {
     const {camera} = this
@@ -105,6 +97,7 @@ generateObstacles () {
     this.nextObstacleAt = this.elapsedTime + nextObstacleDelay
 }
 <% end %>
+</div>
 
 <p data-reader-target="beginner developer">Don't forget to start obstacle generation at the end of the <span class="code">generateWorld</span> function.</p>
 
@@ -279,7 +272,7 @@ function drawHero (ctx, scene, images) {
 <p>To find out if 2 circles touch each other, we will use the Pythagorean theorem.</p>
 
 <div class="beginners_note" data-reader-target="curious beginner">
-  <p>I recommend you to take a look at this <%= link_with_icon "Pythagorean theorem", "https://silentteacher.toxicode.fr/?theme=2D_distance", "silent_teacher" %> progression by Silent Teacher. It's a very fun way to understand how it works.</p>
+  <p>I recommend you to take a look at this <%= link_with_icon "Pythagorean theorem", "https://silentteacher.toxicode.fr/?theme=2D_distance", "silent_teacher" %> progression by Silent Teacher. It's a fun way to understand how it works.</p>
 </div>
 
 
@@ -345,7 +338,7 @@ export function drawHitBox (ctx, scene, element) {
 <% end %>
 </div>
 
-<p>We're done! Collisions are working. You'll see the obstacles turn red when they collide with the hero.</p>
+<p>And we're done! Collisions are working. You'll see the obstacles turn red when they collide with the hero.</p>
 
 <iframe src="/fallen_hero/index.html?speed=false&score=false&ground=false&noDebug=false&gameOver=false" frameborder="0"></iframe>
 

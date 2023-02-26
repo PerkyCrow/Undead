@@ -90,7 +90,7 @@ setScale(ctx, 100)
 <% end %>
 </div>
 
-<p>Voila! It is now much easier to position the elements in our scene.</p>
+<p>It is much easier to position the elements in our scene.</p>
 
 <%= book_illustration book, "grid.png", "Display of a grid" %>
 
@@ -168,7 +168,7 @@ export default imagePaths
 
 <p>When we code, everything is somewhat arbitrary. There isn't really a "<strong>scene</strong>" - everything is an abstraction. In the case of our game, we can consider a <strong>scene</strong> as an object that contains all of the game elements.</p>
 
-<p>Therefore, I suggest creating a Scene class, in which we can store all of the elements to be displayed.</p>
+<p>Therefore, I suggest creating a <span class="code">Scene</span>, in which we can store all of the elements to be displayed.</p>
 
 <%= source_code "javascript", "scene.js" do %>
 export default class Scene {
@@ -184,7 +184,7 @@ export default class Scene {
 }
 <% end %>
 
-<p>We will also need a function that allows us to display the contents of a scene.</p>
+<p>We will also need a function that allows us to display the elements of a scene.</p>
 
 <%= source_code "javascript", "utils.js" do %>
 export function drawScene (ctx, scene) {
@@ -257,9 +257,9 @@ scene.add({
 
 <%= book_illustration book, "floor.png", "Placing the floor" %>
 
-<p>Now, let's place the trees.<span data-reader-target="beginner curious"> The trees are a bit more complicated. We will need to place them in a row, and we will need to make sure that they are not too close to each other.</span></p>
+<p>Now, let's place the trees.<span data-reader-target="beginner curious"> The trees are a bit more complicated. We will need to make sure that they are not too close to each other.</span></p>
 
-<p data-reader-target="beginner">An tree seems to be about 2 cells high, and since we want to place them slightly above the road, a Y position of 2 seems appropriate. Let's space them out by about one and a half cells each.</p>
+<p data-reader-target="beginner">A tree seems to be about 2 cells high, and since we want to place them slightly above the road, a Y position of 2 seems appropriate. Let's space them out by about one and a half cells each.</p>
 
 <div data-reader-target="beginner developer">
 <%= source_code "javascript", "toy.js" do %>
@@ -285,7 +285,7 @@ scene.add({
 
 <%= book_illustration book, "trees.png", "Placing trees" %>
 
-<p>You get it. The next step is to do the same for the rest of the decorative elements.</p>
+<p>You get it. The next step is to do the same for the rest of the elements.</p>
 
 <%= book_illustration book, "full_scene.png", "Full scene" %>
 

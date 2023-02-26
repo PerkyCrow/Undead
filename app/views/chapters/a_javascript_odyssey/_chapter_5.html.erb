@@ -176,7 +176,7 @@ lastPositionFor (category) {
 <% end %>
 </div>
 
-<p>Now we can make a function that <span class="code">generate</span> random objects. This function needs some details, which could be either set values or ranges (minimum and maximum) for <span class="code">spacing</span>, <span class="code">height</span>, <span class="code">width</span>, and <span class="code">y</span> position. By using ranges, we can make objects in different sizes and places.</p>
+<p>Now we can make a function that <span class="code">generate</span> random objects. This function needs some details, which could be either set values or ranges (minimum and maximum) for <span class="code">spacing</span>, <span class="code">height</span>, <span class="code">width</span>, and <span class="code">y</span> position.</p>
 
 <p>For the <span class="code">sprite</span> part, we give a set of images names, and the <span class="code">randomPick</span> function will pick one randomly from the set.</p>
 
@@ -230,9 +230,7 @@ cleanCategory (category, count) {
 <h2>Generating the scene</h2>
 
 
-<p>We're going to <span class="code">generate</span> function each element in the scene.</p>
-
-<p>To do this, we'll make a new function called <span class="code">generateWorld</span>.<span data-reader-target="beginner developer"> This function will be called in the <span class="code">update</span> loop.</span></p>
+<p>We're going to <span class="code">generate</span> each element in the scene. To do this, we'll make a new function called <span class="code">generateWorld</span>.<span data-reader-target="beginner developer"> This function will be called in the <span class="code">update</span> loop.</span></p>
 
 <p data-reader-target="beginner developer">You can delete the objects you made manually after starting the scene because the new objects we generate in the "update" loop will replace them.</p>
 
@@ -270,6 +268,8 @@ update (deltaTime) {
 </div>
 
 <p data-reader-target="beginner developer">You can delete the objects you made manually after starting the scene because the new objects we generate in the <span class="code">update</span> loop will replace them.</p>
+
+<p>Here is the result.</p>
 
 <iframe src="/fallen_hero/index.html?speed=false&obstacles=false&score=false&ground=false&hero=false&fast=false" frameborder="0"></iframe>
 

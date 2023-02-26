@@ -2,7 +2,7 @@
 
 <h2>The fallen hero</h2>
 
-<p>We'll create a new object and a new <span class="code">hero.js</span> file. We'll start with a really basic version to get started, and we'll make it better as we go through the chapter.</p>
+<p>We'll create a new <span class="code">hero.js</span> file. We'll start with a really basic version to get started, and we'll make it better as we go through this chapter.</p>
 
 <%= source_code "javascript", "hero.js" do %>
 export default class Hero {
@@ -65,7 +65,7 @@ update (deltaTime) {
 
 <h2>Animate the hero</h2>
 
-<p>We have an animation ready for the hero, which has 4 pictures that will be played repeatedly.</p>
+<p>We have an animation ready for the hero, which has 4 sprites that will be played repeatedly.</p>
 
 <%= book_illustration book, "hero_animation.png", "Hero animation" %>
 
@@ -103,6 +103,7 @@ get sprite () {
 
 <p>Next, we'll create an <span class="code">update</span> function that will update the animation info based on the time passed. The animation speed will change with the camera speed.</p>
 
+<div data-reader-target="beginner developer">
 <%= source_code "javascript", "hero.js" do %>
 update (deltaTime, camera) {
     this.x = camera.x + 0.5
@@ -116,6 +117,7 @@ update (deltaTime, camera) {
     }
 }
 <% end %>
+</div>
 
 <p data-reader-target="beginner developer">We'll then use this function in the <span class="code">update</span> function of the scene.</p>
 
@@ -129,7 +131,7 @@ update (deltaTime) {
 <% end %>
 </div>
 
-<p>That's it - now our hero will look like he's running!</p>
+<p>Now our hero will look like he's running!</p>
 
 
 

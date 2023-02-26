@@ -55,7 +55,7 @@ export function drawScene (ctx, scene) {
 </div>
 
 
-<p>By adding a <span class="code">speed</span> property and an <span class="code">update</span> method to our scene object, we can control the movement of the camera over time.</p>
+<p>By adding a <span class="code">speed</span> property and an <span class="code">update</span> method to our scene, we can control the movement of the camera over time.</p>
 
 <p data-reader-target="beginner developer">The speed is measured in units per second, which means that if it's set to 2 and one second elapses, the camera will move 2 units.</p>
 
@@ -132,7 +132,7 @@ drawGrid(ctx, scene.camera)
 
 <h2>Animation</h2>
 
-<p>To create animation on the screen, the entire scene must be redrawn at every screen refresh, which happens multiple times per second, typically at a rate of <strong>60 frames per second</strong>. <span data-reader-target="developer">It's important to note that this frequency can vary between computers.</span></p>
+<p>To create an animation, the entire scene must be redrawn at every screen refresh, which happens multiple times per second, typically at a rate of <strong>60 frames per second</strong>. <span data-reader-target="developer">It's important to note that this frequency can vary between computers.</span></p>
 
 
 <p data-reader-target="beginner developer">In JavaScript, the <%= link_with_icon "requestAnimationFrame", "https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame", "mdn" %> function can be used to trigger a function at the next screen refresh, which allows for smooth animation. <span data-reader-target="beginner">By recalling this function within the same function, an animation loop can be created, making it easy to create dynamic animations.</span></p>
@@ -159,7 +159,7 @@ export function startAnimationLoop (callback) {
 <% end %>
 </div>
 
-<p>With that tool, we can now <strong>update</strong> the scene and <strong>redraw</strong> it at every screen refresh</p>
+<p>With that tool, we can <strong>update</strong> the scene and <strong>redraw</strong> it at every screen refresh</p>
 
 <%= source_code "javascript", "toy.js" do %>
 startAnimationLoop(deltaTime => {

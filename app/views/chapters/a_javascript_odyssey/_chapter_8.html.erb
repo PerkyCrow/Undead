@@ -50,17 +50,11 @@ export function drawHitBox (ctx, scene, element) {
 
 <h2>Game Over</h2>
 
-<p>Now we know when the player collides with an obstacle. Let's make the game stop when that happens.</p>
+<p>We know when the player collides with an obstacle. Let's make the game stop when that happens.</p>
 
 <p>First, we'll add a new piece of information to the scene: whether the game is over or not. If it is, we'll stop updating the scene. We'll also create a function to end the game.</p>
 
 <%= source_code "javascript", "scene.js" do %>
-constructor () {
-    // ...
-
-    this.ended = false
-}
-
 gameOver () {
     this.ended = true
 }
@@ -137,8 +131,9 @@ get score () {
 
 <p>To display the score, we're going to use HTML since it's good at displaying text and placing it correctly. As long as the text isn't too stylized and is embedded in the game, it should work well.</p>
 
-<p>In the <span class="code">index.html</span> file, let's add a div element to display the score.</p>
+<p data-reader-target="beginner developer">In the <span class="code">index.html</span> file, let's add a div element to display the score.</p>
 
+<div data-reader-target="beginner developer">
 <%= source_code "html", "index.html" do %>
 <div id="fallen_hero">
     <canvas class="game_canvas" width="700" height="400">
@@ -146,6 +141,7 @@ get score () {
     <div class="game_score">0</div>
 </div>
 <% end %>
+</div>
 
 <p data-reader-target="beginner developer">And position it using <strong>CSS</strong>.</p>
 
@@ -186,7 +182,7 @@ async function init () {
 
 <p>When the game is over, it's not very practical to have to refresh the page to start over.</p>
 
-<p>There are several ways to start a new game. One way is to create a <span class="code">reset</span> method on the scene that resets all the elements of the game. Another way is to create a new scene in the game.js file. In our case, creating a new scene is the easiest solution.</p>
+<p>There are several ways to start a new game. One way is to create a <span class="code">reset</span> method on the scene that resets all the elements of the game. Another way is to create a new scene in the <span class="code">game.js</span> file. In our case, creating a new scene is the easiest solution.</p>
 
 <p>But first, let's create a game over screen in <strong>HTML</strong> and <strong>CSS</strong> with a button to start a new game.</p>
 
@@ -323,8 +319,6 @@ gameOver () {
 </div>
 
 <p>Well done!</p>
-
-<p>Thanks to everyone who has read this far.</p>
 
 <p>If you've been following along while trying to reproduce the game on your own, don't stop there. There are still lots of things to refine, add, and improve.</p>
 
