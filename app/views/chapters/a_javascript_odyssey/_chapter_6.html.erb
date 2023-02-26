@@ -2,7 +2,7 @@
 
 <h2>The fallen hero</h2>
 
-<p>Let's start by creating a new object, and therefore a new hero file. We will start with the simplest version possible to get started, and we will improve it throughout the chapter.</p>
+<p>We'll create a new object and a new <span class="code">hero.js</span> file. We'll start with a really basic version to get started, and we'll make it better as we go through the chapter.</p>
 
 <%= source_code "javascript", "hero.js" do %>
 export default class Hero {
@@ -18,13 +18,13 @@ export default class Hero {
 }
 <% end %>
 
-<p>Let's add this hero to the scene.</p>
+<p>Let's add it to the scene.</p>
 
 <%= source_code "javascript", "scene.js" do %>
 this.hero = new Hero()
 <% end %>
 
-<p>We just need to display it now. Let's create a function called "drawHero" and call it in "drawScene".</p>
+<p>We just need to display it now. We'll make a function called <span class="code">drawHero</span> and use it in the <span class="code">drawScene</span> function.</p>
 
 <%= source_code "javascript", "utils.js" do %>
 function drawHero (ctx, scene, images) {
@@ -48,10 +48,11 @@ export function drawScene (ctx, scene, images) {
 }
 <% end %>
 
-<p>If you refresh the page, you will notice that the hero disappears immediately. We need to tell the hero to follow the camera.</p>
+<p data-reader-target="beginner developer">If you refresh the page, you will notice that the hero disappears immediately. We need to tell the hero to follow the camera.</p>
 
-<p>In the update function of the scene, after moving the camera, we can also reposition the hero. Let's move the hero half a unit to the right so that it's not too close to the edge.</p>
+<p data-reader-target="beginner developer">In the update function of the scene, after moving the camera, we can also reposition the hero. Let's move the hero half a unit to the right so that it's not too close to the edge.</p>
 
+<div data-reader-target="beginner developer">
 <%= source_code "javascript", "scene.js" do %>
 update (deltaTime) {
     this.camera.x += this.camera.speed * deltaTime
@@ -59,23 +60,25 @@ update (deltaTime) {
     this.generateWorld()
 }
 <% end %>
-
+</div>
 
 
 <h2>Animate the hero</h2>
 
-<p>For our hero, we have prepared a short animation consisting of 4 images to loop through.</p>
+<p>We have an animation ready for the hero, which has 4 pictures that will be played repeatedly.</p>
 
-<p>To run this animation, we need the following information:</p>
+<%= book_illustration book, "hero_animation.png", "Hero animation" %>
+
+<p>To show this animation, we need these things:</p>
 
 <ul>
-  <li>The list of frames to play in order</li>
-  <li>The index of the current frame</li>
-  <li>The time elapsed since the last frame</li>
-  <li>The speed at which the frames should be played</li>
+  <li>The order of the frames in a list</li>
+  <li>The position of the current frame</li>
+  <li>How much time has passed since the last frame</li>
+  <li>The speed at which the frames should play</li>
 </ul>
 
-<p>Let's start by adding this information to our hero.</p>
+<p>We'll start by adding this information to our hero.</p>
 
 <%= source_code "javascript", "hero.js" do %>
 constructor () {
@@ -88,15 +91,17 @@ constructor () {
 }
 <% end %>
 
-<p>Let's define "sprite" as a dynamic property that will fetch the current frame from the list of frames.</p>
+<p data-reader-target="beginner developer">We'll make <span class="code">sprite</span> a property that will get the current frame from the list of frames.</p>
 
+<div data-reader-target="beginner developer">
 <%= source_code "javascript", "hero.js" do %>
 get sprite () {
     return this.frames[this.frameIndex]
 }
 <% end %>
+</div>
 
-<p>Let's now create an "update" function that will update the animation information based on the time elapsed. We want the animation speed to adapt to the camera speed.</p>
+<p>Next, we'll create an <span class="code">update</span> function that will update the animation info based on the time passed. The animation speed will change with the camera speed.</p>
 
 <%= source_code "javascript", "hero.js" do %>
 update (deltaTime, camera) {
@@ -112,8 +117,9 @@ update (deltaTime, camera) {
 }
 <% end %>
 
-<p>We can now call this function in the update function of the scene.</p>
+<p data-reader-target="beginner developer">We'll then use this function in the <span class="code">update</span> function of the scene.</p>
 
+<div data-reader-target="beginner developer">
 <%= source_code "javascript", "scene.js" do %>
 update (deltaTime) {
     this.camera.x += this.camera.speed * deltaTime
@@ -121,20 +127,24 @@ update (deltaTime) {
     this.generateWorld()
 }
 <% end %>
+</div>
 
-<p>And there you have it, he's running!</p>
+<p>That's it - now our hero will look like he's running!</p>
 
 
 
 <h2>Jumping</h2>
 
-<p>To make our hero jump, we need to add some new information to our hero:</p>
+
+<p>To make our hero jump, we'll add some new informations:</p>
 
 <ul>
-  <li>Firstly, we want to know the jump force and the fall speed, also known as gravity.</li>
-  <li>We also need to know the position of the ground.</li>
-  <li>Lastly, we need the current velocity of the hero, i.e., whether they are going up or down.</li>
+  <li>We'll need to know the <strong>jump force</strong> and <strong>fall speed</strong> (which is also called <span class="code">gravity</span>)</li>
+  <li>We'll also need to know where the <strong>ground</strong> is</li>
+  <li>Lastly, we'll need to keep track of the hero's current <strong>velocity</strong>, whether they're going up or down</li>
 </ul>
+
+<%= book_illustration book, "jump_gravity.png", "Jump force and gravity" %>
 
 <%= source_code "javascript", "hero.js" do %>
 constructor () {
@@ -147,7 +157,7 @@ constructor () {
 }
 <% end %>
 
-<p>With this new information, we can create a "jump" function that applies an upward force if the hero is on the ground.</p>
+<p>Now that we have this new information, we can create a <span class="code">jump</span> function that will make the hero jump by applying an upward force if they're on the ground.</p>
 
 <%= source_code "javascript", "hero.js" do %>
 jump () {
@@ -157,8 +167,9 @@ jump () {
 }
 <% end %>
 
-<p>In the hero's update function, we now need to apply gravity and velocity to the hero. Additionally, if the hero is on the ground, we need to reset their velocity to 0 to prevent them from going through the ground.</p>
+<p data-reader-target="beginner developer">In the hero's <span class="code">update</span> function, we'll apply gravity and velocity to the hero. If the hero is on the ground, we'll set their velocity to 0 to stop them from falling through the ground.</p>
 
+<div data-reader-target="beginner developer">
 <%= source_code "javascript", "hero.js" do %>
 update (deltaTime, camera) {
     // ... omitted for brevity
@@ -172,14 +183,15 @@ update (deltaTime, camera) {
     }
 }
 <% end %>
+</div>
 
 
 
 <h2>Catch the mouse</h2>
 
-<p>Everything is ready for jumping! All we have left to do is to intercept mouse clicks and call the hero's "jump" function.</p>
+<p>We're all set for jumping! The last thing we need to do is to listen for mouse clicks and call the hero's <span class="code">jump</span> function.
 
-<p>Let's go back to toy.js and add an event listener to the canvas.</p>
+<p>To do this, we'll go back to the <span class="code">toy.js</span> file and add an event listener to the canvas.</p>
 
 <%= source_code "javascript", "toy.js" do %>
 canvas.addEventListener('pointerdown', () => {
@@ -195,11 +207,11 @@ canvas.addEventListener('pointerdown', () => {
 
 <ul>
     <li>He moves with the camera</li>
-    <li>He is animated with multiple sprites</li>
+    <li>He has multiple sprites to make an animation</li>
     <li>He can jump</li>
 </ul>
 
-<p>Now it's time to make his life a little more challenging with some obstacles.</p>
+<p>The next step is to make the game more challenging by adding obstacles.</p>
 
 <%= render "chapter_sources",
   download_url: "https://github.com/Perky-Crow/fallen_hero/releases/tag/c6",
