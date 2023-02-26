@@ -108,13 +108,11 @@ drawScene(ctx, scene, images)
 
 <p>Procedural generation often involves randomness. It's an opportunity to create new tools.</p>
 
-<p data-reader-target="beginner developer">In JavaScript, one such tool is the "Math.random()" function. This function returns a random number between 0 and 1.</p>
-
-<p data-reader-target="beginner developer">But, in many cases we may need to generate random numbers within a specific range.</p>
+<p data-reader-target="beginner developer">In JavaScript, one such tool is the <%= link_with_icon "Math.random", "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random", "mdn" %> function. This function returns a random number between 0 and 1. But, in many cases we may need to generate random numbers within a specific range.</p>
 
 <p>So, let's create a function that will generate random numbers <strong>between 2 values</strong>. This function will be used to calculate the position of our elements.</p>
 
-<p data-reader-target="beginner developer">Note that I added a test to check if the value passed as a parameter is an array. If it's not, we simply return the value.</p>
+<p data-reader-target="beginner developer">Note that I added a condition to check if the value passed as a parameter is an array. If it's not, we simply return the value.</p>
 
 <%= source_code "javascript", "utils.js" do %>
 export function floatBetween (range) {
@@ -163,7 +161,7 @@ lastElementFor (category) {
 <% end %>
 </div>
 
-<p data-reader-target="beginner developer">From here, we can calculate the position of the last element. If the array is empty, we take the position of the camera.</p>
+<p data-reader-target="beginner developer">From here, we can get the position of the last element. If there is none, we take the position of the camera.</p>
 
 <div data-reader-target="beginner developer">
 <%= source_code "javascript", "scene.js" do %>
@@ -231,8 +229,6 @@ cleanCategory (category, count) {
 
 
 <p>We're going to <span class="code">generate</span> each element in the scene. To do this, we'll make a new function called <span class="code">generateWorld</span>.<span data-reader-target="beginner developer"> This function will be called in the <span class="code">update</span> loop.</span></p>
-
-<p data-reader-target="beginner developer">You can delete the objects you made manually after starting the scene because the new objects we generate in the "update" loop will replace them.</p>
 
 <%= source_code "javascript", "scene.js" do %>
 generateWorld () {

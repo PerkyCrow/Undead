@@ -50,7 +50,7 @@ export function drawScene (ctx, scene, images) {
 
 <p data-reader-target="beginner developer">If you refresh the page, you will notice that the hero disappears immediately. We need to tell the hero to follow the camera.</p>
 
-<p data-reader-target="beginner developer">In the update function of the scene, after moving the camera, we can also reposition the hero. Let's move the hero half a unit to the right so that it's not too close to the edge.</p>
+<p data-reader-target="beginner developer">In the <span class="code">update</span> function of the scene, after moving the camera, we can also reposition the hero. Let's also move the hero half a bit to the right so that it's not too close to the edge.</p>
 
 <div data-reader-target="beginner developer">
 <%= source_code "javascript", "scene.js" do %>
@@ -69,7 +69,7 @@ update (deltaTime) {
 
 <%= book_illustration book, "hero_animation.png", "Hero animation" %>
 
-<p>To show this animation, we need these things:</p>
+<p>To play this animation, we need these things:</p>
 
 <ul>
   <li>The order of the frames in a list</li>
@@ -91,7 +91,7 @@ constructor () {
 }
 <% end %>
 
-<p data-reader-target="beginner developer">We'll make <span class="code">sprite</span> a property that will get the current frame from the list of frames.</p>
+<p data-reader-target="beginner developer">We'll make <span class="code">sprite</span> a <%= link_with_icon "dynamic", "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get", "mdn" %> property that will get the current frame from the list of frames.</p>
 
 <div data-reader-target="beginner developer">
 <%= source_code "javascript", "hero.js" do %>
@@ -101,7 +101,7 @@ get sprite () {
 <% end %>
 </div>
 
-<p>Next, we'll create an <span class="code">update</span> function that will update the animation info based on the time passed. The animation speed will change with the camera speed.</p>
+<p>Next, we'll create an <span class="code">update</span> function that will update the animation based on the time. The animation speed will change with the camera speed.</p>
 
 <div data-reader-target="beginner developer">
 <%= source_code "javascript", "hero.js" do %>

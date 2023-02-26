@@ -37,7 +37,7 @@ export default class Scene {
 
 <p data-reader-target="beginner developer">As it moves forward, the view changes, the forest appears to be passing by and the trees seem to be moving backwards.</p>
 
-<p data-reader-target="beginner developer">We need to incorporate this change into our drawScene function.</p>
+<p data-reader-target="beginner developer">We need to incorporate this change into our <span class="code">drawScene</span> function.</p>
 
 <div data-reader-target="beginner developer">
 <%= source_code "javascript", "utils.js" do %>
@@ -132,7 +132,7 @@ drawGrid(ctx, scene.camera)
 
 <h2>Animation</h2>
 
-<p>To create an animation, the entire scene must be redrawn at every screen refresh, which happens multiple times per second, typically at a rate of <strong>60 frames per second</strong>. <span data-reader-target="developer">It's important to note that this frequency can vary between computers.</span></p>
+<p>To create an animation, the entire scene must be redrawn at every screen refresh, which happens multiple times per second, typically at a rate of <strong>60 frames per second</strong>. <span data-reader-target="beginner">It's important to note that this frequency can vary between computers.</span></p>
 
 
 <p data-reader-target="beginner developer">In JavaScript, the <%= link_with_icon "requestAnimationFrame", "https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame", "mdn" %> function can be used to trigger a function at the next screen refresh, which allows for smooth animation. <span data-reader-target="beginner">By recalling this function within the same function, an animation loop can be created, making it easy to create dynamic animations.</span></p>
@@ -174,7 +174,7 @@ startAnimationLoop(deltaTime => {
 
 <%= book_illustration book, "frame_glitch_hd.gif", "Drawing glitch" %>
 
-<p data-reader-target="beginner developer">The Canvas API offers a clearRect() method that can be used to clear a specific area of the canvas.</p>
+<p data-reader-target="beginner developer">The Canvas API offers a <%= link_with_icon "clearRect", "https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/clearRect", "mdn" %> method that can be used to clear a specific area of the canvas.</p>
 
 <p>To make things easier, we will create a utility function<span data-reader-target="beginner developer"> to call this method, and use it at the beginning of each new frame to clear the screen before redrawing the updated scene</span>.</p>
 
