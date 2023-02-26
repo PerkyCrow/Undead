@@ -103,32 +103,32 @@ class Book
         Chapter.new(
           name:        "Chapter 4",
           title:       "Movement",
-          description: "",
-          keywords:    ""
+          description: "Animating a side scroller game using a camera",
+          keywords:    "Canvas, Camera, requestAnimationFrame, game loop, game development"
         ),
         Chapter.new(
           name:        "Chapter 5",
           title:       "Infinite world",
-          description: "",
-          keywords:    "",
+          description: "Generating a world with a procedural algorithm",
+          keywords:    "procedural generation, random, world generation, game development",
         ),
         Chapter.new(
           name:        "Chapter 6",
           title:       "Hero",
-          description: "",
-          keywords:    ""
+          description: "Animating a hero with a sprite sheet and making it jump",
+          keywords:    "Sprite sheet, animation, jump, game development"
         ),
         Chapter.new(
           name:        "Chapter 7",
           title:       "Obstacles",
-          description: "",
-          keywords:    ""
+          description: "Generating obstacles and making the hero collide with them",
+          keywords:    "Collision, game development, obstacles, canvas, JavaScript"
         ),
         Chapter.new(
           name:        "Chapter 8",
           title:       "From toy to game",
-          description: "",
-          keywords:    ""
+          description: "Learn how to turn your toy into a game",
+          keywords:    "game development, game design, game loop, game engine, game architecture"
         ),
         Chapter.new(
           name:        "Chapter 9",
