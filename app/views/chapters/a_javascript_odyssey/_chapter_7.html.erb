@@ -67,6 +67,12 @@ update (deltaTime) {
 
 <p>Finally, we'll set the time for the next obstacle based on the camera's speed.</p>
 
+
+<aside data-reader-target="curious">
+  <p>Another piece of code that's a little complicated, I left it for the most daring <strong>curious</strong> ones.</p>
+</aside>
+
+
 <%= source_code "javascript", "scene.js" do %>
 generateObstacles () {
     const {camera} = this
@@ -100,8 +106,9 @@ generateObstacles () {
 }
 <% end %>
 
-<p>Don't forget to start obstacle generation at the end of the <span class="code">generateWorld</span> function.</p>
+<p data-reader-target="beginner developer">Don't forget to start obstacle generation at the end of the <span class="code">generateWorld</span> function.</p>
 
+<div data-reader-target="beginner developer">
 <%= source_code "javascript", "scene.js" do %>
 generateWorld () {
     // ... omitted for brevity
@@ -109,7 +116,7 @@ generateWorld () {
     this.generateObstacles()
 }
 <% end %>
-
+</div>
 
 
 <h2>Collisions</h2>
@@ -177,14 +184,11 @@ export function drawHitBox (ctx, scene, element) {
 <% end %>
 </div>
 
-<p>We can now draw the hitboxes of the obstacles in the scene.</p>
+<p>We can draw the circle hitboxes in the scene for debugging purpose.</p>
 
-<p>Unfortunately, our drawScene function is starting to get a bit cluttered. This is an opportunity to do some refactoring to incorporate the display of the hitboxes more cleanly.</p>
+<p data-reader-target="beginner developer">Unfortunately, our drawScene function is starting to get a bit cluttered. This is an opportunity to do some refactoring to incorporate the display of the hitboxes more cleanly.</p>
 
-<p>In drawScene, we want to do 2 things: draw the world and draw the hero.</p>
-
-
-<p>Now we can show the hitboxes of the obstacles in the scene.</p>
+<p data-reader-target="beginner developer">In drawScene, we want to do 2 things: draw the world and draw the hero.</p>
 
 <p data-reader-target="beginner developer">But the <span class="code">drawScene</span> function is getting too cluttered. This is a chance to refactor and make the display of hitboxes smoother.</p>
 
@@ -198,7 +202,6 @@ export function drawScene (ctx, scene, images) {
 }
 <% end %>
 </div>
-
 
 <p data-reader-target="beginner developer">Now it's much cleaner. In the <span class="code">drawWorld</span> function, we want to go through each element of the world and show it.</p>
 
@@ -266,6 +269,9 @@ function drawHero (ctx, scene, images) {
 </div>
 
 <p data-reader-target="beginner developer">If you refresh the page, you should see a black hitbox around the hero. It's not perfect, but it's enough for our mini-game.</p>
+
+<%= book_illustration book, "display_hitboxes.png", "Display hitboxes" %>
+
 
 
 <h2>Collision detection</h2>

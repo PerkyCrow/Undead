@@ -493,6 +493,10 @@ span.code {
     padding: 1em;
     box-shadow: 0 0.5em 1em -0.25em rgb(211, 210, 203);
 
+    p {
+      padding: 0 0.5em;
+    }
+
     p:last-child {
       margin-bottom: 0;
     }
