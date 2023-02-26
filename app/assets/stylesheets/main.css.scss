@@ -351,6 +351,10 @@ span.code {
           display: block;
           font-size: 0.9em;
           font-weight: bold;
+
+          @include mobile {
+            display: none;
+          }
         }
   
         &.active {
