@@ -1,6 +1,6 @@
 import Hero from './hero.js'
 import Obstacle from './obstacle.js'
-import {floatBetween, randomPick, circleVsCircle} from './utils.js'
+import {floatBetween, randomPick, circleVsCircle, hasFeature} from './utils.js'
 
 
 export default class Scene {
@@ -19,7 +19,7 @@ export default class Scene {
             y:        0,
             width:    7,
             height:   4,
-            speed:    3,
+            speed:    hasFeature('fast') ? 3 : 1,
             maxSpeed: 10
         }
 
@@ -106,7 +106,9 @@ export default class Scene {
             count:   8
         })
 
-        this.generateObstacles()
+        if (hasFeature('obstacles')) {
+            this.generateObstacles()
+        }
     }
 
     generateObstacles () {
@@ -170,8 +172,11 @@ export default class Scene {
 
         const {camera} = this
         camera.x      += camera.speed * deltaTime
-        camera.speed  += 0.05 * deltaTime
-        camera.speed   = Math.min(camera.speed, camera.maxSpeed)
+
+        if (hasFeature('speed')) {
+            camera.speed  += 0.05 * deltaTime
+            camera.speed   = Math.min(camera.speed, camera.maxSpeed)
+        }
 
         this.hero.update(deltaTime, this.camera)
 
@@ -193,7 +198,7 @@ export default class Scene {
 
         hero.collided = collided
 
-        if (collided) {
+        if (collided && hasFeature('gameOver')) {
             this.gameOver()
         }
     }

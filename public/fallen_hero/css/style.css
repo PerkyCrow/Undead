@@ -9,9 +9,14 @@ body {
     background: rgb(187,184,174);
     background: linear-gradient(0deg, rgba(187,184,174,1) 0%, rgba(213,211,205,1) 35%, rgba(213,211,205,1) 100%);
     margin: 0 auto;
-    width: 700px;
-    height: 400px;
+    max-width: 700px;
+    max-height: 400px;
     position: relative;
+}
+
+#fallen_hero canvas {
+    width: 100%;
+    height: 100%;
 }
 
 #fallen_hero .game_score {
@@ -55,4 +60,19 @@ body {
 
 #fallen_hero .game_over .game_over_replay img:hover {
     border-bottom: 0.25em solid black;
+}
+
+
+@media (max-width: 500px) {
+    #fallen_hero .game_over .game_over_visual img {
+        width: 80px;
+    }
+
+    #fallen_hero .game_over .game_over_replay {
+        margin-top: 0.5em;
+    }
+
+    #fallen_hero .game_over .game_over_replay img {
+        width: 40px;
+    }
 }

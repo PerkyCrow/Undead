@@ -86,9 +86,14 @@ export function drawGrid (ctx, {width, height}) {
 
 
 export function drawScene (ctx, scene, images) {
-    drawFloor(ctx, scene)
+    if (hasFeature('ground')) {
+        drawFloor(ctx, scene)
+    }
     drawWorld(ctx, scene, images)
-    drawHero(ctx, scene, images)
+
+    if (hasFeature('hero')) {
+        drawHero(ctx, scene, images)
+    }
 }
 
 
@@ -182,3 +187,33 @@ export function circleVsCircle (circleA, circleB) {
 
     return distance < circleA.radius + circleB.radius
 }
+
+
+export function paramsFromUrl () {
+    const params = {}
+
+    window.location.search
+        .replace('?', '')
+        .split('&')
+        .forEach(param => {
+            const [key, value] = param.split('=')
+            params[key] = value
+        })
+
+    return params
+}
+
+
+const cachedFeatures = {}
+
+export function hasFeature (feature) {
+    if (feature in cachedFeatures) {
+        return cachedFeatures[feature]
+    }
+
+    cachedFeatures[feature] = paramsFromUrl()[feature] !== 'false'
+
+    return cachedFeatures[feature]
+}
+
+console.log(hasFeature('gameOver'))

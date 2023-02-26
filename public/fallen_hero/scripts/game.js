@@ -1,5 +1,5 @@
 import imagePaths from './image_paths.js'
-import {loadImages, setScale, drawScene, startAnimationLoop, clearCanvas} from './utils.js'
+import {loadImages, setScale, drawScene, startAnimationLoop, clearCanvas, hasFeature} from './utils.js'
 import Scene from './scene.js'
 
 
@@ -9,6 +9,10 @@ async function init () {
     const gameOver = document.querySelector('#fallen_hero .game_over')
     const replay   = document.querySelector('#fallen_hero .game_replay_button')
     const ctx      = canvas.getContext('2d')
+
+    if (!hasFeature('score')) {
+        score.style.display = 'none'
+    }
 
     setScale(ctx, 100)
 
@@ -20,7 +24,7 @@ async function init () {
         gameOver.style.display = 'none'
 
         return new Scene({
-            debug: false,
+            debug: !hasFeature('noDebug'),
             onGameOver: displayGameOver
         })
     }
@@ -45,6 +49,7 @@ async function init () {
         if (!scene.ended) {
             clearCanvas(ctx, scene.camera)
             drawScene(ctx, scene, images)
+
             score.innerHTML = scene.score
         }
     })
