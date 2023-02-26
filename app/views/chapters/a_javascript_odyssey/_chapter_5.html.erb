@@ -1,12 +1,18 @@
+<p>In this chapter, we'll explore <strong>procedural generation</strong>, a technique where game content is created algorithmically. This approach can simplify game development and enable seemingly endless possibilities.</p>
+
 <%= book_illustration book, "procedural_generation.png", "A character with a movie film" %>
+
+
 
 <h2>Get everything ready</h2>
 
-<p>Right now, the scene treats all objects the same and stores them together. To make it easier to create an <strong>endless world</strong>, we need to organize the objects by their type so we can find them easily.</p>
+<p>By reorganizing the game elements, we can group similar objects together (mountains, trees, etc). This will enable us to manage these objects as the game world becomes more complex.</p>
 
-<p>To do this, we will create a <span class="code">world</span> object that groups all the elements in the <strong>scene</strong> by their <strong>category</strong>.</p>
+<p>To accomplish this, we will create a <span class="code">world</span> object that groups these elements by category.</p>
 
-<p>We also need to make changes to the <span class="code">add</span> function to make sure it works with this new organization.</p>
+<%= book_illustration book, "world_boxes.png", "World boxes" %>
+
+<p data-reader-target="beginner developer">We also need to make changes to the <span class="code">add</span> function to make sure it works with this new organization.</p>
 
 <%= source_code "javascript", "scene.js" do %>
 export default class Scene {
@@ -30,8 +36,9 @@ export default class Scene {
 }
 <% end %>
 
-<p>We also need to apply this change to each of our elements in the <span class="code">toy.js</span> file.</p>
+<p data-reader-target="beginner developer">We need to apply this change to each of our elements in the <span class="code">toy.js</span> file.</p>
 
+<div data-reader-target="beginner developer">
 <%= source_code "javascript", "toy.js" do %>
 scene.add('mountains', {
     x: 0,
@@ -43,13 +50,17 @@ scene.add('mountains', {
 
 // ... and so on
 <% end %>
+</div>
 
-<p>When we add an element to the scene, we give it an image. However, the Scene class is not supposed to handle display, so objects in the scene should not contain an image.</p>
+<p data-reader-target="beginner developer">Currently, when we add an element to the scene, we attach an image to it. However, because the <span class="code">scene</span>  is not responsible for display, it's best practice to separate the object from its image.</p>
 
-<p>I suggest renaming the <span class="code">image</span> property to <span class="code">sprite</span> and no longer passing the entire image, but only its name.</p>
+<p data-reader-target="beginner developer">To do this, we can rename the <span class="code">image</span> property to <span class="code">sprite</span> and only pass the image's name when creating the object.</p>
 
-<p>When we display the scene using the <span class="code">drawScene</span> function, we will pass the corresponding images.</p>
+<p data-reader-target="beginner developer">This way, the <span class="code">scene</span> will only hold the object information, while the <span class="code">drawScene</span> function can handle the display by using the appropriate image based on the sprite name.</p>
 
+<p data-reader-target="beginner developer">By separating these responsibilities, we can create a cleaner and more organized development process.</p>
+
+<div data-reader-target="beginner developer">
 <%= source_code "javascript", "toy.js" do %>
 scene.add('mountains', {
     x:      0,
@@ -59,9 +70,11 @@ scene.add('mountains', {
     sprite: 'mountain1'
 })
 <% end %>
+</div>
 
-<p>Now let's modify the <span class="code">drawScene</span> function to take into account this new way of organizing the elements.</p>
+<p data-reader-target="beginner">Now let's modify the <span class="code">drawScene</span> function to take into account this new way of organizing the elements.</p>
 
+<div data-reader-target="beginner">
 <%= source_code "javascript", "utils.js" do %>
 export function drawScene (ctx, scene, images) {
     for (let category in scene.world) {
@@ -77,24 +90,31 @@ export function drawScene (ctx, scene, images) {
     }
 }
 <% end %>
+</div>
 
-<p>Don't forget to pass the images as parameters to the "drawScene" function in the toy.js file.</p>
+<p data-reader-target="beginner">Don't forget to pass the images as parameters to the "drawScene" function in the toy.js file.</p>
 
+<div data-reader-target="beginner">
 <%= source_code "javascript", "toy.js" do %>
 drawScene(ctx, scene, images)
 <% end %>
+</div>
 
-<p>You may think that this change hasn't made any difference in the result when you refresh the page. And you are right, but now with this new way of organizing the elements that make up our scene, we will be able to generate them procedurally.</p>
+<p>You may think that this change hasn't made any difference. And you are right, but now with this new way of organizing the elements that make up our scene, we will be able to generate them procedurally.</p>
 
 
 
 <h2>Random Number Generator</h2>
 
-<p>Procedural generation often involves randomness. It's time to create new tools. To generate random numbers, we will use the "Math.random()" function, which returns a number between 0 and 1.</p>
+<p>Procedural generation often involves randomness. It's an opportunity to create new tools.</p>
 
-<p>Let's create a function that will allow us to generate random numbers between 2 values.</p>
+<p data-reader-target="beginner developer">In JavaScript, one such tool is the "Math.random()" function. This function returns a random number between 0 and 1.</p>
 
-<p>Note that I added a test to check if the value passed as a parameter is an array. If it's not, we simply return the value.</p>
+<p data-reader-target="beginner developer">But, in many cases we may need to generate random numbers within a specific range.</p>
+
+<p>So, let's create a function that will generate random numbers <strong>between 2 values</strong>. This function will be used to calculate the position of our elements.</p>
+
+<p data-reader-target="beginner developer">Note that I added a test to check if the value passed as a parameter is an array. If it's not, we simply return the value.</p>
 
 <%= source_code "javascript", "utils.js" do %>
 export function floatBetween (range) {
@@ -107,9 +127,7 @@ export function floatBetween (range) {
 }
 <% end %>
 
-<p>This function will be used to calculate the position of our elements and vary their size.</p>
-
-<p>Now let's create another function that will allow us to choose a random element from an array.</p>
+<p>Now let's create another function that will allow us to <strong>pick a random element</strong> from an array. This function will be used to choose a random sprite from a list.</p>
 
 <%= source_code "javascript", "utils.js" do %>
 export function randomPick (choices) {
@@ -121,17 +139,21 @@ export function randomPick (choices) {
 }
 <% end %>
 
-<p>This function will be used to choose a random sprite from a list.</p>
+
+
 
 
 <h2>Procedural generation</h2>
 
-<p>Finally, we come to the main point of this chapter. The idea is to generate objects and randomly space them until they are all displayed on the screen.</p>
+<p>Finally, we come to the main point of this chapter. We want to display objects on the screen by generating them and spacing them randomly.</p>
 
-<p>At each update loop, we add new objects if there is enough space for them to appear just to the right of the camera, and we also remove old objects that have moved past the left side of the screen and are no longer needed.</p>
+<p>Every time the screen updates, we add new objects on the right side of the screen if there is enough space, and we get rid of objects that have moved past the left side of the screen.</p>
 
-<p>We need to know the last element in a category to calculate the position of the next element.</p>
+<%= book_illustration book, "procedural_process.png", "Procedural process" %>
 
+<p data-reader-target="beginner developer">To figure out where to place the next object, we have to know the position of the last object in that category.</p>
+
+<div data-reader-target="beginner developer">
 <%= source_code "javascript", "scene.js" do %>
 lastElementFor (category) {
     const collection = this.world[category]
@@ -139,9 +161,11 @@ lastElementFor (category) {
     return collection[collection.length - 1]
 }
 <% end %>
+</div>
 
-<p>From here, we can calculate the position of the last element. If the array is empty, we take the position of the camera.</p>
+<p data-reader-target="beginner developer">From here, we can calculate the position of the last element. If the array is empty, we take the position of the camera.</p>
 
+<div data-reader-target="beginner developer">
 <%= source_code "javascript", "scene.js" do %>
 lastPositionFor (category) {
     const {camera} = this
@@ -150,12 +174,17 @@ lastPositionFor (category) {
     return lastElement ? lastElement.x : camera.x
 }
 <% end %>
+</div>
 
-<p>We can now create a function that generates a random element. This function takes several parameters, which can either be fixed values or range values (min and max) for spacing, y, width, and height. By using range values, we can generate elements of different sizes and positions.</p>
+<p>Now we can make a function that <span class="code">generate</span> random objects. This function needs some details, which could be either set values or ranges (minimum and maximum) for <span class="code">spacing</span>, <span class="code">height</span>, <span class="code">width</span>, and <span class="code">y</span> position. By using ranges, we can make objects in different sizes and places.</p>
 
-<p>As for the "sprite" parameter, we pass an array of sprites, and the "randomPick" function will randomly choose one sprite from this array.</p>
+<p>For the <span class="code">sprite</span> part, we give a set of images names, and the <span class="code">randomPick</span> function will pick one randomly from the set.</p>
 
-<p>Lastly, the "count" parameter specifies the maximum number of elements that we want to display on the screen.</p>
+<p>Lastly, we use the <span class="code">count</span> parameter to decide the most number of objects we want to see on the screen.</p>
+
+<aside data-reader-target="curious">
+The code can be a bit confusing, but don't worry if you don't understand it. However, if you enjoy solving puzzles, you might have fun with it!
+</aside>
 
 <%= source_code "javascript", "scene.js" do %>
 generate (category, {spacing, y, width, height, sprite, count}) {
@@ -183,10 +212,11 @@ generate (category, {spacing, y, width, height, sprite, count}) {
 }
 <% end %>
 
-<p>The generate function will loop until a generated element is off the screen.</p>
+<p>The <span class="code">generate</span> function will loop until a generated element is off the screen.</p>
 
-<p>At the end of the loop, we call the cleanCategory function, which removes elements that are off the screen.</p>
+<p data-reader-target="beginner developer">At the end of the loop, we call the <span class="code">cleanCategory</span> function, which removes elements that are off the screen.</p>
 
+<div data-reader-target="beginner developer">
 <%= source_code "javascript", "scene.js" do %>
 cleanCategory (category, count) {
     while (this.world[category].length > count) {
@@ -194,13 +224,17 @@ cleanCategory (category, count) {
     }
 }
 <% end %>
+</div>
 
 
 <h2>Generating the scene</h2>
 
-<p>It's time to call our new generate function to generate each element of our scene.
 
-<p>To do this, we will create a new function called "generateWorld" that will be called in the "update" function.</p>
+<p>We're going to <span class="code">generate</span> function each element in the scene.</p>
+
+<p>To do this, we'll make a new function called <span class="code">generateWorld</span>.<span data-reader-target="beginner developer"> This function will be called in the <span class="code">update</span> loop.</span></p>
+
+<p data-reader-target="beginner developer">You can delete the objects you made manually after starting the scene because the new objects we generate in the "update" loop will replace them.</p>
 
 <%= source_code "javascript", "scene.js" do %>
 generateWorld () {
@@ -226,26 +260,28 @@ generateWorld () {
 }
 <% end %>
 
-
-<p>In the "update" function, we call the "generateWorld" function after moving the camera.</p>
-
+<div data-reader-target="beginner developer">
 <%= source_code "javascript", "scene.js" do %>
 update (deltaTime) {
     this.camera.x += this.camera.speed * deltaTime
     this.generateWorld()
 }
 <% end %>
+</div>
 
-<p>You can get rid of the manually created objects after initializing the scene because they will be replaced by the new generated objects in the first pass of the update loop.</p>
+<p data-reader-target="beginner developer">You can delete the objects you made manually after starting the scene because the new objects we generate in the <span class="code">update</span> loop will replace them.</p>
 
 
-<h2>Our new tools</h2>
+
+<h2>We gained new tools</h2>
 
 <ul>
-    <li>Generate a random number between 2 values</li>
+    <li>Generate a random number between two values</li>
     <li>Choose a random element from a list</li>
     <li>Generate random elements</li>
 </ul>
+
+<p>The next chapter will be dedicated to the hero.</p>
 
 <%= render "chapter_sources",
   download_url: "https://github.com/Perky-Crow/fallen_hero/releases/tag/c5",
