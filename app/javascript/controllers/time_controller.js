@@ -4,10 +4,6 @@ import getReadingTime from 'libs/reading_time'
 
 export default class extends BaseController {
 
-    connect () {
-        super.connect()
-    }
-
     updateTime () {
         setTimeout(() => {
             const readingTime = getReadingTime(this.element.parentElement.innerText)
