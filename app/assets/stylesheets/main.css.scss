@@ -745,19 +745,19 @@ code.hljs {
   right: 0em;
   top: -0.1em;
   cursor: pointer;
-  background-color: white;
+  // background-color: white;
   background-image: url(icons/copy_icon.png);
   background-position: 0.5em 0.25em, 0 0;
   background-repeat: no-repeat, repeat;
   background-size: 1.25em;
   cursor: pointer;
-  opacity: 0.25;
+  opacity: 0.5;
   transition: background-color 0.15s ease-in-out, opacity 0.15s ease-in-out, box-shadow 0.1s ease-in-out;
 }
 
 
 .copy_button:hover {
-  opacity: 0.75;
+  opacity: 1;
   color: $active;
 }
 
