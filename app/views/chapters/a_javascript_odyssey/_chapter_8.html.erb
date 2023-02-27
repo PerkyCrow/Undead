@@ -50,9 +50,9 @@ export function drawHitBox (ctx, scene, element) {
 
 <h2>Game Over</h2>
 
-<p>We know when the player collides with an obstacle. Let's make the game stop when that happens.</p>
+<p>We already know when the player collides with an obstacle. Let's make the game stop when that happens.</p>
 
-<p>First, we'll add a new piece of information to the scene: whether the game is over or not. If it is, we'll stop updating the scene. We'll also create a function to end the game.</p>
+<p>First, we'll add a new piece of information to the scene: whether the game is over or not. If it is, we'll stop updating the scene.</p>
 
 <%= source_code "javascript", "scene.js" do %>
 gameOver () {
@@ -84,10 +84,13 @@ checkCollisions () {
 
 <h2>Difficulty</h2>
 
-<p>Right now, the camera moves at the same speed throughout the game, which makes it too easy once you get the hang of it. We'll gradually increase the speed over time to make the game more challenging.</p>
+<p>Right now, the camera moves at the same speed throughout the game, which makes it too easy once you get the hang of it.</p>
 
-<p>We'll also add a speed limit to prevent the camera from going too fast.</p>
+<p>We'll gradually increase the speed over time to make the game more challenging.</p>
 
+<p data-reader-target="beginner developer">We'll also add a speed limit to prevent the camera from going too fast.</p>
+
+<div data-reader-target="beginner developer">
 <%= source_code "javascript", "scene.js" do %>
 constructor () {
     // ...
@@ -112,16 +115,15 @@ update (deltaTime) {
     camera.speed   = Math.min(camera.speed, camera.maxSpeed)
 }
 <% end %>
-
-<p>The game should now gradually become more challenging.</p>
+</div>
 
 
 
 <h2>Score</h2>
 
-<p>Adding a score is a good way to make the player want to play again and improve.</p>
+<p>Adding a score is a good way to make the player want to play again.</p>
 
-<p>We'll calculate the score based on the time elapsed and the speed of the camera.</p>
+<p>We'll calculate the <span class="code">score</span> based on the time elapsed and the speed of the camera.</p>
 
 <%= source_code "javascript", "scene.js" do %>
 get score () {
@@ -129,7 +131,7 @@ get score () {
 }
 <% end %>
 
-<p>To display the score, we're going to use HTML since it's good at displaying text and placing it correctly. As long as the text isn't too stylized and is embedded in the game, it should work well.</p>
+<p>To display the score, we're going to use <strong>HTML</strong> since it's good at displaying text and placing it correctly. As long as the text isn't too stylized and is embedded in the game, it should work well.</p>
 
 <p data-reader-target="beginner developer">In the <span class="code">index.html</span> file, let's add a div element to display the score.</p>
 
@@ -244,12 +246,7 @@ async function init () {
 <% end %>
 </div>
 
-
-<p data-reader-target="beginner developer">We now need to give our game.js file a way to know when the game is over.</p>
-
-<p data-reader-target="beginner developer">To do this, we're going to use a <%= link_with_icon "callback function", "https://developer.mozilla.org/en-US/docs/Glossary/Callback_function", "mdn" %>.</p>
-
-<p data-reader-target="beginner developer">When creating the scene, we'll pass a function hat will be called when the game is over.</p>
+<p data-reader-target="beginner developer">We now need to give our game.js file a way to know when the game is over. To do this, we're going to use a <%= link_with_icon "callback function", "https://developer.mozilla.org/en-US/docs/Glossary/Callback_function", "mdn" %>.</p>
 
 <p data-reader-target="beginner developer">This function will be responsible for displaying the game over screen and allowing the player to start a new game.</p>
 
@@ -294,13 +291,11 @@ async function init () {
 <% end %>
 </div>
 
-<p data-reader-target="beginner developer">The createScene function creates a new scene and hides the game over screen.</p>
-
-<p data-reader-target="beginner developer">In the creation of the scene, we connect a onGameOver callback that we will use later in Scene. This callback simply displays the game over screen.</p>
-
-<p data-reader-target="beginner developer">Finally, on the game over screen, we call the restartScene method when the player clicks the button.</p>
-
-<p data-reader-target="beginner developer">We just need to connect our callback in the scene and trigger it when the game ends.</p>
+<ul data-reader-target="beginner developer">
+  <li>The <span class="code">createScene</span> function creates a new scene and hides the game over screen.</li>
+  <li>We connect a <span class="code">onGameOver</span> callback that simply displays the game over screen.</li>
+  <li>Finally, we connect the <span class="code">restartScene</span> function to the replay button.</li>
+</ul>
 
 <div data-reader-target="beginner developer">
 <%= source_code "javascript", "scene.js" do %>
@@ -320,7 +315,7 @@ gameOver () {
 
 <p>Well done!</p>
 
-<p>If you've been following along while trying to reproduce the game on your own, don't stop there. There are still lots of things to refine, add, and improve.</p>
+<p data-reader-target="beginner developer">If you've been following along while trying to reproduce the game on your own, don't stop there. There are still lots of things to refine, add, and improve.</p>
 
 <p>You can also freely use the code (tools are meant to be reused) and graphics assets for your own projects if you wish.</p>
 
