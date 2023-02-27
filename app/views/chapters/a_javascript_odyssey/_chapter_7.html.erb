@@ -60,7 +60,7 @@ update (deltaTime) {
 
 <p data-reader-target="beginner developer">First, we'll check how much time has passed since the last obstacle was made. If it's too soon to create a new obstacle, we'll wait until the next loop.</p>
 
-<p data-reader-target="beginner developer">Next, we'll make a new obstacle with a random position on the y-axis, size, and image.</p>
+<p data-reader-target="beginner developer">Next, we'll make a new obstacle with a <strong>random <strong>position</strong> on the y-axis, <strong>size</strong>, and <strong>image</strong>.</p>
 
 <p data-reader-target="beginner developer">Finally, we'll set the time for the next obstacle based on the camera's speed.</p>
 
@@ -135,13 +135,13 @@ export function drawCircle (ctx, {x, y, radius, color}) {
 
 <p>We have a problem: the hero and obstacles are squares for now. To calculate collisions, we need to find the center of the circle and its radius relative to the square.</p>
 
-<p data-reader-target="beginner developer">We have to find the center of the circle by taking the position of the top-left corner of the square and adding half the size of the square.</p>
-
 <p>The radius of the circle is half the size of the square.</p>
+
+<p data-reader-target="beginner developer">We have to find the center of the circle by taking the position of the top-left corner of the square and adding the radius.</p>
 
 <%= book_illustration book, "obstacle_radius.png", "Obstacle radius" %>
 
-<p data-reader-target="beginner developer">We'll make a new dynamic property to calculate the circle of our hitbox.</p>
+<p data-reader-target="beginner developer">We'll make a new dynamic property to calculate the circle of our <span class="code">hitBox</span>.</p>
 
 <div data-reader-target="beginner developer">
 <%= source_code "javascript", "obstacle.js" do %>
@@ -181,11 +181,9 @@ export function drawHitBox (ctx, scene, element) {
 
 <p data-reader-target="beginner developer">Unfortunately, our <span class="code">drawScene</span> function is starting to get a bit cluttered. This is an opportunity to do some refactoring to incorporate the display of the hitboxes more cleanly.</p>
 
-<p data-reader-target="beginner developer">In <span class="code">drawScene</span>, we want to do 2 things: draw the world and draw the hero.</p>
+<p data-reader-target="beginner developer">But the <span class="code">drawScene</span> function is getting too cluttered. This is a chance to refactor.</p>
 
-<p data-reader-target="beginner developer">But the <span class="code">drawScene</span> function is getting too cluttered. This is a chance to refactor and make the display of hitboxes smoother.</p>
-
-<p data-reader-target="beginner developer">We want to do two things in the <span class="code">drawScene</span> function: show the world then show the hero.</p>
+<p data-reader-target="beginner developer">We want to do two things in the <span class="code">drawScene</span> function: show the <strong>world</strong> then show the <strong>hero</strong>.</p>
 
 <div data-reader-target="beginner developer">
 <%= source_code "javascript", "scene.js" do %>
@@ -210,7 +208,7 @@ function drawWorld (ctx, scene, images) {
 <% end %>
 </div>
 
-<p data-reader-target="beginner developer">To simplify even more, we'll make a function called <span class="code">drawSceneElement</span> that will show an element of the scene. We'll show the hitbox here.</p>
+<p data-reader-target="beginner developer">Then, we'll make a function called <span class="code">drawSceneElement</span> that will show an element of the scene. We'll add the <strong>hitBox</strong> here.</p>
 
 <div data-reader-target="beginner developer">
 <%= source_code "javascript", "scene.js" do %>
@@ -231,7 +229,7 @@ function drawSceneElement (ctx, scene, images, element) {
 
 <p data-reader-target="beginner developer">Next, let's look at the hero's hitbox, which is a bit more complicated to calculate.</p>
 
-<p data-reader-target="beginner developer">The hero's body doesn't take up the entire square that surrounds it. Also, it's slightly off-center because of the legs. We need to consider these factors when we find the center of the circle and its radius.</p>
+<p data-reader-target="beginner developer">The hero's body doesn't take up the entire square that surrounds it. Also, it's slightly off-center because of the legs. We need to consider these factors to find the center of the circle and its radius.</p>
 
 <div data-reader-target="beginner developer">
 <%= source_code "javascript", "hero.js" do %>
@@ -248,7 +246,7 @@ get hitBox () {
 <% end %>
 </div>
 
-<p data-reader-target="beginner developer">Let's show this hitbox when we display the hero to make sure we calculated the right values.</p>
+<p data-reader-target="beginner developer">Let's draw this hitBox when we display the hero.</p>
 
 <div data-reader-target="beginner developer">
 <%= source_code "javascript", "utils.js" do %>
@@ -261,7 +259,7 @@ function drawHero (ctx, scene, images) {
 <% end %>
 </div>
 
-<p data-reader-target="beginner developer">You should see a black hitbox around the hero. It's not perfect, but it's enough for our mini-game.</p>
+<p data-reader-target="beginner developer">You should see a black hitBox around the hero. It's not perfect, but it's enough for our mini-game.</p>
 
 <%= book_illustration book, "display_hitboxes.png", "Display hitboxes" %>
 

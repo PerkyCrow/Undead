@@ -330,7 +330,7 @@ span.code {
         border-bottom: 1px solid #e5e5e5;
         background-color: $light;
         box-shadow: inset -5em 0 2em 0 $light;
-  
+
         a {
           text-decoration: none;
           color: $dark;
@@ -542,6 +542,10 @@ span.code {
       padding-left: 0.5em;
       list-style-type: disclosure-closed;
       margin: 0 2em 1em 4em;
+
+      @include mobile {
+        margin: 0 0 1em 1em;
+      }
 
       &::first-letter {
         text-transform: uppercase;
