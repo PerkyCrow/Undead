@@ -5,6 +5,11 @@
 <meta name="keywords" content="<%= page_keywords %>">
 <meta name="author" content="<%= page_author %>">
 
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="<%= page_title %>">
+<meta name="twitter:description" content="<%= page_description %>">
+<meta name="twitter:image" content="<%= image_url(page_image_url) %>">
+
 <%= favicon_link_tag 'favicon.ico', rel: 'icon', type: 'image/x-icon', 'data-turbo-track': 'reload' %>
 <%= favicon_link_tag 'favicon.ico', rel: 'shortcut icon', type: 'image/x-icon', 'data-turbo-track': 'reload' %>
 <%= favicon_link_tag 'apple-touch-icon.png', rel: 'apple-touch-icon', type: 'image/png', 'data-turbo-track': 'reload' %>

@@ -58,7 +58,7 @@ class Book
     new(
       title:        "A JavaScript Odyssey",
       description:  "Embark on a personal journey of game development with A JavaScript Odyssey",
-      published_at: "March 2023",
+      published_at: "February 2023",
       keywords:     "HTML5, CSS3, Canvas, requestAnimationFrame, no lib, no framework, book",
       pitch:        %{
         Discover our approach to building games from scratch.

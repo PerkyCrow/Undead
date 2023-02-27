@@ -5,6 +5,11 @@ module ApplicationHelper
   end
 
 
+  def page_image_url
+    content_for?(:image_url) ? content_for(:image_url) : "logo_zombie.png"
+  end
+
+
   def page_description
     content_for?(:description) ? content_for(:description) : "A collection of interactive books that takes you on a journey of creating JavaScript video games, with multiple levels of reading."
   end
